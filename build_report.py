@@ -40,7 +40,7 @@ COMPANY_NAMES = {
     "ISL": "International Steels Limited", "AGHA": "Agha Steel Industries Limited",
     "ASTL": "Amreli Steels Limited", "ASL": "Aisha Steel Mills Limited",
     "CEPB": "Century Paper & Board Mills Limited", "INDU": "Indus Motor Company Limited",
-    "NML": "Nishat Mills Limited", "AGIL": "Agritech Limited", "ORIX": "Orix Leasing Pakistan Limited",
+    "NML": "Nishat Mills Limited", "AGIL": "Agritech Limited", "OLPL": "Orix Leasing Pakistan Limited",
     "EPCL": "Engro Polymer & Chemicals Limited",
     "ABOT": "Abbott Laboratories Pakistan Limited", "FEROZ": "Ferozsons Laboratories Limited",
     "GLAXO": "GlaxoSmithKline Pakistan Limited", "HINOON": "Highnoon Laboratories Limited",
