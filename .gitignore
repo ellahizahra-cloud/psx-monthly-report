@@ -1,3 +1,4 @@
 .env
 prices.json
 PSX_Share_Prices_*.xlsx
+__pycache__/
