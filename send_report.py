@@ -9,7 +9,7 @@ ONE-TIME SETUP
      export GMAIL_SENDER="you@gmail.com"
      export GMAIL_APP_PASSWORD="xxxx xxxx xxxx xxxx"
 3. Edit RECIPIENTS below — this whitelist is what keeps the automation
-   safe. The script will only ever send to these three addresses.
+   safe. The script will only ever send to these addresses.
 
 Usage:
     python fetch_prices.py
@@ -27,18 +27,18 @@ import sys
 from email.message import EmailMessage
 from pathlib import Path
 
-# --- Fixed recipient whitelist. Edit these three, nothing else needed. ---
+# --- Fixed recipient whitelist. ---
 RECIPIENTS = [
     "nadeemellahi@hotmail.com",
     "zaraellahi9@gmail.com",
-    
+    # only 2 addresses here — add a 3rd if you meant to have three recipients
 ]
 
 SUBJECT_TEMPLATE = "Monthly PSX Share Price Report — {label}"
 BODY_TEMPLATE = (
     "Hi,\n\n"
-    "Attached is the monthly share price report for OGDC, MARI, FATIMA and AATM, "
-    "covering the 1st-of-month close and the latest available close.\n\n"
+    "Attached is the monthly share price report, covering the 1st-of-month "
+    "close and the latest available close.\n\n"
     "This was generated and cross-checked automatically; please flag anything "
     "that looks off.\n\n"
     "Best,\nAutomated PSX Report"

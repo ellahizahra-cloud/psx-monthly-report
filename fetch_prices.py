@@ -1,19 +1,25 @@
 """
-fetch_prices.py — Pull PSX closing prices for the monthly report.
+fetch_prices.py — Pull PSX closing prices (and optional dividend payouts)
+for the monthly report.
 
 For each ticker it fetches:
   (a) the closing price on the 1st trading day of the reference month
       (defaults to the current month; pass --month YYYY-MM to override)
   (b) the latest available close
-from the PSX Data Portal's end-of-day timeseries feed (the same JSON feed
-the dps.psx.com.pk website uses), then cross-checks the latest price
-against sarmaaya.pk and flags divergence > 1%.
+  (c) if --div-start/--div-end are given, total cash dividend payout
+      (PKR/share) with an ex-dividend date in that range
+from the PSX Data Portal, then cross-checks the latest price against
+sarmaaya.pk and flags divergence > 1%.
 
 Output: prices.json (consumed by build_report.py / send_report.py)
 
-NOTE FOR CLAUDE CODE: if the PSX endpoint shape has changed, open
+NOTE FOR CLAUDE CODE: if the PSX endpoint shapes have changed, open
 https://dps.psx.com.pk/company/OGDC in the browser tool, watch the network
-requests, and adapt PSX_EOD_URL / parse_eod() accordingly.
+requests, and adapt PSX_EOD_URL / parse_eod() and PSX_DIVIDEND_URL /
+parse_dividends() accordingly. Dividend data may only be available as PDF
+board announcements rather than a clean JSON feed — if so, fall back to
+scstrade.com or sarmaaya.pk, which tend to list dividend history in table
+form, and adapt parse_dividends() to scrape those instead.
 """
 
 import argparse
@@ -23,20 +29,24 @@ import re
 import sys
 import urllib.request
 
-TICKERS = [  # (ticker, sector)
-    ("MCB", "Banks"), ("HBL", "Banks"), ("BAFL", "Banks"), ("BAHL", "Banks"),
-    ("MEBL", "Banks"), ("HMB", "Banks"), ("UBL", "Banks"),
-    ("LUCK", "Cement"), ("KOHC", "Cement"), ("DGKC", "Cement"), ("CHCC", "Cement"),
-    ("FCCL", "Cement"), ("MLCF", "Cement"),
-    ("ENGROH", "Fertilizers"), ("EFERT", "Fertilizers"), ("FATIMA", "Fertilizers"), ("FFC", "Fertilizers"),
-    ("POL", "Oil/Gas"), ("PSO", "Oil/Gas"), ("MARI", "Oil/Gas"), ("PPL", "Oil/Gas"), ("OGDC", "Oil/Gas"),
-    ("ALTN", "Power"), ("NCPL", "Power"), ("KOHE", "Power"), ("NPL", "Power"), ("HUBC", "Power"),
-    ("ISL", "Steel"), ("AGHA", "Steel"), ("ASTL", "Steel"), ("ASL", "Steel"),
-    ("CEPB", "Others"), ("INDU", "Others"), ("NML", "Others"), ("AGIL", "Others"), ("ORIX", "Others"), ("EPCL", "Others"),
-    ("ABOT", "Pharma"), ("FEROZ", "Pharma"), ("GLAXO", "Pharma"), ("HINOON", "Pharma"), ("CPHL", "Pharma"), ("AGP", "Pharma"),
-    ("SYS", "Tech"), ("TRG", "Tech"), ("AVN", "Tech"),
-]
+# --- Tickers grouped by sector. Order here controls report order. ---
+SECTORS = {
+    "Banks": ["MCB", "HBL", "BAFL", "BAHL", "MEBL", "HMB", "UBL"],
+    "Cement": ["LUCK", "KOHC", "DGKC", "CHCC", "FCCL", "MLCF"],
+    "Fertilizers": ["ENGROH", "EFERT", "FATIMA", "FFC"],
+    "Oil/Gas": ["POL", "PSO", "MARI", "PPL", "OGDC"],
+    "Power": ["ALTN", "NCPL", "KOHE", "NPL", "HUBC"],
+    "Steel": ["ISL", "AGHA", "ASTL", "ASL"],
+    "Others": ["CEPB", "INDU", "NML", "AGIL", "ORIX", "EPCL"],
+    "Pharma": ["ABOT", "FEROZ", "GLAXO", "HINOON", "CPHL", "AGP"],
+    "Tech": ["SYS", "TRG", "AVN"],
+}
+
+# Flattened (ticker, sector) list, built from SECTORS above.
+TICKERS = [(t, sector) for sector, tickers in SECTORS.items() for t in tickers]
+
 PSX_EOD_URL = "https://dps.psx.com.pk/timeseries/eod/{symbol}"
+PSX_DIVIDEND_URL = "https://dps.psx.com.pk/company/{symbol}"  # placeholder — see note above
 SARMAAYA_URL = "https://sarmaaya.pk/stocks/{symbol}"
 DIVERGENCE_THRESHOLD = 0.01  # 1%
 HEADERS = {"User-Agent": "Mozilla/5.0 (monthly-report-bot)"}
@@ -78,9 +88,28 @@ def sarmaaya_price(symbol: str):
         return None
 
 
+def parse_dividends(symbol: str, start: dt.date, end: dt.date):
+    """
+    Fetch cash dividend announcements for `symbol` and sum PKR/share payouts
+    with an ex-dividend/book-closure date in [start, end].
+
+    PLACEHOLDER: PSX's per-company corporate-actions data isn't confirmed to
+    be available as clean JSON. This function currently returns None
+    (meaning "not fetched") so the rest of the pipeline degrades gracefully.
+    Claude Code: inspect https://dps.psx.com.pk/company/{symbol} network
+    requests (or the PSX announcements/notices page) for a corporate-actions
+    endpoint, and replace this implementation. If PSX doesn't expose it
+    cleanly, fall back to scraping scstrade.com's dividend history table for
+    the symbol instead.
+    """
+    return None
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--month", help="Reference month YYYY-MM (default: current)")
+    ap.add_argument("--div-start", help="Dividend window start date YYYY-MM-DD")
+    ap.add_argument("--div-end", help="Dividend window end date YYYY-MM-DD")
     args = ap.parse_args()
 
     today = dt.date.today()
@@ -89,12 +118,14 @@ def main():
     else:
         year, month = today.year, today.month
 
+    div_start = dt.date.fromisoformat(args.div_start) if args.div_start else None
+    div_end = dt.date.fromisoformat(args.div_end) if args.div_end else None
+    want_dividends = div_start and div_end
+
     results, warnings = [], []
     for sym, sector in TICKERS:
         try:
             series = parse_eod(http_get(PSX_EOD_URL.format(symbol=sym)))
-            if not series:
-                raise ValueError("no EOD data returned")
         except Exception as e:
             warnings.append(f"{sym}: PSX fetch FAILED ({e}) — fill manually")
             results.append({"ticker": sym, "sector": sector, "error": str(e)})
@@ -111,6 +142,12 @@ def main():
                 f"{sym}: PSX {last_px} vs Sarmaaya {check} diverge >1% — verify before sending"
             )
 
+        dividend = None
+        if want_dividends:
+            dividend = parse_dividends(sym, div_start, div_end)
+            if dividend is None:
+                warnings.append(f"{sym}: dividend data not available — needs manual entry or endpoint fix")
+
         results.append({
             "ticker": sym,
             "sector": sector,
@@ -120,11 +157,16 @@ def main():
             "latest_close": last_px,
             "sarmaaya_check": check,
             "flagged": flagged,
+            "dividend_payout": dividend,
         })
 
     out = {
         "generated": dt.datetime.now().isoformat(timespec="seconds"),
         "reference_month": f"{year:04d}-{month:02d}",
+        "dividend_window": (
+            {"start": div_start.isoformat(), "end": div_end.isoformat()}
+            if want_dividends else None
+        ),
         "results": results,
         "warnings": warnings,
     }
