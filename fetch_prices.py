@@ -177,6 +177,8 @@ def main():
     for sym, sector in TICKERS:
         try:
             series = parse_eod(http_get(PSX_EOD_URL.format(symbol=sym)))
+            if not series:
+                raise ValueError("no EOD data returned")
         except Exception as e:
             warnings.append(f"{sym}: PSX fetch FAILED ({e}) — fill manually")
             results.append({"ticker": sym, "sector": sector, "error": str(e)})
