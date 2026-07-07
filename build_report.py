@@ -20,6 +20,7 @@ NAVY = "1F3864"
 GREY = "595959"
 AMBER_FILL = "FFF2CC"
 AMBER_TEXT = "BF8F00"
+SECTOR_FILL = "D9E1F2"
 thin = Side(style="thin", color="BFBFBF")
 BORDER = Border(left=thin, right=thin, top=thin, bottom=thin)
 
@@ -27,7 +28,6 @@ COMPANY_NAMES = {
     "OGDC": "Oil & Gas Development Company Limited",
     "MARI": "Mari Energies Limited",
     "FATIMA": "Fatima Fertilizer Company Limited",
-    "AATM": "Ali Asghar Textile Mills Limited",
 }
 
 
@@ -60,7 +60,21 @@ def build(prices_path: str = "prices.json") -> str:
         cell.border = BORDER
 
     row = 5
+    current_sector = None
     for r in data["results"]:
+        sector = r.get("sector", "")
+        if sector != current_sector:
+            current_sector = sector
+            for c in range(1, 8):
+                cell = ws.cell(row=row, column=c)
+                cell.fill = PatternFill("solid", start_color=SECTOR_FILL)
+                cell.border = BORDER
+            header_cell = ws.cell(row=row, column=1, value=sector)
+            header_cell.font = Font(name=ARIAL, size=11, bold=True, color=NAVY)
+            header_cell.alignment = Alignment(horizontal="left", vertical="center")
+            ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=7)
+            row += 1
+
         tkr = r["ticker"]
         ws.cell(row=row, column=1, value=tkr).font = Font(name=ARIAL, size=10, bold=True)
         ws.cell(row=row, column=2, value=COMPANY_NAMES.get(tkr, tkr)).font = Font(name=ARIAL, size=10)

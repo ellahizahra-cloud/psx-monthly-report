@@ -23,7 +23,19 @@ import re
 import sys
 import urllib.request
 
-TICKERS = ["OGDC", "MARI", "FATIMA", "AATM"]  # NB: AATM, not AATML
+TICKERS = [  # (ticker, sector)
+    ("MCB", "Banks"), ("HBL", "Banks"), ("BAFL", "Banks"), ("BAHL", "Banks"),
+    ("MEBL", "Banks"), ("HMB", "Banks"), ("UBL", "Banks"),
+    ("LUCK", "Cement"), ("KOHC", "Cement"), ("DGKC", "Cement"), ("CHCC", "Cement"),
+    ("FCCL", "Cement"), ("MLCF", "Cement"),
+    ("ENGROH", "Fertilizers"), ("EFERT", "Fertilizers"), ("FATIMA", "Fertilizers"), ("FFC", "Fertilizers"),
+    ("POL", "Oil/Gas"), ("PSO", "Oil/Gas"), ("MARI", "Oil/Gas"), ("PPL", "Oil/Gas"), ("OGDC", "Oil/Gas"),
+    ("ALTN", "Power"), ("NCPL", "Power"), ("KOHE", "Power"), ("NPL", "Power"), ("HUBC", "Power"),
+    ("ISL", "Steel"), ("AGHA", "Steel"), ("ASTL", "Steel"), ("ASL", "Steel"),
+    ("CEPB", "Others"), ("INDU", "Others"), ("NML", "Others"), ("AGIL", "Others"), ("ORIX", "Others"), ("EPCL", "Others"),
+    ("ABOT", "Pharma"), ("FEROZ", "Pharma"), ("GLAXO", "Pharma"), ("HINOON", "Pharma"), ("CPHL", "Pharma"), ("AGP", "Pharma"),
+    ("SYS", "Tech"), ("TRG", "Tech"), ("AVN", "Tech"),
+]
 PSX_EOD_URL = "https://dps.psx.com.pk/timeseries/eod/{symbol}"
 SARMAAYA_URL = "https://sarmaaya.pk/stocks/{symbol}"
 DIVERGENCE_THRESHOLD = 0.01  # 1%
@@ -78,12 +90,14 @@ def main():
         year, month = today.year, today.month
 
     results, warnings = [], []
-    for sym in TICKERS:
+    for sym, sector in TICKERS:
         try:
             series = parse_eod(http_get(PSX_EOD_URL.format(symbol=sym)))
+            if not series:
+                raise ValueError("no EOD data returned")
         except Exception as e:
             warnings.append(f"{sym}: PSX fetch FAILED ({e}) — fill manually")
-            results.append({"ticker": sym, "error": str(e)})
+            results.append({"ticker": sym, "sector": sector, "error": str(e)})
             continue
 
         d1, px1 = first_trading_close(series, year, month)
@@ -99,6 +113,7 @@ def main():
 
         results.append({
             "ticker": sym,
+            "sector": sector,
             "month_start_date": d1.isoformat() if d1 else None,
             "month_start_close": px1,
             "latest_date": last_date.isoformat(),
