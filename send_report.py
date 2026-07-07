@@ -30,7 +30,7 @@ from pathlib import Path
 # --- Fixed recipient whitelist. Edit these three, nothing else needed. ---
 RECIPIENTS = [
     "nadeemellahi@hotmail.com",
-    "zaraellahi9@egmail.com",
+    "zaraellahi9@gmail.com",
     
 ]
 
