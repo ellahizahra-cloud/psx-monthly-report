@@ -1,0 +1,1274 @@
+{
+  "MCB": [
+    {
+      "ticker": "MCB",
+      "date": "April 23, 2026 3:56 PM",
+      "date_iso": "2026-04-23",
+      "period": "31/03/2026(IQ)",
+      "raw_details": "90%(i) (D)",
+      "cash_dividend_pct": 90.0,
+      "amount_per_share": 9.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "MCB",
+      "date": "October 22, 2025 3:42 PM",
+      "date_iso": "2025-10-22",
+      "period": "30/09/2025(IIIQ)",
+      "raw_details": "90%(iii) (D)",
+      "cash_dividend_pct": 90.0,
+      "amount_per_share": 9.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "MCB",
+      "date": "August 6, 2025 3:49 PM",
+      "date_iso": "2025-08-06",
+      "period": "30/06/2025(HYR)",
+      "raw_details": "90%(ii) (D)",
+      "cash_dividend_pct": 90.0,
+      "amount_per_share": 9.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "MCB",
+      "date": "April 23, 2025 3:39 PM",
+      "date_iso": "2025-04-23",
+      "period": "31/03/2025(IQ)",
+      "raw_details": "90%(i) (D)",
+      "cash_dividend_pct": 90.0,
+      "amount_per_share": 9.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "MCB",
+      "date": "February 6, 2025 4:25 PM",
+      "date_iso": "2025-02-06",
+      "period": "31/12/2024(YR)",
+      "raw_details": "90%(F) (D)",
+      "cash_dividend_pct": 90.0,
+      "amount_per_share": 9.0,
+      "non_cash_notes": []
+    }
+  ],
+  "HBL": [
+    {
+      "ticker": "HBL",
+      "date": "April 17, 2026 5:10 PM",
+      "date_iso": "2026-04-17",
+      "period": "31/03/2026(IQ)",
+      "raw_details": "60%(i) (D)",
+      "cash_dividend_pct": 60.0,
+      "amount_per_share": 6.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "HBL",
+      "date": "February 18, 2026 3:51 PM",
+      "date_iso": "2026-02-18",
+      "period": "31/12/2025(YR)",
+      "raw_details": "60%(F) (D)",
+      "cash_dividend_pct": 60.0,
+      "amount_per_share": 6.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "HBL",
+      "date": "October 23, 2025 3:48 PM",
+      "date_iso": "2025-10-23",
+      "period": "30/09/2025(IIIQ)",
+      "raw_details": "50%(iii) (D)",
+      "cash_dividend_pct": 50.0,
+      "amount_per_share": 5.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "HBL",
+      "date": "July 31, 2025 3:49 PM",
+      "date_iso": "2025-07-31",
+      "period": "30/06/2025(HYR)",
+      "raw_details": "45%(ii) (D)",
+      "cash_dividend_pct": 45.0,
+      "amount_per_share": 4.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "HBL",
+      "date": "April 25, 2025 4:31 PM",
+      "date_iso": "2025-04-25",
+      "period": "31/03/2025(IQ)",
+      "raw_details": "45%(i) (D)",
+      "cash_dividend_pct": 45.0,
+      "amount_per_share": 4.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "HBL",
+      "date": "February 19, 2025 3:45 PM",
+      "date_iso": "2025-02-19",
+      "period": "31/12/2024(YR)",
+      "raw_details": "42.5%(F) (D)",
+      "cash_dividend_pct": 42.5,
+      "amount_per_share": 4.25,
+      "non_cash_notes": []
+    }
+  ],
+  "BAFL": [
+    {
+      "ticker": "BAFL",
+      "date": "April 23, 2026 3:49 PM",
+      "date_iso": "2026-04-23",
+      "period": "31/03/2026(IQ)",
+      "raw_details": "30%(i) (D)",
+      "cash_dividend_pct": 30.0,
+      "amount_per_share": 3.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "BAFL",
+      "date": "February 16, 2026 4:25 PM",
+      "date_iso": "2026-02-16",
+      "period": "31/12/2025(YR)",
+      "raw_details": "30%(F) (D)",
+      "cash_dividend_pct": 30.0,
+      "amount_per_share": 3.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "BAFL",
+      "date": "October 23, 2025 3:27 PM",
+      "date_iso": "2025-10-23",
+      "period": "30/09/2025(IIIQ)",
+      "raw_details": "25%(iii) (D)",
+      "cash_dividend_pct": 25.0,
+      "amount_per_share": 2.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "BAFL",
+      "date": "July 31, 2025 3:53 PM",
+      "date_iso": "2025-07-31",
+      "period": "30/06/2025(HYR)",
+      "raw_details": "25%(ii) (D)",
+      "cash_dividend_pct": 25.0,
+      "amount_per_share": 2.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "BAFL",
+      "date": "April 17, 2025 3:56 PM",
+      "date_iso": "2025-04-17",
+      "period": "31/03/2025(IQ)",
+      "raw_details": "25%(i) (D)",
+      "cash_dividend_pct": 25.0,
+      "amount_per_share": 2.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "BAFL",
+      "date": "January 30, 2025 4:00 PM",
+      "date_iso": "2025-01-30",
+      "period": "31/12/2024(YR)",
+      "raw_details": "25%(F) (D)",
+      "cash_dividend_pct": 25.0,
+      "amount_per_share": 2.5,
+      "non_cash_notes": []
+    }
+  ],
+  "BAHL": [
+    {
+      "ticker": "BAHL",
+      "date": "April 23, 2026 4:04 PM",
+      "date_iso": "2026-04-23",
+      "period": "31/03/2026(IQ)",
+      "raw_details": "35%(i) (D)",
+      "cash_dividend_pct": 35.0,
+      "amount_per_share": 3.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "BAHL",
+      "date": "February 11, 2026 3:57 PM",
+      "date_iso": "2026-02-11",
+      "period": "31/12/2025(YR)",
+      "raw_details": "45%(F) (D)",
+      "cash_dividend_pct": 45.0,
+      "amount_per_share": 4.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "BAHL",
+      "date": "October 23, 2025 3:50 PM",
+      "date_iso": "2025-10-23",
+      "period": "30/09/2025(IIIQ)",
+      "raw_details": "35%(iii) (D)",
+      "cash_dividend_pct": 35.0,
+      "amount_per_share": 3.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "BAHL",
+      "date": "August 27, 2025 4:33 PM",
+      "date_iso": "2025-08-27",
+      "period": "30/06/2025(HYR)",
+      "raw_details": "35%(ii) (D)",
+      "cash_dividend_pct": 35.0,
+      "amount_per_share": 3.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "BAHL",
+      "date": "April 24, 2025 4:02 PM",
+      "date_iso": "2025-04-24",
+      "period": "31/03/2025(IQ)",
+      "raw_details": "35%(i) (D)",
+      "cash_dividend_pct": 35.0,
+      "amount_per_share": 3.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "BAHL",
+      "date": "January 30, 2025 4:05 PM",
+      "date_iso": "2025-01-30",
+      "period": "31/12/2024(YR)",
+      "raw_details": "65%(F) (D)",
+      "cash_dividend_pct": 65.0,
+      "amount_per_share": 6.5,
+      "non_cash_notes": []
+    }
+  ],
+  "MEBL": [
+    {
+      "ticker": "MEBL",
+      "date": "April 23, 2026 3:51 PM",
+      "date_iso": "2026-04-23",
+      "period": "31/03/2026(IQ)",
+      "raw_details": "75%(i) (D)",
+      "cash_dividend_pct": 75.0,
+      "amount_per_share": 7.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "MEBL",
+      "date": "February 9, 2026 3:36 PM",
+      "date_iso": "2026-02-09",
+      "period": "31/12/2025(YR)",
+      "raw_details": "70%(F) (D)",
+      "cash_dividend_pct": 70.0,
+      "amount_per_share": 7.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "MEBL",
+      "date": "October 27, 2025 11:09 AM",
+      "date_iso": "2025-10-27",
+      "period": "30/09/2025(IIIQ)",
+      "raw_details": "70%(iii) (D)",
+      "cash_dividend_pct": 70.0,
+      "amount_per_share": 7.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "MEBL",
+      "date": "August 13, 2025 3:40 PM",
+      "date_iso": "2025-08-13",
+      "period": "30/06/2025(HYR)",
+      "raw_details": "70%(ii) (D)",
+      "cash_dividend_pct": 70.0,
+      "amount_per_share": 7.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "MEBL",
+      "date": "April 21, 2025 4:10 PM",
+      "date_iso": "2025-04-21",
+      "period": "31/03/2025(IQ)",
+      "raw_details": "70%(i) (D)",
+      "cash_dividend_pct": 70.0,
+      "amount_per_share": 7.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "MEBL",
+      "date": "February 13, 2025 3:30 PM",
+      "date_iso": "2025-02-13",
+      "period": "31/12/2024(YR)",
+      "raw_details": "70%(F) (D)",
+      "cash_dividend_pct": 70.0,
+      "amount_per_share": 7.0,
+      "non_cash_notes": []
+    }
+  ],
+  "HMB": [
+    {
+      "ticker": "HMB",
+      "date": "April 24, 2026 4:35 PM",
+      "date_iso": "2026-04-24",
+      "period": "31/03/2026(IQ) - 31/03/2026(IQ)",
+      "raw_details": "25%(i) (D)  -  25%(i) (D)",
+      "cash_dividend_pct": 50.0,
+      "amount_per_share": 5.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "HMB",
+      "date": "February 13, 2026 3:57 PM",
+      "date_iso": "2026-02-13",
+      "period": "31/12/2025(YR)",
+      "raw_details": "45%F) (D)",
+      "cash_dividend_pct": 0.0,
+      "amount_per_share": 0.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "HMB",
+      "date": "October 27, 2025 11:03 AM",
+      "date_iso": "2025-10-27",
+      "period": "30/09/2025(IIIQ)",
+      "raw_details": "25%(iii) (D)",
+      "cash_dividend_pct": 25.0,
+      "amount_per_share": 2.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "HMB",
+      "date": "August 13, 2025 3:38 PM",
+      "date_iso": "2025-08-13",
+      "period": "30/06/2025(HYR)",
+      "raw_details": "25%(ii) (D)",
+      "cash_dividend_pct": 25.0,
+      "amount_per_share": 2.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "HMB",
+      "date": "April 23, 2025 3:22 PM",
+      "date_iso": "2025-04-23",
+      "period": "31/03/2025(IQ)",
+      "raw_details": "25%(i) (D)",
+      "cash_dividend_pct": 25.0,
+      "amount_per_share": 2.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "HMB",
+      "date": "February 20, 2025 3:24 PM",
+      "date_iso": "2025-02-20",
+      "period": "31/12/2024(YR)",
+      "raw_details": "45%(F) (D)",
+      "cash_dividend_pct": 45.0,
+      "amount_per_share": 4.5,
+      "non_cash_notes": []
+    }
+  ],
+  "UBL": [
+    {
+      "ticker": "UBL",
+      "date": "April 15, 2026 3:51 PM",
+      "date_iso": "2026-04-15",
+      "period": "31/03/2026(IQ)",
+      "raw_details": "160%(i) (D)",
+      "cash_dividend_pct": 160.0,
+      "amount_per_share": 16.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "UBL",
+      "date": "February 25, 2026 12:28 PM",
+      "date_iso": "2026-02-25",
+      "period": "31/12/2025(YR)",
+      "raw_details": "160%(F) (D)",
+      "cash_dividend_pct": 160.0,
+      "amount_per_share": 16.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "UBL",
+      "date": "October 15, 2025 3:53 PM",
+      "date_iso": "2025-10-15",
+      "period": "30/09/2025(IIIQ)",
+      "raw_details": "160%(iii) (D)",
+      "cash_dividend_pct": 160.0,
+      "amount_per_share": 16.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "UBL",
+      "date": "July 11, 2025 5:05 PM",
+      "date_iso": "2025-07-11",
+      "period": "30/06/2025(HYR)",
+      "raw_details": "160%(II) (D)",
+      "cash_dividend_pct": 160.0,
+      "amount_per_share": 16.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "UBL",
+      "date": "April 16, 2025 4:52 PM",
+      "date_iso": "2025-04-16",
+      "period": "31/03/2025(IQ)",
+      "raw_details": "110%(i) (D)",
+      "cash_dividend_pct": 110.0,
+      "amount_per_share": 11.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "UBL",
+      "date": "February 19, 2025 3:42 PM",
+      "date_iso": "2025-02-19",
+      "period": "31/12/2024(YR)",
+      "raw_details": "110%(F) (D)",
+      "cash_dividend_pct": 110.0,
+      "amount_per_share": 11.0,
+      "non_cash_notes": []
+    }
+  ],
+  "LUCK": [
+    {
+      "ticker": "LUCK",
+      "date": "August 11, 2025 11:11 AM",
+      "date_iso": "2025-08-11",
+      "period": "30/06/2025(YR)",
+      "raw_details": "200%(F) (D)",
+      "cash_dividend_pct": 200.0,
+      "amount_per_share": 20.0,
+      "non_cash_notes": []
+    }
+  ],
+  "DGKC": [
+    {
+      "ticker": "DGKC",
+      "date": "August 28, 2025 4:47 PM",
+      "date_iso": "2025-08-28",
+      "period": "30/06/2025(YR)",
+      "raw_details": "20%(F) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": []
+    }
+  ],
+  "CHCC": [
+    {
+      "ticker": "CHCC",
+      "date": "February 18, 2026 3:39 PM",
+      "date_iso": "2026-02-18",
+      "period": "31/12/2025(HYR)",
+      "raw_details": "15%(i) (D)",
+      "cash_dividend_pct": 15.0,
+      "amount_per_share": 1.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "CHCC",
+      "date": "August 21, 2025 3:53 PM",
+      "date_iso": "2025-08-21",
+      "period": "30/06/2025(YR)",
+      "raw_details": "40%(F) (D)",
+      "cash_dividend_pct": 40.0,
+      "amount_per_share": 4.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "CHCC",
+      "date": "February 21, 2025 2:43 PM",
+      "date_iso": "2025-02-21",
+      "period": "31/12/2024(HYR)",
+      "raw_details": "15%(i) (D)",
+      "cash_dividend_pct": 15.0,
+      "amount_per_share": 1.5,
+      "non_cash_notes": []
+    }
+  ],
+  "FCCL": [
+    {
+      "ticker": "FCCL",
+      "date": "August 11, 2025 11:05 AM",
+      "date_iso": "2025-08-11",
+      "period": "30/06/2025(YR)",
+      "raw_details": "12.50%(F) (D)",
+      "cash_dividend_pct": 12.5,
+      "amount_per_share": 1.25,
+      "non_cash_notes": []
+    }
+  ],
+  "EFERT": [
+    {
+      "ticker": "EFERT",
+      "date": "April 20, 2026 3:41 PM",
+      "date_iso": "2026-04-20",
+      "period": "31/03/2026(IIIQ)",
+      "raw_details": "20%(i) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "EFERT",
+      "date": "February 12, 2026 3:27 PM",
+      "date_iso": "2026-02-12",
+      "period": "31/12/2025(YR)",
+      "raw_details": "40%(F) (D)",
+      "cash_dividend_pct": 40.0,
+      "amount_per_share": 4.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "EFERT",
+      "date": "October 15, 2025 3:50 PM",
+      "date_iso": "2025-10-15",
+      "period": "30/09/2025(IIIQ)",
+      "raw_details": "45%(iii) (D)",
+      "cash_dividend_pct": 45.0,
+      "amount_per_share": 4.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "EFERT",
+      "date": "July 30, 2025 3:24 PM",
+      "date_iso": "2025-07-30",
+      "period": "30/06/2025(HYR)",
+      "raw_details": "42.50%(ii) (D)",
+      "cash_dividend_pct": 42.5,
+      "amount_per_share": 4.25,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "EFERT",
+      "date": "April 22, 2025 5:01 PM",
+      "date_iso": "2025-04-22",
+      "period": "31/03/2025(IQ)",
+      "raw_details": "22.5%(i) (D)",
+      "cash_dividend_pct": 22.5,
+      "amount_per_share": 2.25,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "EFERT",
+      "date": "February 10, 2025 3:39 PM",
+      "date_iso": "2025-02-10",
+      "period": "31/12/2024(YR)",
+      "raw_details": "80%(F) (D)",
+      "cash_dividend_pct": 80.0,
+      "amount_per_share": 8.0,
+      "non_cash_notes": []
+    }
+  ],
+  "FATIMA": [
+    {
+      "ticker": "FATIMA",
+      "date": "March 9, 2026 2:14 PM",
+      "date_iso": "2026-03-09",
+      "period": "31/12/2025(YR)",
+      "raw_details": "25%(F) (D)",
+      "cash_dividend_pct": 25.0,
+      "amount_per_share": 2.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "FATIMA",
+      "date": "August 27, 2025 4:34 PM",
+      "date_iso": "2025-08-27",
+      "period": "30/06/2025(HYR)",
+      "raw_details": "35%(i) (D)",
+      "cash_dividend_pct": 35.0,
+      "amount_per_share": 3.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "FATIMA",
+      "date": "March 14, 2025 1:12 PM",
+      "date_iso": "2025-03-14",
+      "period": "31/12/2024(YR)",
+      "raw_details": "42.5%(F) (D)",
+      "cash_dividend_pct": 42.5,
+      "amount_per_share": 4.25,
+      "non_cash_notes": []
+    }
+  ],
+  "FFC": [
+    {
+      "ticker": "FFC",
+      "date": "April 29, 2026 2:58 PM",
+      "date_iso": "2026-04-29",
+      "period": "31/03/2026(IQ)",
+      "raw_details": "85%(i) (D)",
+      "cash_dividend_pct": 85.0,
+      "amount_per_share": 8.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "FFC",
+      "date": "January 29, 2026 3:14 PM",
+      "date_iso": "2026-01-29",
+      "period": "31/12/2025(YR)",
+      "raw_details": "85%(F) (D)",
+      "cash_dividend_pct": 85.0,
+      "amount_per_share": 8.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "FFC",
+      "date": "October 23, 2025 3:41 PM",
+      "date_iso": "2025-10-23",
+      "period": "30/09/2025(IIIQ)",
+      "raw_details": "95%(iii) (D)",
+      "cash_dividend_pct": 95.0,
+      "amount_per_share": 9.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "FFC",
+      "date": "July 29, 2025 3:26 PM",
+      "date_iso": "2025-07-29",
+      "period": "30/06/2025(HYR)",
+      "raw_details": "120%(ii) (D)",
+      "cash_dividend_pct": 120.0,
+      "amount_per_share": 12.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "FFC",
+      "date": "April 28, 2025 3:39 PM",
+      "date_iso": "2025-04-28",
+      "period": "31/03/2025(IQ)",
+      "raw_details": "70%(i) (D)",
+      "cash_dividend_pct": 70.0,
+      "amount_per_share": 7.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "FFC",
+      "date": "January 29, 2025 3:36 PM",
+      "date_iso": "2025-01-29",
+      "period": "31/12/2024(YR)",
+      "raw_details": "210%(F) (D)",
+      "cash_dividend_pct": 210.0,
+      "amount_per_share": 21.0,
+      "non_cash_notes": []
+    }
+  ],
+  "POL": [
+    {
+      "ticker": "POL",
+      "date": "February 24, 2026 2:17 PM",
+      "date_iso": "2026-02-24",
+      "period": "31/12/2025(HYR)",
+      "raw_details": "275%(i) (D)",
+      "cash_dividend_pct": 275.0,
+      "amount_per_share": 27.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "POL",
+      "date": "August 11, 2025 3:29 PM",
+      "date_iso": "2025-08-11",
+      "period": "30/06/2025(YR)",
+      "raw_details": "500%(F) (D)",
+      "cash_dividend_pct": 500.0,
+      "amount_per_share": 50.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "POL",
+      "date": "January 27, 2025 4:28 PM",
+      "date_iso": "2025-01-27",
+      "period": "31/12/2024(HYR)",
+      "raw_details": "250%(i) (D)",
+      "cash_dividend_pct": 250.0,
+      "amount_per_share": 25.0,
+      "non_cash_notes": []
+    }
+  ],
+  "PSO": [
+    {
+      "ticker": "PSO",
+      "date": "August 19, 2025 4:17 PM",
+      "date_iso": "2025-08-19",
+      "period": "30/06/2025(YR)",
+      "raw_details": "100%(F) (D)",
+      "cash_dividend_pct": 100.0,
+      "amount_per_share": 10.0,
+      "non_cash_notes": []
+    }
+  ],
+  "MARI": [
+    {
+      "ticker": "MARI",
+      "date": "January 26, 2026 4:05 PM",
+      "date_iso": "2026-01-26",
+      "period": "31/12/2025(HYR)",
+      "raw_details": "83%(i) (D)",
+      "cash_dividend_pct": 83.0,
+      "amount_per_share": 8.3,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "MARI",
+      "date": "August 11, 2025 10:57 AM",
+      "date_iso": "2025-08-11",
+      "period": "30/06/2025(YR)",
+      "raw_details": "217%(F) (D)",
+      "cash_dividend_pct": 217.0,
+      "amount_per_share": 21.7,
+      "non_cash_notes": []
+    }
+  ],
+  "PPL": [
+    {
+      "ticker": "PPL",
+      "date": "April 29, 2026 3:18 PM",
+      "date_iso": "2026-04-29",
+      "period": "31/12/2025(YR)",
+      "raw_details": "20%(iii) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "PPL",
+      "date": "February 13, 2026 4:00 PM",
+      "date_iso": "2026-02-13",
+      "period": "31/12/2025(HYR)",
+      "raw_details": "20%(F) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "PPL",
+      "date": "October 29, 2025 3:14 PM",
+      "date_iso": "2025-10-29",
+      "period": "30/09/2025(IQ)",
+      "raw_details": "20%(i) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "PPL",
+      "date": "September 19, 2025 4:11 PM",
+      "date_iso": "2025-09-19",
+      "period": "30/06/2025(YR)",
+      "raw_details": "25%(F) (D)",
+      "cash_dividend_pct": 25.0,
+      "amount_per_share": 2.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "PPL",
+      "date": "April 29, 2025 2:46 PM",
+      "date_iso": "2025-04-29",
+      "period": "31/03/2025(IIIQ)",
+      "raw_details": "10%(iii) (D)",
+      "cash_dividend_pct": 10.0,
+      "amount_per_share": 1.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "PPL",
+      "date": "February 28, 2025 4:26 PM",
+      "date_iso": "2025-02-28",
+      "period": "31/12/2024(HYR)",
+      "raw_details": "20%(ii) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": []
+    }
+  ],
+  "OGDC": [
+    {
+      "ticker": "OGDC",
+      "date": "April 29, 2026 3:56 PM",
+      "date_iso": "2026-04-29",
+      "period": "31/03/2026(IIIQ)",
+      "raw_details": "32.50%(iii) (D)",
+      "cash_dividend_pct": 32.5,
+      "amount_per_share": 3.25,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "OGDC",
+      "date": "February 23, 2026 1:25 PM",
+      "date_iso": "2026-02-23",
+      "period": "31/12/2025(HYR)",
+      "raw_details": "42.50%(ii) (D)",
+      "cash_dividend_pct": 42.5,
+      "amount_per_share": 4.25,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "OGDC",
+      "date": "October 29, 2025 4:08 PM",
+      "date_iso": "2025-10-29",
+      "period": "30/09/2025(IQ)",
+      "raw_details": "35%(i) (D)",
+      "cash_dividend_pct": 35.0,
+      "amount_per_share": 3.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "OGDC",
+      "date": "September 23, 2025 4:03 PM",
+      "date_iso": "2025-09-23",
+      "period": "30/06/2025(YR)",
+      "raw_details": "50%(F) (D)",
+      "cash_dividend_pct": 50.0,
+      "amount_per_share": 5.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "OGDC",
+      "date": "April 30, 2025 4:16 PM",
+      "date_iso": "2025-04-30",
+      "period": "31/03/2025(IIIQ)",
+      "raw_details": "30%(iii) (D)",
+      "cash_dividend_pct": 30.0,
+      "amount_per_share": 3.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "OGDC",
+      "date": "February 28, 2025 4:32 PM",
+      "date_iso": "2025-02-28",
+      "period": "31/12/2024(HYR)",
+      "raw_details": "40.50% (D)",
+      "cash_dividend_pct": 0.0,
+      "amount_per_share": 0.0,
+      "non_cash_notes": []
+    }
+  ],
+  "ALTN": [
+    {
+      "ticker": "ALTN",
+      "date": "February 21, 2025 5:00 PM",
+      "date_iso": "2025-02-21",
+      "period": "-",
+      "raw_details": "97%(i) (D)",
+      "cash_dividend_pct": 97.0,
+      "amount_per_share": 9.7,
+      "non_cash_notes": []
+    }
+  ],
+  "NCPL": [
+    {
+      "ticker": "NCPL",
+      "date": "April 28, 2026 4:03 PM",
+      "date_iso": "2026-04-28",
+      "period": "31/03/2026(IIIQ)",
+      "raw_details": "15%(i) (D)",
+      "cash_dividend_pct": 15.0,
+      "amount_per_share": 1.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "NCPL",
+      "date": "April 25, 2025 5:30 PM",
+      "date_iso": "2025-04-25",
+      "period": "31/03/2025(IIIQ)",
+      "raw_details": "20%(iii) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "NCPL",
+      "date": "November 13, 2024 4:33 PM",
+      "date_iso": "2024-11-13",
+      "period": "-",
+      "raw_details": "50%(I) (D)",
+      "cash_dividend_pct": 50.0,
+      "amount_per_share": 5.0,
+      "non_cash_notes": []
+    }
+  ],
+  "NPL": [
+    {
+      "ticker": "NPL",
+      "date": "April 28, 2026 4:02 PM",
+      "date_iso": "2026-04-28",
+      "period": "31/03/2026(IIIQ)",
+      "raw_details": "15%(i) (D)",
+      "cash_dividend_pct": 15.0,
+      "amount_per_share": 1.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "NPL",
+      "date": "April 25, 2025 5:26 PM",
+      "date_iso": "2025-04-25",
+      "period": "31/03/2025(IIIQ)",
+      "raw_details": "20%(iii) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "NPL",
+      "date": "February 27, 2025 2:56 PM",
+      "date_iso": "2025-02-27",
+      "period": "31/12/2024(HYR)",
+      "raw_details": "20%(i) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": []
+    }
+  ],
+  "HUBC": [
+    {
+      "ticker": "HUBC",
+      "date": "April 22, 2026 12:35 PM",
+      "date_iso": "2026-04-22",
+      "period": "31/03/2026(IIIQ)",
+      "raw_details": "50%(iii) (D)",
+      "cash_dividend_pct": 50.0,
+      "amount_per_share": 5.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "HUBC",
+      "date": "February 24, 2026 2:38 PM",
+      "date_iso": "2026-02-24",
+      "period": "31/12/2025(HYR)",
+      "raw_details": "50%(ii) (D)",
+      "cash_dividend_pct": 50.0,
+      "amount_per_share": 5.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "HUBC",
+      "date": "October 30, 2025 4:28 PM",
+      "date_iso": "2025-10-30",
+      "period": "30/09/2025(IQ)",
+      "raw_details": "50%(i) (D)",
+      "cash_dividend_pct": 50.0,
+      "amount_per_share": 5.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "HUBC",
+      "date": "September 3, 2025 3:56 PM",
+      "date_iso": "2025-09-03",
+      "period": "30/06/2025(YR)",
+      "raw_details": "100%(F) (D)",
+      "cash_dividend_pct": 100.0,
+      "amount_per_share": 10.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "HUBC",
+      "date": "February 26, 2025 12:53 PM",
+      "date_iso": "2025-02-26",
+      "period": "31/12/2024(HYR)",
+      "raw_details": "50%(i) (D)",
+      "cash_dividend_pct": 50.0,
+      "amount_per_share": 5.0,
+      "non_cash_notes": []
+    }
+  ],
+  "ISL": [
+    {
+      "ticker": "ISL",
+      "date": "January 27, 2026 4:55 PM",
+      "date_iso": "2026-01-27",
+      "period": "30/09/2025(HYR)",
+      "raw_details": "20%(i) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "ISL",
+      "date": "August 20, 2025 3:40 PM",
+      "date_iso": "2025-08-20",
+      "period": "30/06/2025(YR)",
+      "raw_details": "25%(F) (D)",
+      "cash_dividend_pct": 25.0,
+      "amount_per_share": 2.5,
+      "non_cash_notes": []
+    }
+  ],
+  "INDU": [
+    {
+      "ticker": "INDU",
+      "date": "April 27, 2026 3:50 PM",
+      "date_iso": "2026-04-27",
+      "period": "31/03/2026(IIIQ)",
+      "raw_details": "510%(iii) (D)",
+      "cash_dividend_pct": 510.0,
+      "amount_per_share": 51.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "INDU",
+      "date": "February 23, 2026 1:14 PM",
+      "date_iso": "2026-02-23",
+      "period": "31/12/2025(HYR)",
+      "raw_details": "460%(ii) (D)",
+      "cash_dividend_pct": 460.0,
+      "amount_per_share": 46.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "INDU",
+      "date": "October 28, 2025 4:40 PM",
+      "date_iso": "2025-10-28",
+      "period": "30/09/2025(IQ)",
+      "raw_details": "510%(i) (D)",
+      "cash_dividend_pct": 510.0,
+      "amount_per_share": 51.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "INDU",
+      "date": "August 29, 2025 5:08 PM",
+      "date_iso": "2025-08-29",
+      "period": "30/06/2025(YR)",
+      "raw_details": "500%(F) (D)",
+      "cash_dividend_pct": 500.0,
+      "amount_per_share": 50.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "INDU",
+      "date": "April 28, 2025 12:00 PM",
+      "date_iso": "2025-04-28",
+      "period": "31/03/2025(IIIQ)",
+      "raw_details": "500%(iii) (D)",
+      "cash_dividend_pct": 500.0,
+      "amount_per_share": 50.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "INDU",
+      "date": "February 28, 2025 10:58 AM",
+      "date_iso": "2025-02-28",
+      "period": "31/12/2024(HYR)",
+      "raw_details": "370%(ii) (D)",
+      "cash_dividend_pct": 370.0,
+      "amount_per_share": 37.0,
+      "non_cash_notes": []
+    }
+  ],
+  "NML": [
+    {
+      "ticker": "NML",
+      "date": "September 30, 2025 3:34 PM",
+      "date_iso": "2025-09-30",
+      "period": "30/06/2025(YR)",
+      "raw_details": "20%(F) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": []
+    }
+  ],
+  "AGIL": [
+    {
+      "ticker": "AGIL",
+      "date": "August 28, 2025 4:44 PM",
+      "date_iso": "2025-08-28",
+      "period": "30/06/2025(YR)",
+      "raw_details": "35%(F) (D)",
+      "cash_dividend_pct": 35.0,
+      "amount_per_share": 3.5,
+      "non_cash_notes": []
+    }
+  ],
+  "OLPL": [
+    {
+      "ticker": "OLPL",
+      "date": "April 27, 2026 3:57 PM",
+      "date_iso": "2026-04-27",
+      "period": "31/03/2026(IIIQ)",
+      "raw_details": "20%(i) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "OLPL",
+      "date": "September 25, 2025 4:24 PM",
+      "date_iso": "2025-09-25",
+      "period": "30/06/2025(YR)",
+      "raw_details": "35%(F) (D)",
+      "cash_dividend_pct": 35.0,
+      "amount_per_share": 3.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "OLPL",
+      "date": "April 24, 2025 12:45 PM",
+      "date_iso": "2025-04-24",
+      "period": "31/03/2025(IIIQ)",
+      "raw_details": "20%(i) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": []
+    }
+  ],
+  "ABOT": [
+    {
+      "ticker": "ABOT",
+      "date": "March 16, 2026 2:30 PM",
+      "date_iso": "2026-03-16",
+      "period": "31/12/2025(YR)",
+      "raw_details": "400%(F) (D)",
+      "cash_dividend_pct": 400.0,
+      "amount_per_share": 40.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "ABOT",
+      "date": "February 20, 2025 3:45 PM",
+      "date_iso": "2025-02-20",
+      "period": "31/12/2024(YR)",
+      "raw_details": "100%(F) (D)",
+      "cash_dividend_pct": 100.0,
+      "amount_per_share": 10.0,
+      "non_cash_notes": []
+    }
+  ],
+  "FEROZ": [
+    {
+      "ticker": "FEROZ",
+      "date": "September 23, 2025 4:40 PM",
+      "date_iso": "2025-09-23",
+      "period": "30/06/2025(YR)",
+      "raw_details": "40%(F) (D)",
+      "cash_dividend_pct": 40.0,
+      "amount_per_share": 4.0,
+      "non_cash_notes": []
+    }
+  ],
+  "GLAXO": [
+    {
+      "ticker": "GLAXO",
+      "date": "March 26, 2026 3:54 PM",
+      "date_iso": "2026-03-26",
+      "period": "31/12/2025(YR)",
+      "raw_details": "120%(F) (D)",
+      "cash_dividend_pct": 120.0,
+      "amount_per_share": 12.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "GLAXO",
+      "date": "August 26, 2025 3:34 PM",
+      "date_iso": "2025-08-26",
+      "period": "30/06/2025(HYR)",
+      "raw_details": "50%(i) (D)",
+      "cash_dividend_pct": 50.0,
+      "amount_per_share": 5.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "GLAXO",
+      "date": "March 24, 2025 2:13 PM",
+      "date_iso": "2025-03-24",
+      "period": "31/12/2024(YR)",
+      "raw_details": "100%(F) (D)",
+      "cash_dividend_pct": 100.0,
+      "amount_per_share": 10.0,
+      "non_cash_notes": []
+    }
+  ],
+  "HINOON": [
+    {
+      "ticker": "HINOON",
+      "date": "April 7, 2026 4:00 PM",
+      "date_iso": "2026-04-07",
+      "period": "31/12/2025(YR)",
+      "raw_details": "500%(F) (D)",
+      "cash_dividend_pct": 500.0,
+      "amount_per_share": 50.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "HINOON",
+      "date": "March 26, 2025 2:45 PM",
+      "date_iso": "2025-03-26",
+      "period": "31/12/2024(YR)",
+      "raw_details": "400%(F) (D)",
+      "cash_dividend_pct": 400.0,
+      "amount_per_share": 40.0,
+      "non_cash_notes": []
+    }
+  ],
+  "CPHL": [
+    {
+      "ticker": "CPHL",
+      "date": "October 2, 2025 4:35 PM",
+      "date_iso": "2025-10-02",
+      "period": "30/06/2025(YR)",
+      "raw_details": "35%(F) (D)",
+      "cash_dividend_pct": 35.0,
+      "amount_per_share": 3.5,
+      "non_cash_notes": []
+    }
+  ],
+  "AGP": [
+    {
+      "ticker": "AGP",
+      "date": "March 24, 2026 4:16 PM",
+      "date_iso": "2026-03-24",
+      "period": "31/12/2025(YR)",
+      "raw_details": "60%(F) (D)",
+      "cash_dividend_pct": 60.0,
+      "amount_per_share": 6.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "AGP",
+      "date": "August 27, 2025 3:59 PM",
+      "date_iso": "2025-08-27",
+      "period": "30/06/2025(HYR)",
+      "raw_details": "20%(i) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "AGP",
+      "date": "February 28, 2025 11:04 AM",
+      "date_iso": "2025-02-28",
+      "period": "31/12/2024(YR)",
+      "raw_details": "40%(F) (D)",
+      "cash_dividend_pct": 40.0,
+      "amount_per_share": 4.0,
+      "non_cash_notes": []
+    }
+  ],
+  "SYS": [
+    {
+      "ticker": "SYS",
+      "date": "April 7, 2026 3:57 PM",
+      "date_iso": "2026-04-07",
+      "period": "31/12/2025(YR)",
+      "raw_details": "100%(F) (D)",
+      "cash_dividend_pct": 100.0,
+      "amount_per_share": 10.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "SYS",
+      "date": "March 24, 2025 2:14 PM",
+      "date_iso": "2025-03-24",
+      "period": "31/12/2024(YR)",
+      "raw_details": "60%(F) (D)",
+      "cash_dividend_pct": 60.0,
+      "amount_per_share": 6.0,
+      "non_cash_notes": []
+    }
+  ],
+  "AVN": [
+    {
+      "ticker": "AVN",
+      "date": "April 30, 2026 2:53 PM",
+      "date_iso": "2026-04-30",
+      "period": "31/12/2025(YR)",
+      "raw_details": "10%(F) (D)",
+      "cash_dividend_pct": 10.0,
+      "amount_per_share": 1.0,
+      "non_cash_notes": []
+    }
+  ]
+}

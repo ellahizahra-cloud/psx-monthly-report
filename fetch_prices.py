@@ -1,13 +1,17 @@
 """
 fetch_prices.py — Pull PSX closing prices for the monthly report.
 
-For each ticker it fetches:
-  (a) the closing price on the 1st trading day of the reference month
-      (defaults to the current month; pass --month YYYY-MM to override)
-  (b) the latest available close
-from the PSX Data Portal's end-of-day timeseries feed (the same JSON feed
-the dps.psx.com.pk website uses), then cross-checks the latest price
-against sarmaaya.pk and flags divergence > 1%.
+For each ticker in the shared universe (tickers.py) it fetches, from the
+PSX Data Portal's end-of-day timeseries feed (the same JSON feed the
+dps.psx.com.pk website uses):
+
+  (a) Month-Start Close: close on the 1st trading day of the *current*
+      month (the month we're in when the report runs)
+  (b) Month-End Close: close on the last trading day of the *previous*
+      month (the month that just ended)
+
+then cross-checks the Month-Start Close against sarmaaya.pk and flags
+divergence > 1%.
 
 Output: prices.json (consumed by build_report.py / send_report.py)
 
@@ -23,7 +27,8 @@ import re
 import sys
 import urllib.request
 
-TICKERS = ["OGDC", "MARI", "FATIMA", "AATM"]  # NB: AATM, not AATML
+from tickers import TICKERS
+
 PSX_EOD_URL = "https://dps.psx.com.pk/timeseries/eod/{symbol}"
 SARMAAYA_URL = "https://sarmaaya.pk/stocks/{symbol}"
 DIVERGENCE_THRESHOLD = 0.01  # 1%
@@ -56,6 +61,19 @@ def first_trading_close(series: dict, year: int, month: int):
     return None, None
 
 
+def last_trading_close(series: dict, year: int, month: int):
+    """Close on the last trading day of the given month."""
+    result = None
+    for d, px in series.items():
+        if d.year == year and d.month == month:
+            result = (d, px)
+    return result if result else (None, None)
+
+
+def prev_month(year: int, month: int):
+    return (year - 1, 12) if month == 1 else (year, month - 1)
+
+
 def sarmaaya_price(symbol: str):
     """Sarmaaya server-renders 'SYMBOL - Rs 348.72 | ...' in the page title."""
     try:
@@ -66,16 +84,9 @@ def sarmaaya_price(symbol: str):
         return None
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--month", help="Reference month YYYY-MM (default: current)")
-    args = ap.parse_args()
-
-    today = dt.date.today()
-    if args.month:
-        year, month = map(int, args.month.split("-"))
-    else:
-        year, month = today.year, today.month
+def fetch(year: int, month: int):
+    """Fetch Month-Start (current month) / Month-End (previous month) closes."""
+    prev_year, prev_mo = prev_month(year, month)
 
     results, warnings = [], []
     for sym in TICKERS:
@@ -86,26 +97,47 @@ def main():
             results.append({"ticker": sym, "error": str(e)})
             continue
 
-        d1, px1 = first_trading_close(series, year, month)
-        last_date, last_px = max(series.items())
+        start_date, start_px = first_trading_close(series, year, month)
+        end_date, end_px = last_trading_close(series, prev_year, prev_mo)
 
-        check = sarmaaya_price(sym)
+        if start_px is None:
+            warnings.append(f"{sym}: no trading data yet for {year:04d}-{month:02d} — fill manually")
+        if end_px is None:
+            warnings.append(f"{sym}: no trading data for {prev_year:04d}-{prev_mo:02d} — fill manually")
+
+        check = sarmaaya_price(sym) if start_px is not None else None
         flagged = False
-        if check and last_px and abs(check - last_px) / last_px > DIVERGENCE_THRESHOLD:
+        if check and start_px and abs(check - start_px) / start_px > DIVERGENCE_THRESHOLD:
             flagged = True
             warnings.append(
-                f"{sym}: PSX {last_px} vs Sarmaaya {check} diverge >1% — verify before sending"
+                f"{sym}: PSX {start_px} vs Sarmaaya {check} diverge >1% — verify before sending"
             )
 
         results.append({
             "ticker": sym,
-            "month_start_date": d1.isoformat() if d1 else None,
-            "month_start_close": px1,
-            "latest_date": last_date.isoformat(),
-            "latest_close": last_px,
+            "month_start_date": start_date.isoformat() if start_date else None,
+            "month_start_close": start_px,
+            "month_end_date": end_date.isoformat() if end_date else None,
+            "month_end_close": end_px,
             "sarmaaya_check": check,
             "flagged": flagged,
         })
+
+    return results, warnings
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--month", help="Reference (current) month YYYY-MM (default: current)")
+    args = ap.parse_args()
+
+    today = dt.date.today()
+    if args.month:
+        year, month = map(int, args.month.split("-"))
+    else:
+        year, month = today.year, today.month
+
+    results, warnings = fetch(year, month)
 
     out = {
         "generated": dt.datetime.now().isoformat(timespec="seconds"),

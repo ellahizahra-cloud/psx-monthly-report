@@ -15,6 +15,8 @@ import datetime as dt
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 
+from tickers import COMPANY_NAMES, SECTORS
+
 ARIAL = "Arial"
 NAVY = "1F3864"
 GREY = "595959"
@@ -23,20 +25,15 @@ AMBER_TEXT = "BF8F00"
 thin = Side(style="thin", color="BFBFBF")
 BORDER = Border(left=thin, right=thin, top=thin, bottom=thin)
 
-COMPANY_NAMES = {
-    "OGDC": "Oil & Gas Development Company Limited",
-    "MARI": "Mari Energies Limited",
-    "FATIMA": "Fatima Fertilizer Company Limited",
-    "AATM": "Ali Asghar Textile Mills Limited",
-}
-
 
 def build(prices_path: str = "prices.json") -> str:
     with open(prices_path) as f:
         data = json.load(f)
 
-    ref_month = data["reference_month"]  # e.g. "2026-07"
+    ref_month = data["reference_month"]  # e.g. "2026-08"
     ref_label = dt.datetime.strptime(ref_month, "%Y-%m").strftime("%B %Y")
+    prev_dt = dt.datetime.strptime(ref_month, "%Y-%m") - dt.timedelta(days=1)
+    prev_label = prev_dt.strftime("%B %Y")
 
     wb = Workbook()
     ws = wb.active
@@ -48,9 +45,10 @@ def build(prices_path: str = "prices.json") -> str:
     ws["A2"].font = Font(name=ARIAL, size=9, italic=True, color=GREY)
 
     headers = [
-        "Ticker", "Company",
-        f"Close, 1st Trading Day of {ref_label} (PKR)",
-        "Latest Close (PKR)", "Latest Date", "Change (%)", "Cross-check Status",
+        "Ticker", "Company", "Sector",
+        f"Month-Start Close, {ref_label} (PKR)",
+        f"Month-End Close, {prev_label} (PKR)",
+        "Change (%)", "Cross-check Status",
     ]
     for c, h in enumerate(headers, 1):
         cell = ws.cell(row=4, column=c, value=h)
@@ -64,31 +62,32 @@ def build(prices_path: str = "prices.json") -> str:
         tkr = r["ticker"]
         ws.cell(row=row, column=1, value=tkr).font = Font(name=ARIAL, size=10, bold=True)
         ws.cell(row=row, column=2, value=COMPANY_NAMES.get(tkr, tkr)).font = Font(name=ARIAL, size=10)
+        ws.cell(row=row, column=3, value=SECTORS.get(tkr, "")).font = Font(name=ARIAL, size=10)
 
         if r.get("error"):
-            for c in range(3, 8):
-                cell = ws.cell(row=row, column=c, value="FETCH FAILED — fill manually" if c == 3 else "")
+            for c in range(4, 8):
+                cell = ws.cell(row=row, column=c, value="FETCH FAILED — fill manually" if c == 4 else "")
                 cell.fill = PatternFill("solid", start_color="FFC7CE")
                 cell.border = BORDER
             row += 1
             continue
 
-        c3 = ws.cell(row=row, column=3, value=r["month_start_close"])
-        c3.number_format = "#,##0.00"
-        c3.font = Font(name=ARIAL, size=10, color="0000FF")
-        if r["month_start_close"] is None:
-            c3.value = "[TO VERIFY]"
-            c3.fill = PatternFill("solid", start_color=AMBER_FILL)
-            c3.font = Font(name=ARIAL, size=10, color=AMBER_TEXT, italic=True)
+        def price_cell(col, value):
+            cell = ws.cell(row=row, column=col, value=value)
+            cell.number_format = "#,##0.00"
+            cell.font = Font(name=ARIAL, size=10, color="0000FF")
+            if value is None:
+                cell.value = "[TO VERIFY]"
+                cell.fill = PatternFill("solid", start_color=AMBER_FILL)
+                cell.font = Font(name=ARIAL, size=10, color=AMBER_TEXT, italic=True)
+            return cell
 
-        c4 = ws.cell(row=row, column=4, value=r["latest_close"])
-        c4.number_format = "#,##0.00"
-        c4.font = Font(name=ARIAL, size=10, color="0000FF")
+        price_cell(4, r["month_start_close"])
+        price_cell(5, r["month_end_close"])
 
-        ws.cell(row=row, column=5, value=r["latest_date"]).font = Font(name=ARIAL, size=10)
-
-        c6 = ws.cell(row=row, column=6,
-                      value=f"=IF(ISNUMBER(C{row}),(D{row}-C{row})/C{row},\"n/a\")")
+        start_px, end_px = r["month_start_close"], r["month_end_close"]
+        change_pct = (start_px - end_px) / end_px if start_px is not None and end_px else None
+        c6 = ws.cell(row=row, column=6, value=change_pct if change_pct is not None else "n/a")
         c6.number_format = "0.0%"
         c6.font = Font(name=ARIAL, size=10)
 
@@ -109,7 +108,7 @@ def build(prices_path: str = "prices.json") -> str:
             row += 1
             ws.cell(row=row, column=1, value=w).font = Font(name=ARIAL, size=8.5, color="C00000")
 
-    widths = {"A": 10, "B": 38, "C": 30, "D": 18, "E": 14, "F": 12, "G": 22}
+    widths = {"A": 10, "B": 38, "C": 16, "D": 26, "E": 26, "F": 12, "G": 22}
     for col, w in widths.items():
         ws.column_dimensions[col].width = w
     ws.freeze_panes = "A5"

@@ -1,0 +1,36 @@
+name: PSX Dividend Tracker
+
+on:
+  schedule:
+    # Daily, off the top of the hour to avoid the scheduling stampede.
+    - cron: "23 9 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - name: Check for new dividend announcements
+        env:
+          GMAIL_SENDER: ${{ secrets.GMAIL_SENDER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python run_dividend_tracker.py
+
+      - name: Commit updated tracker (only if something changed)
+        run: |
+          git config user.name "psx-automation-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add tracking_log.json PSX_Dividend_Tracker.xlsx
+          git diff --cached --quiet || git commit -m "Update dividend tracker"
+          git push
