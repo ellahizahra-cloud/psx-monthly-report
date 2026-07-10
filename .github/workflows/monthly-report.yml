@@ -7,7 +7,12 @@ on:
     # fire (runner outage, etc) — run_monthly_report.py no-ops once the
     # month's report has already been sent.
     - cron: "0 8 2-5 * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Bypass the day 2-5 window and already-sent check (manual test send)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -28,6 +33,7 @@ jobs:
         env:
           GMAIL_SENDER: ${{ secrets.GMAIL_SENDER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          FORCE_SEND: ${{ inputs.force }}
         run: python run_monthly_report.py
 
       - name: Commit updated state

@@ -9,10 +9,14 @@ window are no-ops.
 
 Whole run is wrapped in try/except: on failure, send an error notice email
 instead of a broken/partial file.
+
+Set FORCE_SEND=1 to bypass the day 2-5 window and the already-sent check
+(e.g. for a manual test send) — the scheduled cron never sets this.
 """
 
 import datetime as dt
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -23,6 +27,10 @@ from send_report import send
 
 STATE_PATH = Path("monthly_report_state.json")
 CATCHUP_WINDOW = range(2, 6)  # days 2-5 inclusive
+
+
+def _forced() -> bool:
+    return os.environ.get("FORCE_SEND", "").lower() in ("1", "true", "yes")
 
 
 def load_state() -> dict:
@@ -38,13 +46,14 @@ def save_state(state: dict):
 def run():
     today = dt.date.today()
     reference_month = f"{today.year:04d}-{today.month:02d}"
+    forced = _forced()
 
-    if today.day not in CATCHUP_WINDOW:
+    if not forced and today.day not in CATCHUP_WINDOW:
         print(f"Day {today.day} is outside the catch-up window (2-5) — nothing to do.")
         return
 
     state = load_state()
-    if state.get("last_sent_month") == reference_month:
+    if not forced and state.get("last_sent_month") == reference_month:
         print(f"{reference_month} report already sent — nothing to do.")
         return
 
