@@ -1,0 +1,39 @@
+name: Monthly PSX Price Report
+
+on:
+  schedule:
+    # 08:00 UTC on days 2-5 of each month. Only day 2 is the "real"
+    # scheduled run; days 3-5 are a catch-up window in case day 2 didn't
+    # fire (runner outage, etc) — run_monthly_report.py no-ops once the
+    # month's report has already been sent.
+    - cron: "0 8 2-5 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - name: Run monthly report (with catch-up)
+        env:
+          GMAIL_SENDER: ${{ secrets.GMAIL_SENDER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python run_monthly_report.py
+
+      - name: Commit updated state
+        run: |
+          git config user.name "psx-automation-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add monthly_report_state.json
+          git diff --cached --quiet || git commit -m "Update monthly report state"
+          git push

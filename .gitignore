@@ -1,3 +1,8 @@
 .env
 prices.json
 PSX_Share_Prices_*.xlsx
+__pycache__/
+
+# NOTE: monthly_report_state.json, tracking_log.json, stock_splits.json and
+# PSX_Dividend_Tracker.xlsx are intentionally NOT ignored — both automations
+# rely on them persisting in the repo across cron runs (see README.md).
