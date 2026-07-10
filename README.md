@@ -84,16 +84,17 @@ from whatever PSX currently returns and email that as the new baseline.
 ### Cash flow reconciliation
 
 The `PSX_Dividend_Tracker.xlsx` "Cash Flow Reconciliation" sheet adds, per
-ticker: Quantity (shares held), Dividend Announced this period (current
-month), Gross Cash Dividend, Tax Amount, and Net Cash Dividend, plus a
-Total row. Quantity is sourced from `holdings.py`, which reads
+ticker: Quantity (shares held), Dividend Announced (the per-share amount
+from whichever announcement(s) triggered *this* update — not a calendar-
+month total), Gross Cash Dividend, Tax Amount, and Net Cash Dividend, plus
+a Total row. Quantity is sourced from `holdings.py`, which reads
 `Cash Dividend 1 (1).xlsx` (root of the repo) — only its Quantity column;
 DPS Received/Receivable, Book Closed Date, Credit Expected Date and X-Date
 are explicitly out of scope and never read. Tickers with no announcement
-this period show `-` (not `0`) for the dividend-derived columns; Quantity
-always populates. The withholding rate is `TAX_WITHHOLDING_RATE` in
-`dividend_workbook.py` (currently 15%) — update that one constant if the
-rate or filer status changes.
+in this update show `-` (not `0`) for the dividend-derived columns;
+Quantity always populates. The withholding rate is `TAX_WITHHOLDING_RATE`
+in `dividend_workbook.py` (currently 15%) — update that one constant if
+the rate or filer status changes.
 
 ## Ticker universe
 

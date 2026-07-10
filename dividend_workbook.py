@@ -10,10 +10,11 @@ Three sheets:
     (Date, Period, raw PSX details, per-share amount, split-adjusted
     amount).
   - "Cash Flow Reconciliation": one row per ticker — Quantity (from
-    holdings.py / Cash Dividend 1 (1).xlsx), Dividend Announced this
-    period, Gross/Tax/Net Cash Dividend, with a Total row. Tickers with no
-    announcement this period show "-" for the dividend-derived columns
-    (never 0) but Quantity always populates.
+    holdings.py / Cash Dividend 1 (1).xlsx), Dividend Announced (the
+    per-share amount from whichever announcement(s) triggered this
+    update), Gross/Tax/Net Cash Dividend, with a Total row. Tickers with
+    no announcement in this update show "-" for the dividend-derived
+    columns (never 0) but Quantity always populates.
 
 All figures are actual announced per-share cash-dividend amounts
 (PSX payout % x face value), adjusted for any stock splits recorded in
@@ -75,9 +76,15 @@ def _header_row(ws, row, headers):
         cell.border = BORDER
 
 
-def build(history: dict) -> str:
+def build(history: dict, new_entries: dict | None = None) -> str:
+    """new_entries: {ticker: [entry, ...]} — the announcements that
+    triggered this update (if any). Drives the Cash Flow Reconciliation
+    sheet's "Dividend Announced" column. When omitted (e.g. a manual
+    rebuild with no specific trigger), that column is blank for every
+    ticker."""
     splits = load_splits()
     today = dt.date.today()
+    new_entries = new_entries or {}
 
     wb = Workbook()
     summary = wb.active
@@ -120,10 +127,15 @@ def build(history: dict) -> str:
             if last_date is None or a_date > last_date:
                 last_date = a_date
 
+        triggering_amount = sum(
+            adjusted_amount(a, tkr, splits) for a in new_entries.get(tkr, [])
+        )
+
         per_ticker.append({
             "ticker": tkr,
             "quantity": quantities.get(tkr, 0),
             "dividend_this_month": this_month_total,
+            "dividend_announced": triggering_amount,
         })
 
         summary.cell(row=row, column=1, value=tkr).font = Font(name=ARIAL, size=10, bold=True)
@@ -183,9 +195,9 @@ def build(history: dict) -> str:
     reconciliation["A1"] = f"Cash Flow Reconciliation — {today.strftime('%B %Y')}"
     reconciliation["A1"].font = Font(name=ARIAL, size=14, bold=True, color=NAVY)
     reconciliation["A2"] = (
-        f"Quantity sourced from {holdings.HOLDINGS_FILE}. Dividend Announced is this "
-        "period's (current month's) actual per-share cash dividend. Tax withheld at "
-        f"{TAX_WITHHOLDING_RATE:.0%}."
+        f"Quantity sourced from {holdings.HOLDINGS_FILE}. Dividend Announced is the "
+        "actual per-share cash dividend from the announcement(s) that triggered this "
+        f"update. Tax withheld at {TAX_WITHHOLDING_RATE:.0%}."
     )
     reconciliation["A2"].font = Font(name=ARIAL, size=9, italic=True, color=GREY)
 
@@ -200,7 +212,7 @@ def build(history: dict) -> str:
     for entry in per_ticker:
         tkr = entry["ticker"]
         quantity = entry["quantity"]
-        dividend = entry["dividend_this_month"]
+        dividend = entry["dividend_announced"]
 
         reconciliation.cell(row=row, column=1, value=tkr).font = Font(name=ARIAL, size=10, bold=True)
         reconciliation.cell(row=row, column=2, value=COMPANY_NAMES.get(tkr, tkr)).font = Font(name=ARIAL, size=10)
