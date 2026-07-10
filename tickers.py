@@ -102,3 +102,20 @@ SECTORS = {row["ticker"]: row["sector"] for row in UNIVERSE}
 # per-share rupee amounts. Nearly all PSX equities have a Rs. 10 face
 # value; override here if a specific ticker differs.
 FACE_VALUE = {ticker: 10.0 for ticker in TICKERS}
+
+# Automation 2 (dividend tracker) uses a narrower universe than the price
+# report: only tickers actually held by Ellahi Capital/AATML, confirmed by
+# the user. This intentionally excludes tickers that are in the 9-sector
+# price-tracking universe but aren't held (e.g. KOHC, POL, ISL, ABOT) —
+# the dividend tracker must not report on those. Source-list aliases:
+# PANTHER -> PTL, "Aisha Steel"/"Aissha Steel" -> ASL, PACKAGE -> PKGS,
+# "HINOON LAB" -> HINOON, MAPLE -> MLCF, LUCKY/Luck -> LUCK (same
+# resolutions as tickers.py's own docstring / holdings.py's ALIASES).
+DIVIDEND_TICKERS = [
+    "UBL", "HBL", "BAHL", "BAFL", "HMB", "MCB",
+    "ALTN", "AGIL", "AICL", "FFC", "FCCL", "PTL", "ASL", "BYCO", "CPPL",
+    "FDIBL", "SRVI", "NPL", "PKGS", "AKBL", "MEBL", "HINOON", "MUREB",
+    "GGL", "MLCF", "TPL", "AGP", "BFAGRO", "DGKC", "SYS", "LUCK", "ATLH",
+    "PIOC", "SRR", "OGDC", "PPL", "NCPL",
+]
+DIVIDEND_UNIVERSE = [row for row in UNIVERSE if row["ticker"] in DIVIDEND_TICKERS]

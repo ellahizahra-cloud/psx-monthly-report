@@ -1,11 +1,13 @@
 # PSX Portfolio Automation
 
-Two independent automations over the same shared PSX ticker universe
-(`tickers.py`): the original 46-ticker/9-sector universe plus 15 more
-tickers pulled in from actual holdings (see "Ticker universe" below), 61
-in total. See `.github/workflows/` for their schedules — GitHub Actions is
-the durable cron: it runs even when nobody has a session open, and commits
-state back to the repo so history survives between runs.
+Two independent automations. They do **not** share the same ticker
+universe: Automation 1 (monthly price report) covers all 61 tickers in
+`tickers.py` (`TICKERS`); Automation 2 (dividend tracker) is scoped to
+just the 37 tickers actually held (`tickers.py` `DIVIDEND_TICKERS`) — see
+"Ticker universe" below for how each list was built. See
+`.github/workflows/` for their schedules — GitHub Actions is the durable
+cron: it runs even when nobody has a session open, and commits state back
+to the repo so history survives between runs.
 
 ## Setup
 
@@ -46,8 +48,9 @@ daily. It's a lightweight per-ticker check against PSX's own payout feed
 dps.psx.com.pk/payouts makes) — never a full-history re-scrape.
 
 - The **board-meeting/announcement date** PSX stamps on each payout row is
-  what counts as the dividend date (not book closure, ex-date, or credit
-  date).
+  used to detect *new* announcements (not book closure, ex-date, or credit
+  date) — but which *fiscal year* a dividend counts toward is decided
+  separately (see "Fiscal-period filtering" below), not by this date.
 - Only actual announced cash dividends (`(D)` flag) are counted; bonus
   shares/right issues are parsed but excluded from the rupee totals and
   noted for audit. Never TTM/annualized/"last declared x4" figures.
@@ -70,6 +73,33 @@ expose split ratios directly, so entries need to be added by hand when a
 split is announced. Every dividend amount is divided by the cumulative
 ratio of all splits *after* its announcement date, so historical figures
 stay on a current-share-count basis. Defaults to `{}` (no adjustments).
+
+### Fiscal-period filtering
+
+A dividend counts toward the current year's tracker based on the **fiscal
+period it was declared for** (e.g. "for the quarter ended March 31,
+2026"), never the date PSX happened to announce it. A "final dividend for
+the year ended December 31, 2025" is excluded even if announced in
+Feb/March 2026 — it belongs to FY2025.
+
+`dividend_period.py` determines this by: matching the announcement's date
+against the ticker's PSX company page ("Financial Results" / "Board
+Meetings" / "Others" announcement tabs) to find the linked PDF, downloading
+it, extracting text with PyPDF2, and regex-searching for `<quarter|half
+year|year|nine months|twelve months> ended <date>` (handles common wording
+variants, case-insensitive). The parsed period end-date's year is compared
+to the current year to classify the entry as `included` or `excluded`.
+
+If the PDF has no extractable text (a scanned image — common for some PSX
+filings), no matching announcement PDF can be found, or the period phrase
+can't be parsed, the entry is marked `needs_review` — **never guessed**.
+`included`/`excluded`/`needs_review` entries are all recorded in
+`tracking_log.json` and shown in the workbook's Audit Log column (so
+exclusions are auditable), but only `included` entries count toward
+Dividend This Month / Dividend YTD / Dividend Announced (and therefore
+Gross/Tax/Net). Entries from before this feature shipped (no
+`period_classification` recorded) fall back to counting, so existing
+totals aren't retroactively changed.
 
 ### First run
 
@@ -101,19 +131,22 @@ changes.
 
 ## Ticker universe
 
-`tickers.py` is the single shared list both automations import from.
+`tickers.py`'s `UNIVERSE`/`TICKERS` (61 tickers) is the price report's
+full universe: the original 9-sector list plus 15 more added because
+they're real holdings in `Cash Dividend 1 (1).xlsx` (AICL, PTL, BYCO,
+CPPL, FDIBL, SRVI, PKGS, AKBL, MUREB, GGL, TPL, BFAGRO, ATLH, PIOC, SRR).
 Symbols were verified live against `dps.psx.com.pk/company/<symbol>`; a
 few source names needed resolving to their real PSX ticker (see the
 module docstring for the mapping, including `ENGRO` -> `ENGROH` following
-Engro's 2025 corporate restructuring).
+Engro's 2025 corporate restructuring, `PANTHER` -> `PTL`, `PACKAGE` ->
+`PKGS`). Note `BYCO` and `FDIBL` have thin/stale PSX trading data (BYCO's
+feed stops in Dec 2021) — expect the monthly report to flag them under
+"fill manually" most months; that's PSX's data, not a bug.
 
-15 tickers (AICL, PTL, BYCO, CPPL, FDIBL, SRVI, PKGS, AKBL, MUREB, GGL,
-TPL, BFAGRO, ATLH, PIOC, SRR) were added beyond the original 9 sectors
-because they're real holdings in `Cash Dividend 1 (1).xlsx` — without them
-the dividend tracker would silently never catch dividends on those
-positions. Two of that file's labels needed resolving to their real
-ticker (`PANTHER` -> `PTL`, `PACKAGE` -> `PKGS`); see `holdings.py`'s
-`ALIASES` for the full crosswalk. Note `BYCO` and `FDIBL` have thin/stale
-PSX trading data (BYCO's feed stops in Dec 2021) — expect the monthly
-report to flag them under "fill manually" most months; that's PSX's data,
-not a bug.
+`DIVIDEND_TICKERS` (37 tickers) is the **dividend tracker's own,
+narrower** universe — confirmed by the user as exactly what's held by
+Ellahi Capital/AATML. It intentionally excludes tickers that are in the
+price-tracking universe but not held (e.g. KOHC, POL, ISL, ABOT) — the
+dividend tracker must never report on those, per spec. `TPL` and `BFAGRO`
+are included but expected to show blank/0 (TPL doesn't currently pay
+dividends; BFAGRO hasn't paid any since its March 2025 listing).

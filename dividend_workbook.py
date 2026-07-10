@@ -2,17 +2,27 @@
 dividend_workbook.py — Build/rewrite the persistent PSX_Dividend_Tracker.xlsx
 from the tracking log (the single source of truth for announcement history).
 
-Single sheet, one row per ticker:
+Single sheet, one row per ticker (DIVIDEND_TICKERS — the holdings-only
+universe, narrower than the price report's; see tickers.py):
   Ticker, Company, Sector, Quantity (from holdings.py / Cash Dividend 1
   (1).xlsx), Dividend This Month, Dividend YTD (resets every January since
   it's computed from the current calendar year's announcements), Dividend
   Announced (the per-share amount from whichever announcement(s) triggered
   *this* update — not a calendar-month total), Gross/Tax/Net Cash
   Dividend, Last Announcement Date, and an Audit Log column (every
-  Date: Amount on record for that ticker, for auditability). Tickers with
-  no announcement in this update show "-" for the dividend-derived
-  columns (never 0) but Quantity always populates. A Total row sums
-  Quantity, Gross, Tax and Net across all tickers.
+  Date: Amount [Period] on record for that ticker, for auditability).
+  Tickers with no announcement in this update show "-" for the
+  dividend-derived columns (never 0) but Quantity always populates. A
+  Total row sums Quantity, Gross, Tax and Net across all tickers.
+
+Dividend This Month / YTD / Dividend Announced only include announcements
+whose underlying fiscal period (per dividend_period.classify) falls in the
+current year — a prior-year final dividend announced this year is logged
+in the Audit Log column (so it's still auditable) but excluded from the
+sums, and anything needs_review is likewise logged but not summed.
+Entries pre-dating this feature (no "period_classification" recorded)
+fall back to being counted, to avoid retroactively changing historical
+totals.
 
 All figures are actual announced per-share cash-dividend amounts
 (PSX payout % x face value), adjusted for any stock splits recorded in
@@ -28,7 +38,7 @@ from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 
 import holdings
-from tickers import UNIVERSE, COMPANY_NAMES, SECTORS
+from tickers import DIVIDEND_UNIVERSE, COMPANY_NAMES, SECTORS
 
 ARIAL = "Arial"
 NAVY = "1F3864"
@@ -63,6 +73,22 @@ def split_adjustment_factor(ticker: str, date_iso: str, splits: dict) -> float:
 def adjusted_amount(entry: dict, ticker: str, splits: dict) -> float:
     factor = split_adjustment_factor(ticker, entry["date_iso"], splits)
     return round(entry["amount_per_share"] / factor, 4)
+
+
+def _counts_toward_totals(entry: dict) -> bool:
+    """Only announcements for the current fiscal year count toward
+    Dividend This Month/YTD/Dividend Announced. Entries pre-dating the
+    period-classification feature (no key at all) are counted as before,
+    so existing totals aren't retroactively changed."""
+    if "period_classification" not in entry:
+        return True
+    pc = entry["period_classification"]
+    return pc is None or pc["status"] == "included"
+
+
+def _audit_label(entry: dict) -> str:
+    pc = entry.get("period_classification")
+    return f" [{pc['period_label']}]" if pc else ""
 
 
 def _header_row(ws, row, headers):
@@ -115,7 +141,7 @@ def build(history: dict, new_entries: dict | None = None) -> str:
 
     row = 5
     totals = {"quantity": 0, "gross": 0.0, "tax": 0.0, "net": 0.0}
-    for entry in UNIVERSE:
+    for entry in DIVIDEND_UNIVERSE:
         tkr = entry["ticker"]
         announcements = sorted(history.get(tkr, []), key=lambda a: a["date_iso"], reverse=True)
 
@@ -126,8 +152,8 @@ def build(history: dict, new_entries: dict | None = None) -> str:
         for a in announcements:
             a_date = dt.date.fromisoformat(a["date_iso"])
             amt = adjusted_amount(a, tkr, splits)
-            audit_parts.append(f"{a['date_iso']}: Rs {amt}")
-            if a_date.year == today.year:
+            audit_parts.append(f"{a['date_iso']}: Rs {amt}{_audit_label(a)}")
+            if a_date.year == today.year and _counts_toward_totals(a):
                 ytd_total += amt
                 if a_date.month == today.month:
                     this_month_total += amt
@@ -135,7 +161,11 @@ def build(history: dict, new_entries: dict | None = None) -> str:
                 last_date = a_date
 
         quantity = quantities.get(tkr, 0)
-        dividend = sum(adjusted_amount(a, tkr, splits) for a in new_entries.get(tkr, []))
+        dividend = sum(
+            adjusted_amount(a, tkr, splits)
+            for a in new_entries.get(tkr, [])
+            if _counts_toward_totals(a)
+        )
 
         ws.cell(row=row, column=1, value=tkr).font = Font(name=ARIAL, size=10, bold=True)
         ws.cell(row=row, column=2, value=COMPANY_NAMES.get(tkr, tkr)).font = Font(name=ARIAL, size=10)
