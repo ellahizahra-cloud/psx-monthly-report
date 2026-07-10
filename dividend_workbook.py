@@ -2,13 +2,18 @@
 dividend_workbook.py — Build/rewrite the persistent PSX_Dividend_Tracker.xlsx
 from the tracking log (the single source of truth for announcement history).
 
-Two sheets:
+Three sheets:
   - "Summary": one row per ticker — Dividend This Month, Dividend YTD
     (resets every January since it's computed from the current calendar
     year's announcements), Last Announcement.
   - "Audit Log": one row per announcement ever recorded, for traceability
     (Date, Period, raw PSX details, per-share amount, split-adjusted
     amount).
+  - "Cash Flow Reconciliation": one row per ticker — Quantity (from
+    holdings.py / Cash Dividend 1 (1).xlsx), Dividend Announced this
+    period, Gross/Tax/Net Cash Dividend, with a Total row. Tickers with no
+    announcement this period show "-" for the dividend-derived columns
+    (never 0) but Quantity always populates.
 
 All figures are actual announced per-share cash-dividend amounts
 (PSX payout % x face value), adjusted for any stock splits recorded in
@@ -23,6 +28,7 @@ from pathlib import Path
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 
+import holdings
 from tickers import UNIVERSE, COMPANY_NAMES, SECTORS
 
 ARIAL = "Arial"
@@ -33,6 +39,11 @@ BORDER = Border(left=thin, right=thin, top=thin, bottom=thin)
 
 SPLITS_PATH = Path("stock_splits.json")
 WORKBOOK_PATH = "PSX_Dividend_Tracker.xlsx"
+
+# Withholding tax rate applied to gross cash dividends, per the cash-flow
+# reconciliation addendum. Named constant so it can be updated if the rate
+# or filer status changes without hunting through the formula.
+TAX_WITHHOLDING_RATE = 0.15
 
 
 def load_splits() -> dict:
@@ -88,6 +99,9 @@ def build(history: dict) -> str:
     ]
     _header_row(summary, 4, headers)
 
+    quantities = holdings.load_quantities()
+    per_ticker = []  # collected for the Cash Flow Reconciliation sheet
+
     row = 5
     for entry in UNIVERSE:
         tkr = entry["ticker"]
@@ -105,6 +119,12 @@ def build(history: dict) -> str:
                     this_month_total += amt
             if last_date is None or a_date > last_date:
                 last_date = a_date
+
+        per_ticker.append({
+            "ticker": tkr,
+            "quantity": quantities.get(tkr, 0),
+            "dividend_this_month": this_month_total,
+        })
 
         summary.cell(row=row, column=1, value=tkr).font = Font(name=ARIAL, size=10, bold=True)
         summary.cell(row=row, column=2, value=COMPANY_NAMES.get(tkr, tkr)).font = Font(name=ARIAL, size=10)
@@ -158,6 +178,75 @@ def build(history: dict) -> str:
     for col, w in widths2.items():
         audit.column_dimensions[col].width = w
     audit.freeze_panes = "A2"
+
+    reconciliation = wb.create_sheet("Cash Flow Reconciliation")
+    reconciliation["A1"] = f"Cash Flow Reconciliation — {today.strftime('%B %Y')}"
+    reconciliation["A1"].font = Font(name=ARIAL, size=14, bold=True, color=NAVY)
+    reconciliation["A2"] = (
+        f"Quantity sourced from {holdings.HOLDINGS_FILE}. Dividend Announced is this "
+        "period's (current month's) actual per-share cash dividend. Tax withheld at "
+        f"{TAX_WITHHOLDING_RATE:.0%}."
+    )
+    reconciliation["A2"].font = Font(name=ARIAL, size=9, italic=True, color=GREY)
+
+    _header_row(reconciliation, 4, [
+        "Ticker", "Company", "Quantity", "Dividend Announced (PKR/share)",
+        "Gross Cash Dividend (PKR)", f"Tax Amount ({TAX_WITHHOLDING_RATE:.0%}) (PKR)",
+        "Net Cash Dividend (PKR)",
+    ])
+
+    row = 5
+    totals = {"quantity": 0, "gross": 0.0, "tax": 0.0, "net": 0.0}
+    for entry in per_ticker:
+        tkr = entry["ticker"]
+        quantity = entry["quantity"]
+        dividend = entry["dividend_this_month"]
+
+        reconciliation.cell(row=row, column=1, value=tkr).font = Font(name=ARIAL, size=10, bold=True)
+        reconciliation.cell(row=row, column=2, value=COMPANY_NAMES.get(tkr, tkr)).font = Font(name=ARIAL, size=10)
+
+        cq = reconciliation.cell(row=row, column=3, value=quantity)
+        cq.number_format = "#,##0"
+        cq.font = Font(name=ARIAL, size=10)
+        totals["quantity"] += quantity
+
+        if dividend:
+            gross = quantity * dividend
+            tax = gross * TAX_WITHHOLDING_RATE
+            net = gross - tax
+            totals["gross"] += gross
+            totals["tax"] += tax
+            totals["net"] += net
+            values = [dividend, gross, tax, net]
+        else:
+            values = ["-", "-", "-", "-"]
+
+        for offset, value in enumerate(values, start=4):
+            cell = reconciliation.cell(row=row, column=offset, value=value)
+            cell.font = Font(name=ARIAL, size=10)
+            if isinstance(value, (int, float)):
+                cell.number_format = "#,##0.00"
+
+        for c in range(1, 8):
+            reconciliation.cell(row=row, column=c).border = BORDER
+        row += 1
+
+    reconciliation.cell(row=row, column=1, value="Total").font = Font(name=ARIAL, size=10, bold=True)
+    total_values = [None, totals["quantity"], None, totals["gross"], totals["tax"], totals["net"]]
+    for offset, value in enumerate(total_values, start=2):
+        if value is None:
+            continue
+        cell = reconciliation.cell(row=row, column=offset, value=value)
+        cell.font = Font(name=ARIAL, size=10, bold=True)
+        cell.number_format = "#,##0" if offset == 3 else "#,##0.00"
+    for c in range(1, 8):
+        reconciliation.cell(row=row, column=c).border = BORDER
+        reconciliation.cell(row=row, column=c).fill = PatternFill("solid", start_color="F2F2F2")
+
+    widths3 = {"A": 10, "B": 32, "C": 14, "D": 22, "E": 20, "F": 18, "G": 20}
+    for col, w in widths3.items():
+        reconciliation.column_dimensions[col].width = w
+    reconciliation.freeze_panes = "A5"
 
     wb.save(WORKBOOK_PATH)
     return WORKBOOK_PATH
