@@ -52,11 +52,11 @@ dps.psx.com.pk/payouts makes) — never a full-history re-scrape.
   shares/right issues are parsed but excluded from the rupee totals and
   noted for audit. Never TTM/annualized/"last declared x4" figures.
 - `tracking_log.json` is the source of truth for every announcement ever
-  seen (by ticker); `PSX_Dividend_Tracker.xlsx` (Summary + Audit Log
-  sheets) is fully regenerated from it on every update, so "Dividend This
-  Month" / "Dividend YTD" are always internally consistent (YTD naturally
-  resets each January since it's computed from the current calendar
-  year's log entries).
+  seen (by ticker); `PSX_Dividend_Tracker.xlsx` (single "Dividend Tracker"
+  sheet, one row per ticker) is fully regenerated from it on every update,
+  so "Dividend This Month" / "Dividend YTD" are always internally
+  consistent (YTD naturally resets each January since it's computed from
+  the current calendar year's log entries).
 - No new announcements -> no email, no file change, nothing committed.
 - New announcement(s) -> tracker updated, one email sent listing exactly
   which ticker(s) triggered it and what was announced, `tracking_log.json`
@@ -83,18 +83,21 @@ from whatever PSX currently returns and email that as the new baseline.
 
 ### Cash flow reconciliation
 
-The `PSX_Dividend_Tracker.xlsx` "Cash Flow Reconciliation" sheet adds, per
-ticker: Quantity (shares held), Dividend Announced (the per-share amount
-from whichever announcement(s) triggered *this* update — not a calendar-
-month total), Gross Cash Dividend, Tax Amount, and Net Cash Dividend, plus
-a Total row. Quantity is sourced from `holdings.py`, which reads
-`Cash Dividend 1 (1).xlsx` (root of the repo) — only its Quantity column;
-DPS Received/Receivable, Book Closed Date, Credit Expected Date and X-Date
-are explicitly out of scope and never read. Tickers with no announcement
-in this update show `-` (not `0`) for the dividend-derived columns;
-Quantity always populates. The withholding rate is `TAX_WITHHOLDING_RATE`
-in `dividend_workbook.py` (currently 15%) — update that one constant if
-the rate or filer status changes.
+`PSX_Dividend_Tracker.xlsx` is a single sheet ("Dividend Tracker"), one
+row per ticker: Ticker, Company, Sector, Quantity, Dividend This Month,
+Dividend YTD, Dividend Announced (the per-share amount from whichever
+announcement(s) triggered *this* update — not a calendar-month total),
+Gross/Tax/Net Cash Dividend, Last Announcement Date, and an Audit Log
+column (every `Date: Amount/share` on record for that ticker). A Total
+row sums Quantity, Gross, Tax and Net across all tickers. Quantity is
+sourced from `holdings.py`, which reads `Cash Dividend 1 (1).xlsx` (root
+of the repo) — only its Quantity column; DPS Received/Receivable, Book
+Closed Date, Credit Expected Date and X-Date are explicitly out of scope
+and never read. Tickers with no announcement in this update show `-` (not
+`0`) for the dividend-derived columns; Quantity always populates. The
+withholding rate is `TAX_WITHHOLDING_RATE` in `dividend_workbook.py`
+(currently 15%) — update that one constant if the rate or filer status
+changes.
 
 ## Ticker universe
 
