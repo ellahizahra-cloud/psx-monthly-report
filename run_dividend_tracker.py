@@ -85,7 +85,7 @@ def run():
         print("No new dividend announcements — nothing to do.")
         return
 
-    xlsx_path = build(history, new_entries=new_by_ticker)
+    xlsx_path = build(history)
 
     lines = []
     for ticker, entries in new_by_ticker.items():

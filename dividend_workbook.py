@@ -6,23 +6,23 @@ Single sheet, one row per ticker (DIVIDEND_TICKERS — the holdings-only
 universe, narrower than the price report's; see tickers.py):
   Ticker, Company, Sector, Quantity (from holdings.py / Cash Dividend 1
   (1).xlsx), Dividend This Month, Dividend YTD (resets every January since
-  it's computed from the current calendar year's announcements), Dividend
-  Announced (the per-share amount from whichever announcement(s) triggered
-  *this* update — not a calendar-month total), Gross/Tax/Net Cash
-  Dividend, Last Announcement Date, and an Audit Log column (every
-  Date: Amount [Period] on record for that ticker, for auditability).
-  Tickers with no announcement in this update show "-" for the
+  it's computed from the current calendar year's announcements),
+  Gross/Tax/Net Cash Dividend (Quantity x Dividend YTD, so these are
+  always populated — not tied to whichever announcement happened to
+  trigger the current run), Last Announcement Date, and an Audit Log
+  column (every Date: Amount [Period] on record for that ticker, for
+  auditability). Tickers with no 2026 dividend at all show "-" for the
   dividend-derived columns (never 0) but Quantity always populates. A
   Total row sums Quantity, Gross, Tax and Net across all tickers.
 
-Dividend This Month / YTD / Dividend Announced only include announcements
-whose underlying fiscal period (per dividend_period.classify) falls in the
-current year — a prior-year final dividend announced this year is logged
-in the Audit Log column (so it's still auditable) but excluded from the
-sums, and anything needs_review is likewise logged but not summed.
-Entries pre-dating this feature (no "period_classification" recorded)
-fall back to being counted, to avoid retroactively changing historical
-totals.
+Dividend This Month / YTD (and therefore Gross/Tax/Net) only include
+announcements whose underlying fiscal period (per dividend_period.classify)
+falls in the current year — a prior-year final dividend announced this
+year is logged in the Audit Log column (so it's still auditable) but
+excluded from the sums, and anything needs_review is likewise logged but
+not summed. Entries pre-dating this feature (no "period_classification"
+recorded) fall back to being counted, to avoid retroactively changing
+historical totals.
 
 All figures are actual announced per-share cash-dividend amounts
 (PSX payout % x face value), adjusted for any stock splits recorded in
@@ -100,14 +100,14 @@ def _header_row(ws, row, headers):
         cell.border = BORDER
 
 
-def build(history: dict, new_entries: dict | None = None) -> str:
-    """new_entries: {ticker: [entry, ...]} — the announcements that
-    triggered this update (if any). Drives the "Dividend Announced" column.
-    When omitted (e.g. a manual rebuild with no specific trigger), that
-    column is blank for every ticker."""
+def build(history: dict) -> str:
+    """Gross/Tax/Net are always computed from Dividend YTD so the file is
+    meaningful whether it was just rebuilt from a live trigger or opened
+    cold days later (rather than tied to whichever announcement happened
+    to trigger the current run — see run_dividend_tracker.py for how new
+    announcements are still listed in the notification email)."""
     splits = load_splits()
     today = dt.date.today()
-    new_entries = new_entries or {}
 
     wb = Workbook()
     ws = wb.active
@@ -118,9 +118,8 @@ def build(history: dict, new_entries: dict | None = None) -> str:
     ws["A2"] = (
         f"Last updated {dt.datetime.now().isoformat(timespec='seconds')}. Source: PSX "
         "company payout announcements (board-meeting/announcement date). Quantity "
-        f"sourced from {holdings.HOLDINGS_FILE}. Dividend Announced is the actual "
-        "per-share cash dividend from the announcement(s) that triggered this update. "
-        f"Tax withheld at {TAX_WITHHOLDING_RATE:.0%}."
+        f"sourced from {holdings.HOLDINGS_FILE}. Gross/Tax/Net Cash Dividend are "
+        f"Quantity x Dividend YTD {today.year}. Tax withheld at {TAX_WITHHOLDING_RATE:.0%}."
     )
     ws["A2"].font = Font(name=ARIAL, size=9, italic=True, color=GREY)
 
@@ -128,7 +127,6 @@ def build(history: dict, new_entries: dict | None = None) -> str:
         "Ticker", "Company", "Sector", "Quantity",
         "Dividend This Month (PKR/share)",
         f"Dividend YTD {today.year} (PKR/share)",
-        "Dividend Announced (PKR/share)",
         "Gross Cash Dividend (PKR)",
         f"Tax Amount ({TAX_WITHHOLDING_RATE:.0%}) (PKR)",
         "Net Cash Dividend (PKR)",
@@ -161,11 +159,6 @@ def build(history: dict, new_entries: dict | None = None) -> str:
                 last_date = a_date
 
         quantity = quantities.get(tkr, 0)
-        dividend = sum(
-            adjusted_amount(a, tkr, splits)
-            for a in new_entries.get(tkr, [])
-            if _counts_toward_totals(a)
-        )
 
         ws.cell(row=row, column=1, value=tkr).font = Font(name=ARIAL, size=10, bold=True)
         ws.cell(row=row, column=2, value=COMPANY_NAMES.get(tkr, tkr)).font = Font(name=ARIAL, size=10)
@@ -184,16 +177,16 @@ def build(history: dict, new_entries: dict | None = None) -> str:
         c6.number_format = "#,##0.00"
         c6.font = Font(name=ARIAL, size=10)
 
-        if dividend:
-            gross = quantity * dividend
+        if ytd_total:
+            gross = quantity * ytd_total
             tax = gross * TAX_WITHHOLDING_RATE
             net = gross - tax
             totals["gross"] += gross
             totals["tax"] += tax
             totals["net"] += net
-            values = [dividend, gross, tax, net]
+            values = [gross, tax, net]
         else:
-            values = ["-", "-", "-", "-"]
+            values = ["-", "-", "-"]
 
         for offset, value in enumerate(values, start=7):
             cell = ws.cell(row=row, column=offset, value=value)
@@ -201,26 +194,26 @@ def build(history: dict, new_entries: dict | None = None) -> str:
             if isinstance(value, (int, float)):
                 cell.number_format = "#,##0.00"
 
-        ws.cell(row=row, column=11, value=last_date.isoformat() if last_date else "").font = Font(name=ARIAL, size=10)
-        ws.cell(row=row, column=12, value="; ".join(audit_parts)).font = Font(name=ARIAL, size=8.5, color=GREY)
+        ws.cell(row=row, column=10, value=last_date.isoformat() if last_date else "").font = Font(name=ARIAL, size=10)
+        ws.cell(row=row, column=11, value="; ".join(audit_parts)).font = Font(name=ARIAL, size=8.5, color=GREY)
 
-        for c in range(1, 13):
+        for c in range(1, 12):
             ws.cell(row=row, column=c).border = BORDER
         row += 1
 
     ws.cell(row=row, column=1, value="Total").font = Font(name=ARIAL, size=10, bold=True)
-    total_values = {4: totals["quantity"], 8: totals["gross"], 9: totals["tax"], 10: totals["net"]}
+    total_values = {4: totals["quantity"], 7: totals["gross"], 8: totals["tax"], 9: totals["net"]}
     for offset, value in total_values.items():
         cell = ws.cell(row=row, column=offset, value=value)
         cell.font = Font(name=ARIAL, size=10, bold=True)
         cell.number_format = "#,##0" if offset == 4 else "#,##0.00"
-    for c in range(1, 13):
+    for c in range(1, 12):
         ws.cell(row=row, column=c).border = BORDER
         ws.cell(row=row, column=c).fill = PatternFill("solid", start_color="F2F2F2")
 
     widths = {
         "A": 10, "B": 34, "C": 16, "D": 12, "E": 20, "F": 20,
-        "G": 20, "H": 18, "I": 16, "J": 18, "K": 18, "L": 60,
+        "G": 20, "H": 16, "I": 18, "J": 18, "K": 60,
     }
     for col, w in widths.items():
         ws.column_dimensions[col].width = w
