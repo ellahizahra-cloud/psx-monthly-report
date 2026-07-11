@@ -91,12 +91,15 @@ variants, case-insensitive). The parsed period end-date's year is compared
 to the current year to classify the entry as `included` or `excluded`.
 
 If the PDF has no extractable text (a scanned image — common for some PSX
-filings), no matching announcement PDF can be found, or the period phrase
-can't be parsed, the entry is marked `needs_review` — **never guessed**.
-`included`/`excluded`/`needs_review` entries are all recorded in
-`tracking_log.json` and shown in the workbook's Audit Log column (so
-exclusions are auditable), but only `included` entries count toward
-Dividend This Month / Dividend YTD / Dividend Announced (and therefore
+filings) or the period phrase can't be parsed, `dividend_period.classify()`
+falls back to PSX's own payout-table period code (e.g. `31/03/2026(IIIQ)`
+— a structured date+code PSX already publishes on the payouts page, no PDF
+needed) rather than leaving it unclassified. Only if *that* is also
+missing/unparseable (e.g. `-`) does the entry get marked `needs_review` —
+**never guessed**. `included`/`excluded`/`needs_review` entries are all
+recorded in `tracking_log.json` and shown in the workbook's Audit Log
+column (so exclusions are auditable), but only `included` entries count
+toward Dividend This Month / Dividend YTD / Dividend Announced (and therefore
 Gross/Tax/Net). Entries from before this feature shipped (no
 `period_classification` recorded) fall back to counting, so existing
 totals aren't retroactively changed.

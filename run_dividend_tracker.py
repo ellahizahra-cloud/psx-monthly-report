@@ -66,7 +66,9 @@ def run():
         new_entries = [a for a in announcements if a["date"] not in known_dates]
         for a in new_entries:
             if a["cash_dividend_pct"] > 0:
-                a["period_classification"] = dividend_period.classify(ticker, a["date_iso"])
+                a["period_classification"] = dividend_period.classify(
+                    ticker, a["date_iso"], payout_period=a["period"]
+                )
             else:
                 a["period_classification"] = None  # non-cash payout, not subject to the filter
 

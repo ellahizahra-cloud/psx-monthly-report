@@ -133,10 +133,53 @@ def _period_label(period_type: str, end_date: dt.date, included: bool) -> str:
     return label if included else f"{label} (excluded — not {dt.date.today().year})"
 
 
-def classify(ticker: str, date_iso: str, current_year: int | None = None) -> dict:
+# PSX's own "Financial Results" column on the payouts page already states
+# the period end-date in a structured "DD/MM/YYYY(CODE)" form (e.g.
+# "31/03/2026(IIIQ)", "31/12/2025(YR)") — this is the fallback when the
+# PDF can't be classified (mostly: it's a scanned image). CODE ~ YR/FYR =
+# annual, HYR = half year, everything else = quarter (the quarter number
+# is derived from the end-date's calendar month, same as the PDF path, not
+# from the company's own internal fiscal-quarter numbering).
+PAYOUT_PERIOD_RE = re.compile(r"(\d{2})/(\d{2})/(\d{4})\(([A-Za-z]+)\)")
+
+
+def classify_from_payout_period(period_str: str, current_year: int | None = None):
+    """Fallback classification using PSX's own payout-table period code.
+    Returns a classify()-shaped dict, or None if period_str isn't in the
+    expected 'DD/MM/YYYY(CODE)' form (e.g. '-')."""
+    current_year = current_year or dt.date.today().year
+    match = PAYOUT_PERIOD_RE.match((period_str or "").strip())
+    if not match:
+        return None
+
+    day, month, year, code = match.groups()
+    try:
+        period_end_date = dt.date(int(year), int(month), int(day))
+    except ValueError:
+        return None
+
+    code_upper = code.upper()
+    if "HYR" in code_upper:
+        period_type = "half year"
+    elif "YR" in code_upper or "F" == code_upper:
+        period_type = "year"
+    else:
+        period_type = "quarter"
+
+    included = period_end_date.year == current_year
+    return {
+        "status": "included" if included else "excluded",
+        "period_label": _period_label(period_type, period_end_date, included),
+        "period_end_date": period_end_date.isoformat(),
+        "pdf_url": None,
+        "reason": None,
+        "source": "payout_table",
+    }
+
+
+def _classify_from_pdf(ticker: str, date_iso: str, current_year: int) -> dict:
     """Returns {status, period_label, period_end_date, pdf_url, reason}.
     status is one of: included, excluded, needs_review."""
-    current_year = current_year or dt.date.today().year
     company_url = COMPANY_PAGE_URL.format(symbol=ticker)
 
     pdf_url = find_pdf_url(ticker, date_iso)
@@ -197,3 +240,24 @@ def classify(ticker: str, date_iso: str, current_year: int | None = None) -> dic
         "pdf_url": pdf_url,
         "reason": None,
     }
+
+
+def classify(ticker: str, date_iso: str, payout_period: str | None = None,
+             current_year: int | None = None) -> dict:
+    """Classify a dividend by fiscal period. Tries the linked PSX
+    announcement PDF first (most authoritative); if that can't be
+    classified (typically a scanned PDF with no text layer), falls back to
+    PSX's own payout-table period code so entries get populated rather than
+    left needs_review. Only truly returns needs_review if both fail (e.g.
+    the payout table itself has no period code, "-")."""
+    current_year = current_year or dt.date.today().year
+    result = _classify_from_pdf(ticker, date_iso, current_year)
+    result.setdefault("source", "pdf")
+
+    if result["status"] == "needs_review":
+        fallback = classify_from_payout_period(payout_period, current_year)
+        if fallback:
+            fallback["reason"] = f"PDF unclassifiable ({result['reason']}); used PSX payout-table period code instead"
+            return fallback
+
+    return result

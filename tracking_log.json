@@ -50,11 +50,12 @@
       "amount_per_share": 9.0,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: scanned PDF, no extractable text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/275004.pdf",
-        "reason": "PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review"
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     }
   ],
@@ -109,11 +110,12 @@
       "amount_per_share": 6.0,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: scanned PDF, no extractable text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/274357.pdf",
-        "reason": "PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review"
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     },
     {
@@ -126,11 +128,12 @@
       "amount_per_share": 6.0,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: scanned PDF, no extractable text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/270444.pdf",
-        "reason": "PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review"
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     }
   ],
@@ -185,11 +188,12 @@
       "amount_per_share": 3.0,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: scanned PDF, no extractable text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/274996.pdf",
-        "reason": "PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review"
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     },
     {
@@ -202,11 +206,12 @@
       "amount_per_share": 3.0,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: no matching announcement PDF found",
-        "period_end_date": null,
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
         "pdf_url": null,
-        "reason": "no announcement row matched this date in the recent announcements list"
+        "reason": "PDF unclassifiable (no announcement row matched this date in the recent announcements list); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     }
   ],
@@ -261,11 +266,12 @@
       "amount_per_share": 3.5,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: scanned PDF, no extractable text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/275019.pdf",
-        "reason": "PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review"
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     },
     {
@@ -278,11 +284,12 @@
       "amount_per_share": 4.5,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: scanned PDF, no extractable text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/270041.pdf",
-        "reason": "PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review"
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     }
   ],
@@ -337,11 +344,12 @@
       "amount_per_share": 7.5,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: scanned PDF, no extractable text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/275000.pdf",
-        "reason": "PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review"
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     },
     {
@@ -354,11 +362,12 @@
       "amount_per_share": 7.0,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: no matching announcement PDF found",
-        "period_end_date": null,
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
         "pdf_url": null,
-        "reason": "no announcement row matched this date in the recent announcements list"
+        "reason": "PDF unclassifiable (no announcement row matched this date in the recent announcements list); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     }
   ],
@@ -413,11 +422,12 @@
       "amount_per_share": 5.0,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: could not parse period from PDF text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/275081.pdf",
-        "reason": "no '<period> ended <date>' phrase found in the extracted text"
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (no '<period> ended <date>' phrase found in the extracted text); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     },
     {
@@ -483,11 +493,12 @@
       "amount_per_share": 16.0,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: unparseable period date ('Doctmbor 31,2025')",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/274158.pdf",
-        "reason": "matched phrase but couldn't parse the date: 'nine months ended \\nDoctmbor 31,2025'"
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (matched phrase but couldn't parse the date: 'nine months ended \\nDoctmbor 31,2025'); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     },
     {
@@ -500,11 +511,12 @@
       "amount_per_share": 16.0,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: scanned PDF, no extractable text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/271010.pdf",
-        "reason": "PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review"
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     }
   ],
@@ -721,11 +733,12 @@
       "amount_per_share": 8.5,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: could not parse period from PDF text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/275721.pdf",
-        "reason": "no '<period> ended <date>' phrase found in the extracted text"
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (no '<period> ended <date>' phrase found in the extracted text); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     },
     {
@@ -738,11 +751,12 @@
       "amount_per_share": 8.5,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: scanned PDF, no extractable text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/269389.pdf",
-        "reason": "PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review"
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     }
   ],
@@ -863,11 +877,12 @@
       "amount_per_share": 2.0,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: could not parse period from PDF text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/275641.pdf",
-        "reason": "no '<period> ended <date>' phrase found in the extracted text"
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (no '<period> ended <date>' phrase found in the extracted text); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     },
     {
@@ -1007,11 +1022,12 @@
       "amount_per_share": 1.5,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: scanned PDF, no extractable text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/275539.pdf",
-        "reason": "PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review"
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     }
   ],
@@ -1046,11 +1062,12 @@
       "amount_per_share": 1.5,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: scanned PDF, no extractable text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/275536.pdf",
-        "reason": "PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review"
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     }
   ],
@@ -1333,11 +1350,12 @@
       "amount_per_share": 50.0,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: scanned PDF, no extractable text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/attachment/273738-1.pdf",
-        "reason": "PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review"
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     }
   ],
@@ -1384,11 +1402,12 @@
       "amount_per_share": 6.0,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: scanned PDF, no extractable text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/272846.pdf",
-        "reason": "PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review"
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     }
   ],
@@ -1413,11 +1432,12 @@
       "amount_per_share": 10.0,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: no matching announcement PDF found",
-        "period_end_date": null,
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
         "pdf_url": null,
-        "reason": "no announcement row matched this date in the recent announcements list"
+        "reason": "PDF unclassifiable (no announcement row matched this date in the recent announcements list); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     }
   ],
@@ -1452,11 +1472,12 @@
       "amount_per_share": 2.0,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: could not parse period from PDF text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/270483.pdf",
-        "reason": "no '<period> ended <date>' phrase found in the extracted text"
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (no '<period> ended <date>' phrase found in the extracted text); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     }
   ],
@@ -1520,11 +1541,12 @@
       "amount_per_share": 1.0,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: scanned PDF, no extractable text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/270665.pdf",
-        "reason": "PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review"
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     }
   ],
@@ -1549,11 +1571,12 @@
       "amount_per_share": 17.5,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: could not parse period from PDF text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/272752.pdf",
-        "reason": "no '<period> ended <date>' phrase found in the extracted text"
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (no '<period> ended <date>' phrase found in the extracted text); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     }
   ],
@@ -1627,11 +1650,12 @@
       "amount_per_share": 2.0,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: scanned PDF, no extractable text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/275247.pdf",
-        "reason": "PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review"
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     },
     {
@@ -1697,11 +1721,12 @@
       "amount_per_share": 12.0,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: no matching announcement PDF found",
-        "period_end_date": null,
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
         "pdf_url": null,
-        "reason": "no announcement row matched this date in the recent announcements list"
+        "reason": "PDF unclassifiable (no announcement row matched this date in the recent announcements list); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     }
   ],
@@ -1726,11 +1751,12 @@
       "amount_per_share": 56.0,
       "non_cash_notes": [],
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "NEEDS REVIEW: scanned PDF, no extractable text",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/276106.pdf",
-        "reason": "PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review"
+        "status": "included",
+        "period_label": "FY2026 Final",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     }
   ],
