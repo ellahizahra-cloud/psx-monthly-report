@@ -7,13 +7,20 @@ universe, narrower than the price report's; see tickers.py):
   Ticker, Company, Sector, Quantity (from holdings.py / Cash Dividend 1
   (1).xlsx), Dividend This Month, Dividend YTD (resets every January since
   it's computed from the current calendar year's announcements),
-  Gross/Tax/Net Cash Dividend (Quantity x Dividend YTD, so these are
-  always populated — not tied to whichever announcement happened to
-  trigger the current run), Last Announcement Date, and an Audit Log
+  Gross/Tax/Net Cash Dividend, Last Announcement Date, and an Audit Log
   column (every Date: Amount [Period] on record for that ticker, for
   auditability). Tickers with no 2026 dividend at all show "-" for the
   dividend-derived columns (never 0) but Quantity always populates. A
   Total row sums Quantity, Gross, Tax and Net across all tickers.
+
+  Gross/Tax/Net are written as live Excel formulas (Gross = Quantity x
+  YTD, Tax = Gross x the tax-rate cell B3, Net = Gross - Tax; Total row
+  is =SUM(...) over the data rows), not baked-in values — an intentional
+  exception to the "write final values, no formula/recalc dependency"
+  rule elsewhere in this project, since this file is only ever consumed
+  by opening it directly in Excel/LibreOffice (both recalculate on open),
+  and being able to see/audit how each number was derived matters more
+  here than avoiding a recalc dependency.
 
 Dividend This Month / YTD (and therefore Gross/Tax/Net) only include
 announcements whose underlying fiscal period (per dividend_period.classify)
@@ -119,9 +126,15 @@ def build(history: dict) -> str:
         f"Last updated {dt.datetime.now().isoformat(timespec='seconds')}. Source: PSX "
         "company payout announcements (board-meeting/announcement date). Quantity "
         f"sourced from {holdings.HOLDINGS_FILE}. Gross/Tax/Net Cash Dividend are "
-        f"Quantity x Dividend YTD {today.year}. Tax withheld at {TAX_WITHHOLDING_RATE:.0%}."
+        f"Quantity x Dividend YTD {today.year} (see formulas in G:I; tax rate in B3)."
     )
     ws["A2"].font = Font(name=ARIAL, size=9, italic=True, color=GREY)
+
+    ws["A3"] = "Tax Rate:"
+    ws["A3"].font = Font(name=ARIAL, size=9, bold=True, color=GREY)
+    ws["B3"] = TAX_WITHHOLDING_RATE
+    ws["B3"].number_format = "0%"
+    ws["B3"].font = Font(name=ARIAL, size=9, bold=True, color=NAVY)
 
     headers = [
         "Ticker", "Company", "Sector", "Quantity",
@@ -138,7 +151,6 @@ def build(history: dict) -> str:
     quantities = holdings.load_quantities()
 
     row = 5
-    totals = {"quantity": 0, "gross": 0.0, "tax": 0.0, "net": 0.0}
     for entry in DIVIDEND_UNIVERSE:
         tkr = entry["ticker"]
         announcements = sorted(history.get(tkr, []), key=lambda a: a["date_iso"], reverse=True)
@@ -167,7 +179,6 @@ def build(history: dict) -> str:
         cq = ws.cell(row=row, column=4, value=quantity)
         cq.number_format = "#,##0"
         cq.font = Font(name=ARIAL, size=10)
-        totals["quantity"] += quantity
 
         c5 = ws.cell(row=row, column=5, value=round(this_month_total, 2))
         c5.number_format = "#,##0.00"
@@ -177,22 +188,19 @@ def build(history: dict) -> str:
         c6.number_format = "#,##0.00"
         c6.font = Font(name=ARIAL, size=10)
 
-        if ytd_total:
-            gross = quantity * ytd_total
-            tax = gross * TAX_WITHHOLDING_RATE
-            net = gross - tax
-            totals["gross"] += gross
-            totals["tax"] += tax
-            totals["net"] += net
-            values = [gross, tax, net]
-        else:
-            values = ["-", "-", "-"]
-
-        for offset, value in enumerate(values, start=7):
-            cell = ws.cell(row=row, column=offset, value=value)
+        # Real formulas (not baked-in values) so Gross/Tax/Net are auditable
+        # in Excel: Gross = Quantity x YTD, Tax = Gross x tax-rate cell,
+        # Net = Gross - Tax. IF(...) keeps the "-" convention for tickers
+        # with no counted 2026 dividend instead of showing 0.
+        formulas = [
+            f'=IF(F{row}=0,"-",D{row}*F{row})',
+            f'=IF(F{row}=0,"-",G{row}*$B$3)',
+            f'=IF(F{row}=0,"-",G{row}-H{row})',
+        ]
+        for offset, formula in enumerate(formulas, start=7):
+            cell = ws.cell(row=row, column=offset, value=formula)
             cell.font = Font(name=ARIAL, size=10)
-            if isinstance(value, (int, float)):
-                cell.number_format = "#,##0.00"
+            cell.number_format = "#,##0.00"
 
         ws.cell(row=row, column=10, value=last_date.isoformat() if last_date else "").font = Font(name=ARIAL, size=10)
         ws.cell(row=row, column=11, value="; ".join(audit_parts)).font = Font(name=ARIAL, size=8.5, color=GREY)
@@ -201,10 +209,16 @@ def build(history: dict) -> str:
             ws.cell(row=row, column=c).border = BORDER
         row += 1
 
+    last_data_row = row - 1
     ws.cell(row=row, column=1, value="Total").font = Font(name=ARIAL, size=10, bold=True)
-    total_values = {4: totals["quantity"], 7: totals["gross"], 8: totals["tax"], 9: totals["net"]}
-    for offset, value in total_values.items():
-        cell = ws.cell(row=row, column=offset, value=value)
+    total_formulas = {
+        4: f"=SUM(D5:D{last_data_row})",
+        7: f"=SUM(G5:G{last_data_row})",
+        8: f"=SUM(H5:H{last_data_row})",
+        9: f"=SUM(I5:I{last_data_row})",
+    }
+    for offset, formula in total_formulas.items():
+        cell = ws.cell(row=row, column=offset, value=formula)
         cell.font = Font(name=ARIAL, size=10, bold=True)
         cell.number_format = "#,##0" if offset == 4 else "#,##0.00"
     for c in range(1, 12):
