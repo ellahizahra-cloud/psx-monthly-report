@@ -421,6 +421,16 @@
       "cash_dividend_pct": 110.0,
       "amount_per_share": 11.0,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "UBL",
+      "date": "July 22, 2026 3:47 PM",
+      "date_iso": "2026-07-22",
+      "period": "30/06/2026(HYR)",
+      "raw_details": "160%(ii) (D)",
+      "cash_dividend_pct": 160.0,
+      "amount_per_share": 16.0,
+      "non_cash_notes": []
     }
   ],
   "LUCK": [
