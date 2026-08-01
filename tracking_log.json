@@ -57,6 +57,27 @@
         "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
         "source": "payout_table"
       }
+    },
+    {
+      "ticker": "MCB",
+      "date": "Jul 29, 2026",
+      "date_iso": "2026-07-29",
+      "period": "Board Meeting - MCB Bank Limited",
+      "raw_details": "Board Meeting - MCB Bank Limited",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280453.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280453-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
     }
   ],
   "HBL": [
@@ -135,6 +156,27 @@
         "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
         "source": "payout_table"
       }
+    },
+    {
+      "ticker": "HBL",
+      "date": "Jul 23, 2026",
+      "date_iso": "2026-07-23",
+      "period": "Board Meeting for Announcement of Financial Results for the Half Year ended June 30, 2026",
+      "raw_details": "Board Meeting for Announcement of Financial Results for the Half Year ended June 30, 2026",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280267.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280267-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
     }
   ],
   "BAFL": [
@@ -212,6 +254,48 @@
         "pdf_url": null,
         "reason": "PDF unclassifiable (no announcement row matched this date in the recent announcements list); used PSX payout-table period code instead",
         "source": "payout_table"
+      }
+    },
+    {
+      "ticker": "BAFL",
+      "date": "Jul 30, 2026",
+      "date_iso": "2026-07-30",
+      "period": "Financial Results for the 2nd Quarter/Half Year Ended June 30, 2026 of Bank Alfalah Limited",
+      "raw_details": "Financial Results for the 2nd Quarter/Half Year Ended June 30, 2026 of Bank Alfalah Limited",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280549.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280549-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
+    },
+    {
+      "ticker": "BAFL",
+      "date": "Jul 21, 2026",
+      "date_iso": "2026-07-21",
+      "period": "Board Meeting",
+      "raw_details": "Board Meeting",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280142.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280142-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
       }
     }
   ],
@@ -518,6 +602,24 @@
         "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
         "source": "payout_table"
       }
+    },
+    {
+      "ticker": "UBL",
+      "date": "July 22, 2026 3:47 PM",
+      "date_iso": "2026-07-22",
+      "period": "30/06/2026(HYR)",
+      "raw_details": "160%(ii) (D)",
+      "cash_dividend_pct": 160.0,
+      "amount_per_share": 16.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "included",
+        "period_label": "Q2 2026 Interim",
+        "period_end_date": "2026-06-30",
+        "pdf_url": "https://dps.psx.com.pk/download/document/280213.pdf",
+        "reason": null,
+        "source": "pdf"
+      }
     }
   ],
   "LUCK": [
@@ -530,6 +632,27 @@
       "cash_dividend_pct": 200.0,
       "amount_per_share": 20.0,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "LUCK",
+      "date": "Jul 31, 2026",
+      "date_iso": "2026-07-31",
+      "period": "Board Meeting",
+      "raw_details": "Board Meeting",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280619.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280619-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
     }
   ],
   "DGKC": [
@@ -757,6 +880,48 @@
         "pdf_url": null,
         "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
         "source": "payout_table"
+      }
+    },
+    {
+      "ticker": "FFC",
+      "date": "Jul 29, 2026",
+      "date_iso": "2026-07-29",
+      "period": "Financial Results for the Quarter Ended 30 Jun 2026",
+      "raw_details": "Financial Results for the Quarter Ended 30 Jun 2026",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280460.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280460-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
+    },
+    {
+      "ticker": "FFC",
+      "date": "Jul 22, 2026",
+      "date_iso": "2026-07-22",
+      "period": "241st Board of Directors Meeting",
+      "raw_details": "241st Board of Directors Meeting",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280209.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280209-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
       }
     }
   ],
@@ -1668,6 +1833,48 @@
       "amount_per_share": 0.0,
       "non_cash_notes": [],
       "period_classification": null
+    },
+    {
+      "ticker": "AKBL",
+      "date": "Jul 31, 2026",
+      "date_iso": "2026-07-31",
+      "period": "Financial Results for the Quarter Ended",
+      "raw_details": "Financial Results for the Quarter Ended",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280635.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280635-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
+    },
+    {
+      "ticker": "AKBL",
+      "date": "Jul 22, 2026",
+      "date_iso": "2026-07-22",
+      "period": "Board Meeting",
+      "raw_details": "Board Meeting",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280229.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280229-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
     }
   ],
   "MUREB": [
@@ -1758,6 +1965,48 @@
         "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
         "source": "payout_table"
       }
+    },
+    {
+      "ticker": "ATLH",
+      "date": "Jul 30, 2026",
+      "date_iso": "2026-07-30",
+      "period": "Financial Results for the Quarter Ended June 30, 2026",
+      "raw_details": "Financial Results for the Quarter Ended June 30, 2026",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280537.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280537-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
+    },
+    {
+      "ticker": "ATLH",
+      "date": "Jul 23, 2026",
+      "date_iso": "2026-07-23",
+      "period": "Board Meeting",
+      "raw_details": "Board Meeting",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280277.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280277-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
     }
   ],
   "PIOC": [
@@ -1780,6 +2029,27 @@
       "cash_dividend_pct": 50.0,
       "amount_per_share": 5.0,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "PIOC",
+      "date": "Jul 29, 2026",
+      "date_iso": "2026-07-29",
+      "period": "Financial Results for the Year ended June 30, 2026",
+      "raw_details": "Financial Results for the Year ended June 30, 2026",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280451.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280451-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
     }
   ],
   "AVN": [
@@ -1792,6 +2062,29 @@
       "cash_dividend_pct": 10.0,
       "amount_per_share": 1.0,
       "non_cash_notes": []
+    }
+  ],
+  "MLCF": [
+    {
+      "ticker": "MLCF",
+      "date": "Jul 31, 2026",
+      "date_iso": "2026-07-31",
+      "period": "MLCF-Financial Results for the year ended June 30, 2026",
+      "raw_details": "MLCF-Financial Results for the year ended June 30, 2026",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280589.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280589-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
     }
   ]
 }
