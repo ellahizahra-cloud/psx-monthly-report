@@ -104,6 +104,39 @@ Gross/Tax/Net). Entries from before this feature shipped (no
 `period_classification` recorded) fall back to counting, so existing
 totals aren't retroactively changed.
 
+### Supplementary announcement-tab detection
+
+PSX's Payouts table (the primary source above) has been observed to lag
+a day or more behind the underlying board-meeting/Financial Results
+announcement it's built from (confirmed live for FFC's Jul 29, 2026
+interim dividend, which sat unindexed on the Payouts table for days while
+already public on the company page). To catch this, every run also scans
+each ticker's "Financial Results" / "Board Meetings" tabs directly
+(`dividend_period.check_supplementary_announcements`), independent of the
+Payouts table:
+
+- Routine filings (AGM notices, transmissions, Shariah disclosures,
+  corporate briefings, reschedule/postponement notices, and any title
+  naming a date later than its own announcement — i.e. a notice about an
+  *upcoming* meeting, not that meeting's outcome) are skipped by title
+  before any PDF is downloaded, to keep this a lightweight daily check.
+- For everything else, the linked PDF is downloaded and searched for a
+  "CASH DIVIDEND" heading followed by a "Rs X per share" figure (PSX
+  filings state the newly-declared amount first, before any "already
+  paid" comparative figure). If found and the fiscal period parses, the
+  entry is recorded exactly like a Payouts-sourced one.
+- If the PDF is scanned (no extractable text — common; confirmed for MCB,
+  HBL, BAFL, FFC and others) or the amount/period can't be parsed, the
+  entry is recorded as `needs_review` with direct links to the PDF and
+  the scanned page image, so it can be checked by eye — never guessed.
+
+These entries are marked `"source": "financial_results_tab"` and
+`"provisional": true` in `tracking_log.json`. If the Payouts table later
+confirms the same date, the provisional entry is replaced by the
+authoritative one (never double-counted). Once an item has been recorded
+via either channel it won't be re-flagged on subsequent runs, so this
+doesn't repeat in every day's email — only genuinely new items do.
+
 ### First run
 
 `tracking_log.json` and `PSX_Dividend_Tracker.xlsx` are pre-seeded with a

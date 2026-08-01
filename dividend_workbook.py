@@ -77,7 +77,13 @@ def split_adjustment_factor(ticker: str, date_iso: str, splits: dict) -> float:
     return factor
 
 
-def adjusted_amount(entry: dict, ticker: str, splits: dict) -> float:
+def adjusted_amount(entry: dict, ticker: str, splits: dict):
+    """None when the amount itself is unknown (a needs_review entry from
+    the supplementary announcement-tab channel, e.g. a scanned PDF with no
+    confirmed figure yet) — never coerced to 0, which would be indistinguishable
+    from a genuine NIL dividend."""
+    if entry["amount_per_share"] is None:
+        return None
     factor = split_adjustment_factor(ticker, entry["date_iso"], splits)
     return round(entry["amount_per_share"] / factor, 4)
 
@@ -162,11 +168,14 @@ def build(history: dict) -> str:
         for a in announcements:
             a_date = dt.date.fromisoformat(a["date_iso"])
             amt = adjusted_amount(a, tkr, splits)
-            audit_parts.append(f"{a['date_iso']}: Rs {amt}{_audit_label(a)}")
-            if a_date.year == today.year and _counts_toward_totals(a):
-                ytd_total += amt
-                if a_date.month == today.month:
-                    this_month_total += amt
+            if amt is None:
+                audit_parts.append(f"{a['date_iso']}: unconfirmed{_audit_label(a)}")
+            else:
+                audit_parts.append(f"{a['date_iso']}: Rs {amt}{_audit_label(a)}")
+                if a_date.year == today.year and _counts_toward_totals(a):
+                    ytd_total += amt
+                    if a_date.month == today.month:
+                        this_month_total += amt
             if last_date is None or a_date > last_date:
                 last_date = a_date
 

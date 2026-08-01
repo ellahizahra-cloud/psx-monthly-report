@@ -17,6 +17,18 @@ announced this year are recorded but excluded, and anything that can't be
 reliably classified (scanned PDF, unparseable text, no matching PDF) is
 flagged "needs_review" rather than guessed at.
 
+In addition to PSX's Payouts table (the primary source), each ticker is
+also checked against the Financial Results/Board Meetings announcement
+tabs directly (dividend_period.check_supplementary_announcements) — the
+Payouts table has been observed to lag a day or more behind the
+underlying announcement (e.g. FFC's Jul 29, 2026 interim dividend). Finds
+from this channel are recorded with source="financial_results_tab" and,
+when the PDF is scanned or otherwise unparseable, "provisional": True and
+status "needs_review" (never guessed) with direct PDF/image links for
+manual confirmation. If the Payouts table later confirms the same date,
+the provisional entry is replaced by the authoritative one rather than
+double-counted.
+
 - No new announcements anywhere -> do nothing. No email, no file change.
 - One or more new announcements -> update the persistent
   PSX_Dividend_Tracker.xlsx, send one email listing exactly which
@@ -73,9 +85,56 @@ def run():
                 a["period_classification"] = None  # non-cash payout, not subject to the filter
 
         if new_entries:
+            # If the Payouts table has now confirmed a date we'd earlier
+            # only had via the announcement-tab fallback, drop the
+            # provisional entry so it isn't double-counted alongside the
+            # authoritative one.
+            confirmed_isos = {a["date_iso"] for a in new_entries}
+            history[ticker] = [
+                e for e in history.get(ticker, [])
+                if not (e.get("provisional") and e["date_iso"] in confirmed_isos)
+            ]
             history.setdefault(ticker, [])
             history[ticker].extend(new_entries)
             new_by_ticker[ticker] = new_entries
+
+        # Supplementary channel: scan the Financial Results/Board Meetings
+        # tabs directly, independent of the Payouts table, to catch
+        # announcements it hasn't indexed yet. known_isos reflects history
+        # as of just above, so anything the Payouts check just added this
+        # run is already excluded.
+        known_isos = {a["date_iso"] for a in history.get(ticker, [])}
+        try:
+            supplementary = dividend_period.check_supplementary_announcements(ticker, known_isos)
+        except Exception as e:
+            supplementary = []
+            fetch_errors.append(f"{ticker} (announcement tabs check): {e}")
+
+        for s in supplementary:
+            entry = {
+                "ticker": ticker,
+                "date": s["date"],
+                "date_iso": s["date_iso"],
+                "period": s["title"],
+                "raw_details": s["title"],
+                "cash_dividend_pct": None,
+                "amount_per_share": s["amount_per_share"],
+                "non_cash_notes": [],
+                "source": "financial_results_tab",
+                "provisional": True,
+                "period_classification": {
+                    "status": s["status"],
+                    "period_label": s["period_label"] or s["reason"],
+                    "period_end_date": s["period_end_date"],
+                    "pdf_url": s["pdf_url"],
+                    "image_url": s["image_url"],
+                    "reason": s["reason"],
+                    "source": "financial_results_tab",
+                },
+            }
+            history.setdefault(ticker, [])
+            history[ticker].append(entry)
+            new_by_ticker.setdefault(ticker, []).append(entry)
 
     if fetch_errors and not new_by_ticker:
         # Nothing new to report, but something was wrong with the scan itself.
@@ -91,6 +150,24 @@ def run():
     for ticker, entries in new_by_ticker.items():
         company = COMPANY_NAMES.get(ticker, ticker)
         for a in entries:
+            if a.get("source") == "financial_results_tab":
+                pc = a["period_classification"]
+                if a["amount_per_share"] is not None:
+                    lines.append(
+                        f"- {ticker} ({company}): possible cash dividend PKR {a['amount_per_share']}/share "
+                        f"found via Financial Results/Board Meetings tab (PSX Payouts table hasn't "
+                        f"listed it yet), announced {a['date']} [\"{a['raw_details']}\"] — {pc['period_label']}. "
+                        f"Source: {pc['pdf_url']}"
+                    )
+                else:
+                    links = pc["pdf_url"]
+                    if pc.get("image_url"):
+                        links += f" | scanned page: {pc['image_url']}"
+                    lines.append(
+                        f"- {ticker} ({company}): NEEDS REVIEW — {pc['reason']}, "
+                        f"announced {a['date']} [\"{a['raw_details']}\"]. {links}"
+                    )
+                continue
             if a["cash_dividend_pct"] <= 0:
                 lines.append(
                     f"- {ticker} ({company}): non-cash payout {a['raw_details']}, "
@@ -111,7 +188,9 @@ def run():
         "Triggered by:\n" + "\n".join(lines) + "\n\n"
         "Only announcements for the current fiscal year count toward Dividend This "
         "Month/YTD; excluded and needs-review entries are still logged for "
-        "auditability (see the Audit Log column) but not summed.\n\n"
+        "auditability (see the Audit Log column) but not summed. Items found via the "
+        "Financial Results/Board Meetings tabs (rather than PSX's Payouts table) are "
+        "marked provisional and need manual confirmation if flagged NEEDS REVIEW.\n\n"
         "Best,\nAutomated PSX Dividend Tracker"
     )
     if fetch_errors:
