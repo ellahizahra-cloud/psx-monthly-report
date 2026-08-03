@@ -173,6 +173,16 @@
       "cash_dividend_pct": 25.0,
       "amount_per_share": 2.5,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "BAFL",
+      "date": "July 30, 2026 3:53 PM",
+      "date_iso": "2026-07-30",
+      "period": "30/06/2026(HYR)",
+      "raw_details": "30%(ii) (D)",
+      "cash_dividend_pct": 30.0,
+      "amount_per_share": 3.0,
+      "non_cash_notes": []
     }
   ],
   "BAHL": [
@@ -561,6 +571,16 @@
       "cash_dividend_pct": 80.0,
       "amount_per_share": 8.0,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "EFERT",
+      "date": "July 30, 2026 3:50 PM",
+      "date_iso": "2026-07-30",
+      "period": "30/06/2026(HYR)",
+      "raw_details": "17.5%(ii) (D)",
+      "cash_dividend_pct": 17.5,
+      "amount_per_share": 1.75,
+      "non_cash_notes": []
     }
   ],
   "FATIMA": [
@@ -654,6 +674,16 @@
       "raw_details": "210%(F) (D)",
       "cash_dividend_pct": 210.0,
       "amount_per_share": 21.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "FFC",
+      "date": "July 29, 2026 3:23 PM",
+      "date_iso": "2026-07-29",
+      "period": "30/06/2026(HYR)",
+      "raw_details": "145%(ii) (D)",
+      "cash_dividend_pct": 145.0,
+      "amount_per_share": 14.5,
       "non_cash_notes": []
     }
   ],
