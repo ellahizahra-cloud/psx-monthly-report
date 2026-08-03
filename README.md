@@ -27,14 +27,20 @@ updated state files back to the branch they run on.
 `.github/workflows/monthly-report.yml` runs `run_monthly_report.py` daily
 at 08:00 UTC on days 2-5 of the month. Day 2 is the real scheduled run;
 days 3-5 exist purely as a catch-up window — the script checks
-`monthly_report_state.json` and no-ops if this month's report was already
+`monthly_report_state.json` and no-ops if that month's report was already
 sent, so a missed day-2 run gets picked up automatically.
 
-For each ticker: Month-Start Close (1st trading day of the current month)
-and Month-End Close (last trading day of the month that just ended), cross
-checked against sarmaaya.pk (>1% divergence flagged). Wrapped in
-try/except — a failure sends an error-notice email instead of a broken or
-partial file.
+The report always covers the month that just ended, not the one still in
+progress — e.g. a run in early August reports on July's own Month-Start
+Close (1st trading day of July) and Month-End Close (last trading day of
+July), never August's first trading day. This means the reported month is
+always fully closed by send time, so there's no "no trading data yet" gap
+to fill in even if the 1st (or 2nd) of the new month falls on a weekend.
+Month-End Close (the more recent of the two, typically only a few days
+old by send time) is cross-checked against sarmaaya.pk (>1% divergence
+flagged) — Month-Start is weeks old by then and isn't meaningful to
+compare against a live quote. Wrapped in try/except — a failure sends an
+error-notice email instead of a broken or partial file.
 
 Manual run: `python fetch_prices.py && python build_report.py && python
 send_report.py`, or `python run_monthly_report.py` for the full

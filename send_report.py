@@ -22,9 +22,9 @@ from mailer import send_email
 SUBJECT_TEMPLATE = "Monthly PSX Share Price Report — {label}"
 BODY_TEMPLATE = (
     "Hi,\n\n"
-    "Attached is the monthly share price report for the full PSX portfolio "
-    "(46 tickers across 9 sectors), covering the Month-Start close and the "
-    "prior month's Month-End close.\n\n"
+    "Attached is the monthly share price report for the full PSX portfolio, "
+    "covering that month's own Month-Start close (1st trading day) and "
+    "Month-End close (last trading day).\n\n"
     "This was generated and cross-checked automatically; please flag anything "
     "that looks off.\n\n"
     "Best,\nAutomated PSX Report"

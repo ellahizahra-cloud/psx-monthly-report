@@ -30,10 +30,8 @@ def build(prices_path: str = "prices.json") -> str:
     with open(prices_path) as f:
         data = json.load(f)
 
-    ref_month = data["reference_month"]  # e.g. "2026-08"
+    ref_month = data["reference_month"]  # e.g. "2026-07" — the fully-closed month being reported
     ref_label = dt.datetime.strptime(ref_month, "%Y-%m").strftime("%B %Y")
-    prev_dt = dt.datetime.strptime(ref_month, "%Y-%m") - dt.timedelta(days=1)
-    prev_label = prev_dt.strftime("%B %Y")
 
     wb = Workbook()
     ws = wb.active
@@ -41,13 +39,16 @@ def build(prices_path: str = "prices.json") -> str:
 
     ws["A1"] = f"PSX Share Price Report — {ref_label}"
     ws["A1"].font = Font(name=ARIAL, size=14, bold=True, color=NAVY)
-    ws["A2"] = f"Generated {data['generated']}. Source: PSX Data Portal EOD feed, cross-checked vs Sarmaaya.pk."
+    ws["A2"] = (
+        f"Generated {data['generated']}. Source: PSX Data Portal EOD feed. "
+        "Month-End Close cross-checked vs Sarmaaya.pk."
+    )
     ws["A2"].font = Font(name=ARIAL, size=9, italic=True, color=GREY)
 
     headers = [
         "Ticker", "Company", "Sector",
         f"Month-Start Close, {ref_label} (PKR)",
-        f"Month-End Close, {prev_label} (PKR)",
+        f"Month-End Close, {ref_label} (PKR)",
         "Change (%)", "Cross-check Status",
     ]
     for c, h in enumerate(headers, 1):

@@ -1,9 +1,15 @@
 """
 run_monthly_report.py — Entry point for the monthly price report cron job.
 
+The report always covers the month that just ended, not the one still in
+progress — e.g. a run in early August reports on July's own Month-Start
+(Jul 1) and Month-End (Jul 31) close, never August's first trading day.
+That means the reported month is always fully closed by the time this
+runs, so there's no "no trading data yet" gap to fill in.
+
 Scheduled 8am on the 2nd of each month, but the workflow actually invokes
 this daily on days 2-5 as a catch-up window: if a scheduled run was missed
-(e.g. the runner was down), the next day's run notices this month's report
+(e.g. the runner was down), the next day's run notices last month's report
 hasn't been sent yet and sends it. Once sent, later runs in the same
 window are no-ops.
 
@@ -22,6 +28,7 @@ from pathlib import Path
 
 import build_report
 import fetch_prices
+from fetch_prices import prev_month
 from mailer import send_error_notice
 from send_report import send
 
@@ -45,7 +52,8 @@ def save_state(state: dict):
 
 def run():
     today = dt.date.today()
-    reference_month = f"{today.year:04d}-{today.month:02d}"
+    ref_year, ref_month = prev_month(today.year, today.month)
+    reference_month = f"{ref_year:04d}-{ref_month:02d}"
     forced = _forced()
 
     if not forced and today.day not in CATCHUP_WINDOW:
@@ -58,7 +66,7 @@ def run():
         return
 
     try:
-        results, warnings = fetch_prices.fetch(today.year, today.month)
+        results, warnings = fetch_prices.fetch(ref_year, ref_month)
         prices_data = {
             "generated": dt.datetime.now().isoformat(timespec="seconds"),
             "reference_month": reference_month,
