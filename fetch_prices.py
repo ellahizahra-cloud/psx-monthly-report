@@ -32,7 +32,11 @@ from tickers import TICKERS
 
 PSX_EOD_URL = "https://dps.psx.com.pk/timeseries/eod/{symbol}"
 SARMAAYA_URL = "https://sarmaaya.pk/stocks/{symbol}"
-DIVERGENCE_THRESHOLD = 0.01  # 1%
+DIVERGENCE_THRESHOLD = 0.05  # 5% — Month-End is typically a few days old by
+# send time (see fetch()), so some drift against Sarmaaya's live quote is
+# normal; real July 2026 data showed routine drift up to ~3.9%, so 5% still
+# catches genuine anomalies (wrong ticker, stale/bad feed) without flagging
+# ordinary short-term price movement.
 HEADERS = {"User-Agent": "Mozilla/5.0 (monthly-report-bot)"}
 
 
