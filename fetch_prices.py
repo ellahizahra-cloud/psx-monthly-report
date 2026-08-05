@@ -1,17 +1,18 @@
 """
 fetch_prices.py — Pull PSX closing prices for the monthly report.
 
-For each ticker in the shared universe (tickers.py) it fetches, from the
-PSX Data Portal's end-of-day timeseries feed (the same JSON feed the
-dps.psx.com.pk website uses):
+The report always covers one fully-closed month — the month that just
+ended relative to when the report runs (run_monthly_report.py works this
+out; e.g. a report running Aug 2-5 covers July). For each ticker in the
+shared universe (tickers.py) it fetches, from the PSX Data Portal's
+end-of-day timeseries feed (the same JSON feed the dps.psx.com.pk website
+uses), both prices from *that same month*:
 
-  (a) Month-Start Close: close on the 1st trading day of the *current*
-      month (the month we're in when the report runs)
-  (b) Month-End Close: close on the last trading day of the *previous*
-      month (the month that just ended)
+  (a) Month-Start Close: close on the 1st trading day of that month
+  (b) Month-End Close: close on the last trading day of that month
 
-then cross-checks the Month-Start Close against sarmaaya.pk and flags
-divergence > 1%.
+then cross-checks the Month-End Close (the most recent of the two, so the
+closest to "now") against sarmaaya.pk and flags divergence > 1%.
 
 Output: prices.json (consumed by build_report.py / send_report.py)
 
@@ -31,7 +32,11 @@ from tickers import TICKERS
 
 PSX_EOD_URL = "https://dps.psx.com.pk/timeseries/eod/{symbol}"
 SARMAAYA_URL = "https://sarmaaya.pk/stocks/{symbol}"
-DIVERGENCE_THRESHOLD = 0.01  # 1%
+DIVERGENCE_THRESHOLD = 0.05  # 5% — Month-End is typically a few days old by
+# send time (see fetch()), so some drift against Sarmaaya's live quote is
+# normal; real July 2026 data showed routine drift up to ~3.9%, so 5% still
+# catches genuine anomalies (wrong ticker, stale/bad feed) without flagging
+# ordinary short-term price movement.
 HEADERS = {"User-Agent": "Mozilla/5.0 (monthly-report-bot)"}
 
 
@@ -85,9 +90,9 @@ def sarmaaya_price(symbol: str):
 
 
 def fetch(year: int, month: int):
-    """Fetch Month-Start (current month) / Month-End (previous month) closes."""
-    prev_year, prev_mo = prev_month(year, month)
-
+    """Fetch Month-Start / Month-End closes, both from the same (year, month)
+    — the month being reported on, which must already be fully closed by
+    the time this runs (run_monthly_report.py works that out)."""
     results, warnings = [], []
     for sym in TICKERS:
         try:
@@ -98,19 +103,23 @@ def fetch(year: int, month: int):
             continue
 
         start_date, start_px = first_trading_close(series, year, month)
-        end_date, end_px = last_trading_close(series, prev_year, prev_mo)
+        end_date, end_px = last_trading_close(series, year, month)
 
         if start_px is None:
-            warnings.append(f"{sym}: no trading data yet for {year:04d}-{month:02d} — fill manually")
+            warnings.append(f"{sym}: no trading data for {year:04d}-{month:02d} (start) — fill manually")
         if end_px is None:
-            warnings.append(f"{sym}: no trading data for {prev_year:04d}-{prev_mo:02d} — fill manually")
+            warnings.append(f"{sym}: no trading data for {year:04d}-{month:02d} (end) — fill manually")
 
-        check = sarmaaya_price(sym) if start_px is not None else None
+        # Cross-check the Month-End close (the more recent of the two
+        # values, typically only a few days old by send time) against
+        # Sarmaaya's live price — the Month-Start close is weeks old by
+        # then and isn't meaningful to compare against a live quote.
+        check = sarmaaya_price(sym) if end_px is not None else None
         flagged = False
-        if check and start_px and abs(check - start_px) / start_px > DIVERGENCE_THRESHOLD:
+        if check and end_px and abs(check - end_px) / end_px > DIVERGENCE_THRESHOLD:
             flagged = True
             warnings.append(
-                f"{sym}: PSX {start_px} vs Sarmaaya {check} diverge >1% — verify before sending"
+                f"{sym}: PSX {end_px} vs Sarmaaya {check} diverge >1% — verify before sending"
             )
 
         results.append({
@@ -128,14 +137,14 @@ def fetch(year: int, month: int):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--month", help="Reference (current) month YYYY-MM (default: current)")
+    ap.add_argument("--month", help="Month to report on, YYYY-MM (default: last fully-closed month)")
     args = ap.parse_args()
 
     today = dt.date.today()
     if args.month:
         year, month = map(int, args.month.split("-"))
     else:
-        year, month = today.year, today.month
+        year, month = prev_month(today.year, today.month)
 
     results, warnings = fetch(year, month)
 

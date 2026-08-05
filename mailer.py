@@ -19,6 +19,7 @@ from pathlib import Path
 RECIPIENTS = [
     "nadeemellahi@hotmail.com",
     "zaraellahi9@gmail.com",
+    "naveedellahi@hotmail.com",
 ]
 
 

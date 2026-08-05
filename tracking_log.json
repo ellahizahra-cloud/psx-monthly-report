@@ -2,16 +2,6 @@
   "MCB": [
     {
       "ticker": "MCB",
-      "date": "April 23, 2026 3:56 PM",
-      "date_iso": "2026-04-23",
-      "period": "31/03/2026(IQ)",
-      "raw_details": "90%(i) (D)",
-      "cash_dividend_pct": 90.0,
-      "amount_per_share": 9.0,
-      "non_cash_notes": []
-    },
-    {
-      "ticker": "MCB",
       "date": "October 22, 2025 3:42 PM",
       "date_iso": "2025-10-22",
       "period": "30/09/2025(IIIQ)",
@@ -49,29 +39,48 @@
       "cash_dividend_pct": 90.0,
       "amount_per_share": 9.0,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "MCB",
+      "date": "April 23, 2026 3:56 PM",
+      "date_iso": "2026-04-23",
+      "period": "31/03/2026(IQ)",
+      "raw_details": "90%(i) (D)",
+      "cash_dividend_pct": 90.0,
+      "amount_per_share": 9.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    },
+    {
+      "ticker": "MCB",
+      "date": "Jul 29, 2026",
+      "date_iso": "2026-07-29",
+      "period": "Board Meeting - MCB Bank Limited",
+      "raw_details": "Board Meeting - MCB Bank Limited",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280453.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280453-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
     }
   ],
   "HBL": [
-    {
-      "ticker": "HBL",
-      "date": "April 17, 2026 5:10 PM",
-      "date_iso": "2026-04-17",
-      "period": "31/03/2026(IQ)",
-      "raw_details": "60%(i) (D)",
-      "cash_dividend_pct": 60.0,
-      "amount_per_share": 6.0,
-      "non_cash_notes": []
-    },
-    {
-      "ticker": "HBL",
-      "date": "February 18, 2026 3:51 PM",
-      "date_iso": "2026-02-18",
-      "period": "31/12/2025(YR)",
-      "raw_details": "60%(F) (D)",
-      "cash_dividend_pct": 60.0,
-      "amount_per_share": 6.0,
-      "non_cash_notes": []
-    },
     {
       "ticker": "HBL",
       "date": "October 23, 2025 3:48 PM",
@@ -111,29 +120,66 @@
       "cash_dividend_pct": 42.5,
       "amount_per_share": 4.25,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "HBL",
+      "date": "April 17, 2026 5:10 PM",
+      "date_iso": "2026-04-17",
+      "period": "31/03/2026(IQ)",
+      "raw_details": "60%(i) (D)",
+      "cash_dividend_pct": 60.0,
+      "amount_per_share": 6.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    },
+    {
+      "ticker": "HBL",
+      "date": "February 18, 2026 3:51 PM",
+      "date_iso": "2026-02-18",
+      "period": "31/12/2025(YR)",
+      "raw_details": "60%(F) (D)",
+      "cash_dividend_pct": 60.0,
+      "amount_per_share": 6.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    },
+    {
+      "ticker": "HBL",
+      "date": "Jul 23, 2026",
+      "date_iso": "2026-07-23",
+      "period": "Board Meeting for Announcement of Financial Results for the Half Year ended June 30, 2026",
+      "raw_details": "Board Meeting for Announcement of Financial Results for the Half Year ended June 30, 2026",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280267.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280267-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
     }
   ],
   "BAFL": [
-    {
-      "ticker": "BAFL",
-      "date": "April 23, 2026 3:49 PM",
-      "date_iso": "2026-04-23",
-      "period": "31/03/2026(IQ)",
-      "raw_details": "30%(i) (D)",
-      "cash_dividend_pct": 30.0,
-      "amount_per_share": 3.0,
-      "non_cash_notes": []
-    },
-    {
-      "ticker": "BAFL",
-      "date": "February 16, 2026 4:25 PM",
-      "date_iso": "2026-02-16",
-      "period": "31/12/2025(YR)",
-      "raw_details": "30%(F) (D)",
-      "cash_dividend_pct": 30.0,
-      "amount_per_share": 3.0,
-      "non_cash_notes": []
-    },
     {
       "ticker": "BAFL",
       "date": "October 23, 2025 3:27 PM",
@@ -176,36 +222,84 @@
     },
     {
       "ticker": "BAFL",
-      "date": "July 30, 2026 3:53 PM",
-      "date_iso": "2026-07-30",
-      "period": "30/06/2026(HYR)",
-      "raw_details": "30%(ii) (D)",
+      "date": "April 23, 2026 3:49 PM",
+      "date_iso": "2026-04-23",
+      "period": "31/03/2026(IQ)",
+      "raw_details": "30%(i) (D)",
       "cash_dividend_pct": 30.0,
       "amount_per_share": 3.0,
-      "non_cash_notes": []
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    },
+    {
+      "ticker": "BAFL",
+      "date": "February 16, 2026 4:25 PM",
+      "date_iso": "2026-02-16",
+      "period": "31/12/2025(YR)",
+      "raw_details": "30%(F) (D)",
+      "cash_dividend_pct": 30.0,
+      "amount_per_share": 3.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (no announcement row matched this date in the recent announcements list); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    },
+    {
+      "ticker": "BAFL",
+      "date": "Jul 30, 2026",
+      "date_iso": "2026-07-30",
+      "period": "Financial Results for the 2nd Quarter/Half Year Ended June 30, 2026 of Bank Alfalah Limited",
+      "raw_details": "Financial Results for the 2nd Quarter/Half Year Ended June 30, 2026 of Bank Alfalah Limited",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280549.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280549-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
+    },
+    {
+      "ticker": "BAFL",
+      "date": "Jul 21, 2026",
+      "date_iso": "2026-07-21",
+      "period": "Board Meeting",
+      "raw_details": "Board Meeting",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280142.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280142-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
     }
   ],
   "BAHL": [
-    {
-      "ticker": "BAHL",
-      "date": "April 23, 2026 4:04 PM",
-      "date_iso": "2026-04-23",
-      "period": "31/03/2026(IQ)",
-      "raw_details": "35%(i) (D)",
-      "cash_dividend_pct": 35.0,
-      "amount_per_share": 3.5,
-      "non_cash_notes": []
-    },
-    {
-      "ticker": "BAHL",
-      "date": "February 11, 2026 3:57 PM",
-      "date_iso": "2026-02-11",
-      "period": "31/12/2025(YR)",
-      "raw_details": "45%(F) (D)",
-      "cash_dividend_pct": 45.0,
-      "amount_per_share": 4.5,
-      "non_cash_notes": []
-    },
     {
       "ticker": "BAHL",
       "date": "October 23, 2025 3:50 PM",
@@ -245,29 +339,45 @@
       "cash_dividend_pct": 65.0,
       "amount_per_share": 6.5,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "BAHL",
+      "date": "April 23, 2026 4:04 PM",
+      "date_iso": "2026-04-23",
+      "period": "31/03/2026(IQ)",
+      "raw_details": "35%(i) (D)",
+      "cash_dividend_pct": 35.0,
+      "amount_per_share": 3.5,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    },
+    {
+      "ticker": "BAHL",
+      "date": "February 11, 2026 3:57 PM",
+      "date_iso": "2026-02-11",
+      "period": "31/12/2025(YR)",
+      "raw_details": "45%(F) (D)",
+      "cash_dividend_pct": 45.0,
+      "amount_per_share": 4.5,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
     }
   ],
   "MEBL": [
-    {
-      "ticker": "MEBL",
-      "date": "April 23, 2026 3:51 PM",
-      "date_iso": "2026-04-23",
-      "period": "31/03/2026(IQ)",
-      "raw_details": "75%(i) (D)",
-      "cash_dividend_pct": 75.0,
-      "amount_per_share": 7.5,
-      "non_cash_notes": []
-    },
-    {
-      "ticker": "MEBL",
-      "date": "February 9, 2026 3:36 PM",
-      "date_iso": "2026-02-09",
-      "period": "31/12/2025(YR)",
-      "raw_details": "70%(F) (D)",
-      "cash_dividend_pct": 70.0,
-      "amount_per_share": 7.0,
-      "non_cash_notes": []
-    },
     {
       "ticker": "MEBL",
       "date": "October 27, 2025 11:09 AM",
@@ -307,29 +417,45 @@
       "cash_dividend_pct": 70.0,
       "amount_per_share": 7.0,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "MEBL",
+      "date": "April 23, 2026 3:51 PM",
+      "date_iso": "2026-04-23",
+      "period": "31/03/2026(IQ)",
+      "raw_details": "75%(i) (D)",
+      "cash_dividend_pct": 75.0,
+      "amount_per_share": 7.5,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    },
+    {
+      "ticker": "MEBL",
+      "date": "February 9, 2026 3:36 PM",
+      "date_iso": "2026-02-09",
+      "period": "31/12/2025(YR)",
+      "raw_details": "70%(F) (D)",
+      "cash_dividend_pct": 70.0,
+      "amount_per_share": 7.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (no announcement row matched this date in the recent announcements list); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
     }
   ],
   "HMB": [
-    {
-      "ticker": "HMB",
-      "date": "April 24, 2026 4:35 PM",
-      "date_iso": "2026-04-24",
-      "period": "31/03/2026(IQ) - 31/03/2026(IQ)",
-      "raw_details": "25%(i) (D)  -  25%(i) (D)",
-      "cash_dividend_pct": 50.0,
-      "amount_per_share": 5.0,
-      "non_cash_notes": []
-    },
-    {
-      "ticker": "HMB",
-      "date": "February 13, 2026 3:57 PM",
-      "date_iso": "2026-02-13",
-      "period": "31/12/2025(YR)",
-      "raw_details": "45%F) (D)",
-      "cash_dividend_pct": 0.0,
-      "amount_per_share": 0.0,
-      "non_cash_notes": []
-    },
     {
       "ticker": "HMB",
       "date": "October 27, 2025 11:03 AM",
@@ -369,29 +495,38 @@
       "cash_dividend_pct": 45.0,
       "amount_per_share": 4.5,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "HMB",
+      "date": "April 24, 2026 4:35 PM",
+      "date_iso": "2026-04-24",
+      "period": "31/03/2026(IQ) - 31/03/2026(IQ)",
+      "raw_details": "25%(i) (D)  -  25%(i) (D)",
+      "cash_dividend_pct": 50.0,
+      "amount_per_share": 5.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (no '<period> ended <date>' phrase found in the extracted text); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    },
+    {
+      "ticker": "HMB",
+      "date": "February 13, 2026 3:57 PM",
+      "date_iso": "2026-02-13",
+      "period": "31/12/2025(YR)",
+      "raw_details": "45%F) (D)",
+      "cash_dividend_pct": 0.0,
+      "amount_per_share": 0.0,
+      "non_cash_notes": [],
+      "period_classification": null
     }
   ],
   "UBL": [
-    {
-      "ticker": "UBL",
-      "date": "April 15, 2026 3:51 PM",
-      "date_iso": "2026-04-15",
-      "period": "31/03/2026(IQ)",
-      "raw_details": "160%(i) (D)",
-      "cash_dividend_pct": 160.0,
-      "amount_per_share": 16.0,
-      "non_cash_notes": []
-    },
-    {
-      "ticker": "UBL",
-      "date": "February 25, 2026 12:28 PM",
-      "date_iso": "2026-02-25",
-      "period": "31/12/2025(YR)",
-      "raw_details": "160%(F) (D)",
-      "cash_dividend_pct": 160.0,
-      "amount_per_share": 16.0,
-      "non_cash_notes": []
-    },
     {
       "ticker": "UBL",
       "date": "October 15, 2025 3:53 PM",
@@ -434,13 +569,57 @@
     },
     {
       "ticker": "UBL",
+      "date": "April 15, 2026 3:51 PM",
+      "date_iso": "2026-04-15",
+      "period": "31/03/2026(IQ)",
+      "raw_details": "160%(i) (D)",
+      "cash_dividend_pct": 160.0,
+      "amount_per_share": 16.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (matched phrase but couldn't parse the date: 'nine months ended \\nDoctmbor 31,2025'); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    },
+    {
+      "ticker": "UBL",
+      "date": "February 25, 2026 12:28 PM",
+      "date_iso": "2026-02-25",
+      "period": "31/12/2025(YR)",
+      "raw_details": "160%(F) (D)",
+      "cash_dividend_pct": 160.0,
+      "amount_per_share": 16.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    },
+    {
+      "ticker": "UBL",
       "date": "July 22, 2026 3:47 PM",
       "date_iso": "2026-07-22",
       "period": "30/06/2026(HYR)",
       "raw_details": "160%(ii) (D)",
       "cash_dividend_pct": 160.0,
       "amount_per_share": 16.0,
-      "non_cash_notes": []
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "included",
+        "period_label": "Q2 2026 Interim",
+        "period_end_date": "2026-06-30",
+        "pdf_url": "https://dps.psx.com.pk/download/document/280213.pdf",
+        "reason": null,
+        "source": "pdf"
+      }
     }
   ],
   "LUCK": [
@@ -453,6 +632,27 @@
       "cash_dividend_pct": 200.0,
       "amount_per_share": 20.0,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "LUCK",
+      "date": "Jul 31, 2026",
+      "date_iso": "2026-07-31",
+      "period": "Board Meeting",
+      "raw_details": "Board Meeting",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280619.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280619-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
     }
   ],
   "DGKC": [
@@ -468,16 +668,6 @@
     }
   ],
   "CHCC": [
-    {
-      "ticker": "CHCC",
-      "date": "February 18, 2026 3:39 PM",
-      "date_iso": "2026-02-18",
-      "period": "31/12/2025(HYR)",
-      "raw_details": "15%(i) (D)",
-      "cash_dividend_pct": 15.0,
-      "amount_per_share": 1.5,
-      "non_cash_notes": []
-    },
     {
       "ticker": "CHCC",
       "date": "August 21, 2025 3:53 PM",
@@ -497,6 +687,16 @@
       "cash_dividend_pct": 15.0,
       "amount_per_share": 1.5,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "CHCC",
+      "date": "February 18, 2026 3:39 PM",
+      "date_iso": "2026-02-18",
+      "period": "31/12/2025(HYR)",
+      "raw_details": "15%(i) (D)",
+      "cash_dividend_pct": 15.0,
+      "amount_per_share": 1.5,
+      "non_cash_notes": []
     }
   ],
   "FCCL": [
@@ -512,26 +712,6 @@
     }
   ],
   "EFERT": [
-    {
-      "ticker": "EFERT",
-      "date": "April 20, 2026 3:41 PM",
-      "date_iso": "2026-04-20",
-      "period": "31/03/2026(IIIQ)",
-      "raw_details": "20%(i) (D)",
-      "cash_dividend_pct": 20.0,
-      "amount_per_share": 2.0,
-      "non_cash_notes": []
-    },
-    {
-      "ticker": "EFERT",
-      "date": "February 12, 2026 3:27 PM",
-      "date_iso": "2026-02-12",
-      "period": "31/12/2025(YR)",
-      "raw_details": "40%(F) (D)",
-      "cash_dividend_pct": 40.0,
-      "amount_per_share": 4.0,
-      "non_cash_notes": []
-    },
     {
       "ticker": "EFERT",
       "date": "October 15, 2025 3:50 PM",
@@ -574,26 +754,26 @@
     },
     {
       "ticker": "EFERT",
-      "date": "July 30, 2026 3:50 PM",
-      "date_iso": "2026-07-30",
-      "period": "30/06/2026(HYR)",
-      "raw_details": "17.5%(ii) (D)",
-      "cash_dividend_pct": 17.5,
-      "amount_per_share": 1.75,
+      "date": "April 20, 2026 3:41 PM",
+      "date_iso": "2026-04-20",
+      "period": "31/03/2026(IIIQ)",
+      "raw_details": "20%(i) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "EFERT",
+      "date": "February 12, 2026 3:27 PM",
+      "date_iso": "2026-02-12",
+      "period": "31/12/2025(YR)",
+      "raw_details": "40%(F) (D)",
+      "cash_dividend_pct": 40.0,
+      "amount_per_share": 4.0,
       "non_cash_notes": []
     }
   ],
   "FATIMA": [
-    {
-      "ticker": "FATIMA",
-      "date": "March 9, 2026 2:14 PM",
-      "date_iso": "2026-03-09",
-      "period": "31/12/2025(YR)",
-      "raw_details": "25%(F) (D)",
-      "cash_dividend_pct": 25.0,
-      "amount_per_share": 2.5,
-      "non_cash_notes": []
-    },
     {
       "ticker": "FATIMA",
       "date": "August 27, 2025 4:34 PM",
@@ -613,29 +793,19 @@
       "cash_dividend_pct": 42.5,
       "amount_per_share": 4.25,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "FATIMA",
+      "date": "March 9, 2026 2:14 PM",
+      "date_iso": "2026-03-09",
+      "period": "31/12/2025(YR)",
+      "raw_details": "25%(F) (D)",
+      "cash_dividend_pct": 25.0,
+      "amount_per_share": 2.5,
+      "non_cash_notes": []
     }
   ],
   "FFC": [
-    {
-      "ticker": "FFC",
-      "date": "April 29, 2026 2:58 PM",
-      "date_iso": "2026-04-29",
-      "period": "31/03/2026(IQ)",
-      "raw_details": "85%(i) (D)",
-      "cash_dividend_pct": 85.0,
-      "amount_per_share": 8.5,
-      "non_cash_notes": []
-    },
-    {
-      "ticker": "FFC",
-      "date": "January 29, 2026 3:14 PM",
-      "date_iso": "2026-01-29",
-      "period": "31/12/2025(YR)",
-      "raw_details": "85%(F) (D)",
-      "cash_dividend_pct": 85.0,
-      "amount_per_share": 8.5,
-      "non_cash_notes": []
-    },
     {
       "ticker": "FFC",
       "date": "October 23, 2025 3:41 PM",
@@ -678,26 +848,84 @@
     },
     {
       "ticker": "FFC",
-      "date": "July 29, 2026 3:23 PM",
+      "date": "April 29, 2026 2:58 PM",
+      "date_iso": "2026-04-29",
+      "period": "31/03/2026(IQ)",
+      "raw_details": "85%(i) (D)",
+      "cash_dividend_pct": 85.0,
+      "amount_per_share": 8.5,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (no '<period> ended <date>' phrase found in the extracted text); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    },
+    {
+      "ticker": "FFC",
+      "date": "January 29, 2026 3:14 PM",
+      "date_iso": "2026-01-29",
+      "period": "31/12/2025(YR)",
+      "raw_details": "85%(F) (D)",
+      "cash_dividend_pct": 85.0,
+      "amount_per_share": 8.5,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    },
+    {
+      "ticker": "FFC",
+      "date": "Jul 29, 2026",
       "date_iso": "2026-07-29",
-      "period": "30/06/2026(HYR)",
-      "raw_details": "145%(ii) (D)",
-      "cash_dividend_pct": 145.0,
-      "amount_per_share": 14.5,
-      "non_cash_notes": []
+      "period": "Financial Results for the Quarter Ended 30 Jun 2026",
+      "raw_details": "Financial Results for the Quarter Ended 30 Jun 2026",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280460.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280460-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
+    },
+    {
+      "ticker": "FFC",
+      "date": "Jul 22, 2026",
+      "date_iso": "2026-07-22",
+      "period": "241st Board of Directors Meeting",
+      "raw_details": "241st Board of Directors Meeting",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280209.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280209-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
     }
   ],
   "POL": [
-    {
-      "ticker": "POL",
-      "date": "February 24, 2026 2:17 PM",
-      "date_iso": "2026-02-24",
-      "period": "31/12/2025(HYR)",
-      "raw_details": "275%(i) (D)",
-      "cash_dividend_pct": 275.0,
-      "amount_per_share": 27.5,
-      "non_cash_notes": []
-    },
     {
       "ticker": "POL",
       "date": "August 11, 2025 3:29 PM",
@@ -717,6 +945,16 @@
       "cash_dividend_pct": 250.0,
       "amount_per_share": 25.0,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "POL",
+      "date": "February 24, 2026 2:17 PM",
+      "date_iso": "2026-02-24",
+      "period": "31/12/2025(HYR)",
+      "raw_details": "275%(i) (D)",
+      "cash_dividend_pct": 275.0,
+      "amount_per_share": 27.5,
+      "non_cash_notes": []
     }
   ],
   "PSO": [
@@ -734,16 +972,6 @@
   "MARI": [
     {
       "ticker": "MARI",
-      "date": "January 26, 2026 4:05 PM",
-      "date_iso": "2026-01-26",
-      "period": "31/12/2025(HYR)",
-      "raw_details": "83%(i) (D)",
-      "cash_dividend_pct": 83.0,
-      "amount_per_share": 8.3,
-      "non_cash_notes": []
-    },
-    {
-      "ticker": "MARI",
       "date": "August 11, 2025 10:57 AM",
       "date_iso": "2025-08-11",
       "period": "30/06/2025(YR)",
@@ -751,29 +979,19 @@
       "cash_dividend_pct": 217.0,
       "amount_per_share": 21.7,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "MARI",
+      "date": "January 26, 2026 4:05 PM",
+      "date_iso": "2026-01-26",
+      "period": "31/12/2025(HYR)",
+      "raw_details": "83%(i) (D)",
+      "cash_dividend_pct": 83.0,
+      "amount_per_share": 8.3,
+      "non_cash_notes": []
     }
   ],
   "PPL": [
-    {
-      "ticker": "PPL",
-      "date": "April 29, 2026 3:18 PM",
-      "date_iso": "2026-04-29",
-      "period": "31/12/2025(YR)",
-      "raw_details": "20%(iii) (D)",
-      "cash_dividend_pct": 20.0,
-      "amount_per_share": 2.0,
-      "non_cash_notes": []
-    },
-    {
-      "ticker": "PPL",
-      "date": "February 13, 2026 4:00 PM",
-      "date_iso": "2026-02-13",
-      "period": "31/12/2025(HYR)",
-      "raw_details": "20%(F) (D)",
-      "cash_dividend_pct": 20.0,
-      "amount_per_share": 2.0,
-      "non_cash_notes": []
-    },
     {
       "ticker": "PPL",
       "date": "October 29, 2025 3:14 PM",
@@ -813,29 +1031,44 @@
       "cash_dividend_pct": 20.0,
       "amount_per_share": 2.0,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "PPL",
+      "date": "April 29, 2026 3:18 PM",
+      "date_iso": "2026-04-29",
+      "period": "31/12/2025(YR)",
+      "raw_details": "20%(iii) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (no '<period> ended <date>' phrase found in the extracted text); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    },
+    {
+      "ticker": "PPL",
+      "date": "February 13, 2026 4:00 PM",
+      "date_iso": "2026-02-13",
+      "period": "31/12/2025(HYR)",
+      "raw_details": "20%(F) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": "https://dps.psx.com.pk/download/document/270122.pdf",
+        "reason": null
+      }
     }
   ],
   "OGDC": [
-    {
-      "ticker": "OGDC",
-      "date": "April 29, 2026 3:56 PM",
-      "date_iso": "2026-04-29",
-      "period": "31/03/2026(IIIQ)",
-      "raw_details": "32.50%(iii) (D)",
-      "cash_dividend_pct": 32.5,
-      "amount_per_share": 3.25,
-      "non_cash_notes": []
-    },
-    {
-      "ticker": "OGDC",
-      "date": "February 23, 2026 1:25 PM",
-      "date_iso": "2026-02-23",
-      "period": "31/12/2025(HYR)",
-      "raw_details": "42.50%(ii) (D)",
-      "cash_dividend_pct": 42.5,
-      "amount_per_share": 4.25,
-      "non_cash_notes": []
-    },
     {
       "ticker": "OGDC",
       "date": "October 29, 2025 4:08 PM",
@@ -875,6 +1108,40 @@
       "cash_dividend_pct": 0.0,
       "amount_per_share": 0.0,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "OGDC",
+      "date": "April 29, 2026 3:56 PM",
+      "date_iso": "2026-04-29",
+      "period": "31/03/2026(IIIQ)",
+      "raw_details": "32.50%(iii) (D)",
+      "cash_dividend_pct": 32.5,
+      "amount_per_share": 3.25,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": "https://dps.psx.com.pk/download/document/275829.pdf",
+        "reason": null
+      }
+    },
+    {
+      "ticker": "OGDC",
+      "date": "February 23, 2026 1:25 PM",
+      "date_iso": "2026-02-23",
+      "period": "31/12/2025(HYR)",
+      "raw_details": "42.50%(ii) (D)",
+      "cash_dividend_pct": 42.5,
+      "amount_per_share": 4.25,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": "https://dps.psx.com.pk/download/attachment/270842-1.pdf",
+        "reason": null
+      }
     }
   ],
   "ALTN": [
@@ -890,16 +1157,6 @@
     }
   ],
   "NCPL": [
-    {
-      "ticker": "NCPL",
-      "date": "April 28, 2026 4:03 PM",
-      "date_iso": "2026-04-28",
-      "period": "31/03/2026(IIIQ)",
-      "raw_details": "15%(i) (D)",
-      "cash_dividend_pct": 15.0,
-      "amount_per_share": 1.5,
-      "non_cash_notes": []
-    },
     {
       "ticker": "NCPL",
       "date": "April 25, 2025 5:30 PM",
@@ -919,19 +1176,27 @@
       "cash_dividend_pct": 50.0,
       "amount_per_share": 5.0,
       "non_cash_notes": []
-    }
-  ],
-  "NPL": [
+    },
     {
-      "ticker": "NPL",
-      "date": "April 28, 2026 4:02 PM",
+      "ticker": "NCPL",
+      "date": "April 28, 2026 4:03 PM",
       "date_iso": "2026-04-28",
       "period": "31/03/2026(IIIQ)",
       "raw_details": "15%(i) (D)",
       "cash_dividend_pct": 15.0,
       "amount_per_share": 1.5,
-      "non_cash_notes": []
-    },
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    }
+  ],
+  "NPL": [
     {
       "ticker": "NPL",
       "date": "April 25, 2025 5:26 PM",
@@ -951,29 +1216,27 @@
       "cash_dividend_pct": 20.0,
       "amount_per_share": 2.0,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "NPL",
+      "date": "April 28, 2026 4:02 PM",
+      "date_iso": "2026-04-28",
+      "period": "31/03/2026(IIIQ)",
+      "raw_details": "15%(i) (D)",
+      "cash_dividend_pct": 15.0,
+      "amount_per_share": 1.5,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
     }
   ],
   "HUBC": [
-    {
-      "ticker": "HUBC",
-      "date": "April 22, 2026 12:35 PM",
-      "date_iso": "2026-04-22",
-      "period": "31/03/2026(IIIQ)",
-      "raw_details": "50%(iii) (D)",
-      "cash_dividend_pct": 50.0,
-      "amount_per_share": 5.0,
-      "non_cash_notes": []
-    },
-    {
-      "ticker": "HUBC",
-      "date": "February 24, 2026 2:38 PM",
-      "date_iso": "2026-02-24",
-      "period": "31/12/2025(HYR)",
-      "raw_details": "50%(ii) (D)",
-      "cash_dividend_pct": 50.0,
-      "amount_per_share": 5.0,
-      "non_cash_notes": []
-    },
     {
       "ticker": "HUBC",
       "date": "October 30, 2025 4:28 PM",
@@ -1003,19 +1266,29 @@
       "cash_dividend_pct": 50.0,
       "amount_per_share": 5.0,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "HUBC",
+      "date": "April 22, 2026 12:35 PM",
+      "date_iso": "2026-04-22",
+      "period": "31/03/2026(IIIQ)",
+      "raw_details": "50%(iii) (D)",
+      "cash_dividend_pct": 50.0,
+      "amount_per_share": 5.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "HUBC",
+      "date": "February 24, 2026 2:38 PM",
+      "date_iso": "2026-02-24",
+      "period": "31/12/2025(HYR)",
+      "raw_details": "50%(ii) (D)",
+      "cash_dividend_pct": 50.0,
+      "amount_per_share": 5.0,
+      "non_cash_notes": []
     }
   ],
   "ISL": [
-    {
-      "ticker": "ISL",
-      "date": "January 27, 2026 4:55 PM",
-      "date_iso": "2026-01-27",
-      "period": "30/09/2025(HYR)",
-      "raw_details": "20%(i) (D)",
-      "cash_dividend_pct": 20.0,
-      "amount_per_share": 2.0,
-      "non_cash_notes": []
-    },
     {
       "ticker": "ISL",
       "date": "August 20, 2025 3:40 PM",
@@ -1025,29 +1298,19 @@
       "cash_dividend_pct": 25.0,
       "amount_per_share": 2.5,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "ISL",
+      "date": "January 27, 2026 4:55 PM",
+      "date_iso": "2026-01-27",
+      "period": "30/09/2025(HYR)",
+      "raw_details": "20%(i) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": []
     }
   ],
   "INDU": [
-    {
-      "ticker": "INDU",
-      "date": "April 27, 2026 3:50 PM",
-      "date_iso": "2026-04-27",
-      "period": "31/03/2026(IIIQ)",
-      "raw_details": "510%(iii) (D)",
-      "cash_dividend_pct": 510.0,
-      "amount_per_share": 51.0,
-      "non_cash_notes": []
-    },
-    {
-      "ticker": "INDU",
-      "date": "February 23, 2026 1:14 PM",
-      "date_iso": "2026-02-23",
-      "period": "31/12/2025(HYR)",
-      "raw_details": "460%(ii) (D)",
-      "cash_dividend_pct": 460.0,
-      "amount_per_share": 46.0,
-      "non_cash_notes": []
-    },
     {
       "ticker": "INDU",
       "date": "October 28, 2025 4:40 PM",
@@ -1087,6 +1350,26 @@
       "cash_dividend_pct": 370.0,
       "amount_per_share": 37.0,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "INDU",
+      "date": "April 27, 2026 3:50 PM",
+      "date_iso": "2026-04-27",
+      "period": "31/03/2026(IIIQ)",
+      "raw_details": "510%(iii) (D)",
+      "cash_dividend_pct": 510.0,
+      "amount_per_share": 51.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "INDU",
+      "date": "February 23, 2026 1:14 PM",
+      "date_iso": "2026-02-23",
+      "period": "31/12/2025(HYR)",
+      "raw_details": "460%(ii) (D)",
+      "cash_dividend_pct": 460.0,
+      "amount_per_share": 46.0,
+      "non_cash_notes": []
     }
   ],
   "NML": [
@@ -1116,16 +1399,6 @@
   "OLPL": [
     {
       "ticker": "OLPL",
-      "date": "April 27, 2026 3:57 PM",
-      "date_iso": "2026-04-27",
-      "period": "31/03/2026(IIIQ)",
-      "raw_details": "20%(i) (D)",
-      "cash_dividend_pct": 20.0,
-      "amount_per_share": 2.0,
-      "non_cash_notes": []
-    },
-    {
-      "ticker": "OLPL",
       "date": "September 25, 2025 4:24 PM",
       "date_iso": "2025-09-25",
       "period": "30/06/2025(YR)",
@@ -1143,19 +1416,19 @@
       "cash_dividend_pct": 20.0,
       "amount_per_share": 2.0,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "OLPL",
+      "date": "April 27, 2026 3:57 PM",
+      "date_iso": "2026-04-27",
+      "period": "31/03/2026(IIIQ)",
+      "raw_details": "20%(i) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": []
     }
   ],
   "ABOT": [
-    {
-      "ticker": "ABOT",
-      "date": "March 16, 2026 2:30 PM",
-      "date_iso": "2026-03-16",
-      "period": "31/12/2025(YR)",
-      "raw_details": "400%(F) (D)",
-      "cash_dividend_pct": 400.0,
-      "amount_per_share": 40.0,
-      "non_cash_notes": []
-    },
     {
       "ticker": "ABOT",
       "date": "February 20, 2025 3:45 PM",
@@ -1164,6 +1437,16 @@
       "raw_details": "100%(F) (D)",
       "cash_dividend_pct": 100.0,
       "amount_per_share": 10.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "ABOT",
+      "date": "March 16, 2026 2:30 PM",
+      "date_iso": "2026-03-16",
+      "period": "31/12/2025(YR)",
+      "raw_details": "400%(F) (D)",
+      "cash_dividend_pct": 400.0,
+      "amount_per_share": 40.0,
       "non_cash_notes": []
     }
   ],
@@ -1180,16 +1463,6 @@
     }
   ],
   "GLAXO": [
-    {
-      "ticker": "GLAXO",
-      "date": "March 26, 2026 3:54 PM",
-      "date_iso": "2026-03-26",
-      "period": "31/12/2025(YR)",
-      "raw_details": "120%(F) (D)",
-      "cash_dividend_pct": 120.0,
-      "amount_per_share": 12.0,
-      "non_cash_notes": []
-    },
     {
       "ticker": "GLAXO",
       "date": "August 26, 2025 3:34 PM",
@@ -1209,19 +1482,19 @@
       "cash_dividend_pct": 100.0,
       "amount_per_share": 10.0,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "GLAXO",
+      "date": "March 26, 2026 3:54 PM",
+      "date_iso": "2026-03-26",
+      "period": "31/12/2025(YR)",
+      "raw_details": "120%(F) (D)",
+      "cash_dividend_pct": 120.0,
+      "amount_per_share": 12.0,
+      "non_cash_notes": []
     }
   ],
   "HINOON": [
-    {
-      "ticker": "HINOON",
-      "date": "April 7, 2026 4:00 PM",
-      "date_iso": "2026-04-07",
-      "period": "31/12/2025(YR)",
-      "raw_details": "500%(F) (D)",
-      "cash_dividend_pct": 500.0,
-      "amount_per_share": 50.0,
-      "non_cash_notes": []
-    },
     {
       "ticker": "HINOON",
       "date": "March 26, 2025 2:45 PM",
@@ -1231,6 +1504,24 @@
       "cash_dividend_pct": 400.0,
       "amount_per_share": 40.0,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "HINOON",
+      "date": "April 7, 2026 4:00 PM",
+      "date_iso": "2026-04-07",
+      "period": "31/12/2025(YR)",
+      "raw_details": "500%(F) (D)",
+      "cash_dividend_pct": 500.0,
+      "amount_per_share": 50.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
     }
   ],
   "CPHL": [
@@ -1246,16 +1537,6 @@
     }
   ],
   "AGP": [
-    {
-      "ticker": "AGP",
-      "date": "March 24, 2026 4:16 PM",
-      "date_iso": "2026-03-24",
-      "period": "31/12/2025(YR)",
-      "raw_details": "60%(F) (D)",
-      "cash_dividend_pct": 60.0,
-      "amount_per_share": 6.0,
-      "non_cash_notes": []
-    },
     {
       "ticker": "AGP",
       "date": "August 27, 2025 3:59 PM",
@@ -1275,19 +1556,27 @@
       "cash_dividend_pct": 40.0,
       "amount_per_share": 4.0,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "AGP",
+      "date": "March 24, 2026 4:16 PM",
+      "date_iso": "2026-03-24",
+      "period": "31/12/2025(YR)",
+      "raw_details": "60%(F) (D)",
+      "cash_dividend_pct": 60.0,
+      "amount_per_share": 6.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
     }
   ],
   "SYS": [
-    {
-      "ticker": "SYS",
-      "date": "April 7, 2026 3:57 PM",
-      "date_iso": "2026-04-07",
-      "period": "31/12/2025(YR)",
-      "raw_details": "100%(F) (D)",
-      "cash_dividend_pct": 100.0,
-      "amount_per_share": 10.0,
-      "non_cash_notes": []
-    },
     {
       "ticker": "SYS",
       "date": "March 24, 2025 2:14 PM",
@@ -1297,6 +1586,470 @@
       "cash_dividend_pct": 60.0,
       "amount_per_share": 6.0,
       "non_cash_notes": []
+    },
+    {
+      "ticker": "SYS",
+      "date": "April 7, 2026 3:57 PM",
+      "date_iso": "2026-04-07",
+      "period": "31/12/2025(YR)",
+      "raw_details": "100%(F) (D)",
+      "cash_dividend_pct": 100.0,
+      "amount_per_share": 10.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (no announcement row matched this date in the recent announcements list); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    }
+  ],
+  "AICL": [
+    {
+      "ticker": "AICL",
+      "date": "August 28, 2025 4:17 PM",
+      "date_iso": "2025-08-28",
+      "period": "30/06/2025(HYR)",
+      "raw_details": "20%(I) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "AICL",
+      "date": "March 4, 2025 2:31 PM",
+      "date_iso": "2025-03-04",
+      "period": "31/12/2024(YR)",
+      "raw_details": "15%(F) (D)",
+      "cash_dividend_pct": 15.0,
+      "amount_per_share": 1.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "AICL",
+      "date": "February 18, 2026 4:09 PM",
+      "date_iso": "2026-02-18",
+      "period": "31/12/2025(YR)",
+      "raw_details": "20%(F) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (no '<period> ended <date>' phrase found in the extracted text); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    }
+  ],
+  "PTL": [
+    {
+      "ticker": "PTL",
+      "date": "September 29, 2025 10:51 AM",
+      "date_iso": "2025-09-29",
+      "period": "30/06/2025(YR)",
+      "raw_details": "DIVIDEND =20%(F)",
+      "cash_dividend_pct": 0.0,
+      "amount_per_share": 0.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "PTL",
+      "date": "March 5, 2026 2:45 PM",
+      "date_iso": "2026-03-05",
+      "period": "-",
+      "raw_details": "20%(i) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "NEEDS REVIEW: no matching announcement PDF found",
+        "period_end_date": null,
+        "pdf_url": null,
+        "reason": "no announcement row matched this date in the recent announcements list"
+      }
+    }
+  ],
+  "CPPL": [
+    {
+      "ticker": "CPPL",
+      "date": "August 20, 2025 4:14 PM",
+      "date_iso": "2025-08-20",
+      "period": "30/06/2025(YR)",
+      "raw_details": "20%(F) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "CPPL",
+      "date": "February 20, 2025 3:39 PM",
+      "date_iso": "2025-02-20",
+      "period": "31/12/2024(HYR)",
+      "raw_details": "10%(i) (D)",
+      "cash_dividend_pct": 10.0,
+      "amount_per_share": 1.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "CPPL",
+      "date": "February 19, 2026 2:22 PM",
+      "date_iso": "2026-02-19",
+      "period": "31/12/2025(HYR)",
+      "raw_details": "10%(i) (D)",
+      "cash_dividend_pct": 10.0,
+      "amount_per_share": 1.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    }
+  ],
+  "SRVI": [
+    {
+      "ticker": "SRVI",
+      "date": "March 26, 2025 2:23 PM",
+      "date_iso": "2025-03-26",
+      "period": "31/12/2024(YR)",
+      "raw_details": "150%(F) (D)",
+      "cash_dividend_pct": 150.0,
+      "amount_per_share": 15.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "SRVI",
+      "date": "March 18, 2026 2:33 PM",
+      "date_iso": "2026-03-18",
+      "period": "31/12/2025(YR)",
+      "raw_details": "175%(F) (D)",
+      "cash_dividend_pct": 175.0,
+      "amount_per_share": 17.5,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (no '<period> ended <date>' phrase found in the extracted text); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    }
+  ],
+  "PKGS": [
+    {
+      "ticker": "PKGS",
+      "date": "March 26, 2025 2:30 PM",
+      "date_iso": "2025-03-26",
+      "period": "31/12/2024(YR)",
+      "raw_details": "150%(F) (D)",
+      "cash_dividend_pct": 150.0,
+      "amount_per_share": 15.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "PKGS",
+      "date": "March 26, 2026 3:56 PM",
+      "date_iso": "2026-03-26",
+      "period": "31/12/2025(YR)",
+      "raw_details": "160%(F) (D)",
+      "cash_dividend_pct": 160.0,
+      "amount_per_share": 16.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": "https://dps.psx.com.pk/download/document/273049.pdf",
+        "reason": null
+      }
+    }
+  ],
+  "AKBL": [
+    {
+      "ticker": "AKBL",
+      "date": "October 29, 2025 3:16 PM",
+      "date_iso": "2025-10-29",
+      "period": "30/09/2025(IIIQ)",
+      "raw_details": "12.5%(ii (D)",
+      "cash_dividend_pct": 0.0,
+      "amount_per_share": 0.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "AKBL",
+      "date": "August 21, 2025 4:27 PM",
+      "date_iso": "2025-08-21",
+      "period": "30/06/2025(HYR)",
+      "raw_details": "20%(i) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "AKBL",
+      "date": "February 24, 2025 4:18 PM",
+      "date_iso": "2025-02-24",
+      "period": "31/12/2024(YR)",
+      "raw_details": "30%(F) (D)",
+      "cash_dividend_pct": 30.0,
+      "amount_per_share": 3.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "AKBL",
+      "date": "April 27, 2026 3:54 PM",
+      "date_iso": "2026-04-27",
+      "period": "31/03/2026(IQ)",
+      "raw_details": "20%(i) (D)",
+      "cash_dividend_pct": 20.0,
+      "amount_per_share": 2.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "included",
+        "period_label": "Q1 2026 Interim",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    },
+    {
+      "ticker": "AKBL",
+      "date": "February 9, 2026 3:47 PM",
+      "date_iso": "2026-02-09",
+      "period": "30/06/2025(YR)",
+      "raw_details": "17.50% (D)",
+      "cash_dividend_pct": 0.0,
+      "amount_per_share": 0.0,
+      "non_cash_notes": [],
+      "period_classification": null
+    },
+    {
+      "ticker": "AKBL",
+      "date": "Jul 31, 2026",
+      "date_iso": "2026-07-31",
+      "period": "Financial Results for the Quarter Ended",
+      "raw_details": "Financial Results for the Quarter Ended",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280635.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280635-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
+    },
+    {
+      "ticker": "AKBL",
+      "date": "Jul 22, 2026",
+      "date_iso": "2026-07-22",
+      "period": "Board Meeting",
+      "raw_details": "Board Meeting",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280229.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280229-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
+    }
+  ],
+  "MUREB": [
+    {
+      "ticker": "MUREB",
+      "date": "October 27, 2025 11:15 AM",
+      "date_iso": "2025-10-27",
+      "period": "30/09/2025(IQ)",
+      "raw_details": "50%(i) (D)",
+      "cash_dividend_pct": 50.0,
+      "amount_per_share": 5.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "MUREB",
+      "date": "September 19, 2025 4:24 PM",
+      "date_iso": "2025-09-19",
+      "period": "30/06/2025(YR)",
+      "raw_details": "145%(F) (D)",
+      "cash_dividend_pct": 145.0,
+      "amount_per_share": 14.5,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "MUREB",
+      "date": "April 25, 2025 3:07 PM",
+      "date_iso": "2025-04-25",
+      "period": "31/03/2025(IIIQ)",
+      "raw_details": "100%(iii) (D)",
+      "cash_dividend_pct": 100.0,
+      "amount_per_share": 10.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "MUREB",
+      "date": "February 21, 2025 2:40 PM",
+      "date_iso": "2025-02-21",
+      "period": "31/12/2024(HYR)",
+      "raw_details": "120%(ii) (D)",
+      "cash_dividend_pct": 120.0,
+      "amount_per_share": 12.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "MUREB",
+      "date": "February 23, 2026 1:19 PM",
+      "date_iso": "2026-02-23",
+      "period": "31/12/2025(HYR)",
+      "raw_details": "120%(F) (D)",
+      "cash_dividend_pct": 120.0,
+      "amount_per_share": 12.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "excluded",
+        "period_label": "FY2025 Final (excluded \u2014 not 2026)",
+        "period_end_date": "2025-12-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (no announcement row matched this date in the recent announcements list); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    }
+  ],
+  "ATLH": [
+    {
+      "ticker": "ATLH",
+      "date": "October 30, 2025 4:18 PM",
+      "date_iso": "2025-10-30",
+      "period": "30/09/2025(HYR)",
+      "raw_details": "460%(i) (D)",
+      "cash_dividend_pct": 460.0,
+      "amount_per_share": 46.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "ATLH",
+      "date": "April 30, 2026 2:52 PM",
+      "date_iso": "2026-04-30",
+      "period": "31/03/2026(YR)",
+      "raw_details": "560%(F) (D)",
+      "cash_dividend_pct": 560.0,
+      "amount_per_share": 56.0,
+      "non_cash_notes": [],
+      "period_classification": {
+        "status": "included",
+        "period_label": "FY2026 Final",
+        "period_end_date": "2026-03-31",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
+      }
+    },
+    {
+      "ticker": "ATLH",
+      "date": "Jul 30, 2026",
+      "date_iso": "2026-07-30",
+      "period": "Financial Results for the Quarter Ended June 30, 2026",
+      "raw_details": "Financial Results for the Quarter Ended June 30, 2026",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280537.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280537-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
+    },
+    {
+      "ticker": "ATLH",
+      "date": "Jul 23, 2026",
+      "date_iso": "2026-07-23",
+      "period": "Board Meeting",
+      "raw_details": "Board Meeting",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280277.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280277-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
+    }
+  ],
+  "PIOC": [
+    {
+      "ticker": "PIOC",
+      "date": "September 29, 2025 10:44 AM",
+      "date_iso": "2025-09-29",
+      "period": "30/06/2025(YR)",
+      "raw_details": "50%(F) (D)",
+      "cash_dividend_pct": 50.0,
+      "amount_per_share": 5.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "PIOC",
+      "date": "February 28, 2025 4:24 PM",
+      "date_iso": "2025-02-28",
+      "period": "31/12/2024(YR)",
+      "raw_details": "50%(i) (D)",
+      "cash_dividend_pct": 50.0,
+      "amount_per_share": 5.0,
+      "non_cash_notes": []
+    },
+    {
+      "ticker": "PIOC",
+      "date": "Jul 29, 2026",
+      "date_iso": "2026-07-29",
+      "period": "Financial Results for the Year ended June 30, 2026",
+      "raw_details": "Financial Results for the Year ended June 30, 2026",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280451.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280451-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
     }
   ],
   "AVN": [
@@ -1309,6 +2062,29 @@
       "cash_dividend_pct": 10.0,
       "amount_per_share": 1.0,
       "non_cash_notes": []
+    }
+  ],
+  "MLCF": [
+    {
+      "ticker": "MLCF",
+      "date": "Jul 31, 2026",
+      "date_iso": "2026-07-31",
+      "period": "MLCF-Financial Results for the year ended June 30, 2026",
+      "raw_details": "MLCF-Financial Results for the year ended June 30, 2026",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280589.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280589-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
     }
   ]
 }
