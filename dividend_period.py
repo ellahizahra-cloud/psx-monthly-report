@@ -15,19 +15,26 @@ Pipeline per announcement:
      Meetings" / "Others" tabs (server-rendered, most-recent-first — this
      is why the daily check only needs to look at recent items) and grab
      the linked PDF.
-  2. download + extract text (PyPDF2). Some PSX filings are scanned
-     images with no extractable text layer — those are flagged for
-     manual review rather than guessed at.
+  2. download + extract text (PyPDF2). Many PSX filings are scanned
+     images with no extractable text layer — for those, OCR the linked
+     page-1 scanned image (pytesseract) as a fallback rather than giving
+     up immediately. Confirmed to work well on real filings: these are
+     typed letterheads, not handwriting, and Tesseract reads them
+     cleanly (spot-checked against HBL's Aug 4, 2026 announcement).
   3. Regex-search the text for "<quarter|half year|year|nine months|
-     twelve months> ended <date>" (case-insensitive, several wordings)
-     and take the first match — PSX filings state the current period in
-     the subject line before any comparative-period figures appear.
+     twelve months> ended <date>" (case-insensitive, several wordings,
+     including ISO YYYY-MM-DD dates) and take the first match — PSX
+     filings state the current period in the subject line before any
+     comparative-period figures appear.
   4. Classify included/excluded by comparing the parsed period end-date's
      year against the current year.
 
-Never OCR, never guess: if the PDF has no text layer, no matching
-announcement is found, or no period phrase can be parsed, the result is
+Still never guess: if neither the PDF's text layer nor OCR of the scanned
+image yields a matching period phrase, no matching announcement is found,
+or the payout-table fallback also comes up empty, the result is
 "needs_review" and the caller must not silently include or exclude it.
+OCR-sourced classifications are tagged (source="pdf_ocr") so they stay
+distinguishable in the audit trail from clean text-layer extraction.
 
 Supplementary detection channel (check_supplementary_announcements):
 PSX's Payouts table (dividend_fetch.py, the primary source) sometimes
@@ -36,15 +43,16 @@ announcement it's built from (seen live for FFC's Jul 29, 2026 interim
 dividend). check_supplementary_announcements() reads the same two
 announcement tabs directly, independent of the Payouts table, and for any
 row not already known: tries to extract a newly-declared cash-dividend
-amount from the linked PDF's text (a "CASH DIVIDEND" heading followed by
-the first "Rs X per share" figure — PSX filings state the new declaration
-before any "already paid" comparative figure). If the PDF is scanned (no
-text layer, common) or the amount/period can't be parsed, it's returned
-as needs_review with direct links to the PDF and the scanned page image
-so a human can check it — never guessed. Routine filings (AGM notices,
-transmissions, corporate briefings, Shariah disclosures) are skipped by
-title before ever downloading a PDF, to keep this a lightweight daily
-check rather than a full-text scan of every filing.
+amount from the linked PDF's text (falling back to OCR of the scanned
+page image, same as the primary pipeline) — a "CASH DIVIDEND" heading
+followed by the first "Rs X per share" figure, since PSX filings state
+the new declaration before any "already paid" comparative figure. If both
+the PDF text and OCR fail to produce a usable amount/period, it's
+returned as needs_review with direct links to the PDF and the scanned
+page image so a human can check it — never guessed. Routine filings (AGM
+notices, transmissions, corporate briefings, Shariah disclosures) are
+skipped by title before ever downloading a PDF, to keep this a
+lightweight daily check rather than a full-text scan of every filing.
 """
 
 import datetime as dt
@@ -53,6 +61,8 @@ import re
 import urllib.request
 
 import PyPDF2
+import pytesseract
+from PIL import Image
 
 COMPANY_PAGE_URL = "https://dps.psx.com.pk/company/{symbol}"
 IMAGE_URL = "https://dps.psx.com.pk/download/image/{image_id}"
@@ -82,7 +92,7 @@ ROW_DATE_FORMAT = "%b %d, %Y"
 
 PERIOD_RE = re.compile(
     r'(quarter|half\s*year|year|twelve\s+months?|nine\s+months?)\s+ended\s+'
-    r'([A-Za-z]+\.?\s+\d{1,2},?\s*\d{4}|\d{1,2}\s+[A-Za-z]+\.?,?\s*\d{4})',
+    r'([A-Za-z]+\.?\s+\d{1,2},?\s*\d{4}|\d{1,2}\s+[A-Za-z]+\.?,?\s*\d{4}|\d{4}-\d{2}-\d{2})',
     re.I,
 )
 # Both "Month Day, Year" (common in PDFs) and "Day Month Year" (common in
@@ -231,6 +241,45 @@ def extract_text(pdf_bytes: bytes) -> str:
         return ""
 
 
+# Matches PSX's "/download/document/<id>.pdf" URLs (the common case for
+# board-meeting-outcome letters) so the page-1 scanned image PSX also
+# publishes for the same document (used for the company page's "View"
+# link) can be derived without a second page fetch. Attachment-style URLs
+# ("/download/attachment/...") don't follow this id->image mapping and
+# are left alone — OCR just isn't attempted for those.
+PDF_DOC_ID_RE = re.compile(r'/download/document/(\d+)\.pdf$')
+
+
+def image_url_for_pdf(pdf_url: str):
+    match = PDF_DOC_ID_RE.search(pdf_url)
+    if not match:
+        return None
+    return IMAGE_URL.format(image_id=f"{match.group(1)}-1.gif")
+
+
+def ocr_image(image_bytes: bytes) -> str:
+    try:
+        return pytesseract.image_to_string(Image.open(io.BytesIO(image_bytes)))
+    except Exception:
+        return ""
+
+
+def ocr_scanned_pdf(pdf_url: str, referer: str) -> str:
+    """OCR fallback when a PDF has no text layer: download the page-1
+    scanned image PSX publishes alongside the same document and run it
+    through Tesseract. These are typed letterheads, not handwriting, so
+    OCR reads them cleanly (spot-checked against real filings). Returns
+    "" on any failure — image not derivable, download failure, OCR
+    failure — so callers can treat this exactly like empty PDF text."""
+    image_url = image_url_for_pdf(pdf_url)
+    if not image_url:
+        return ""
+    image_bytes = download_pdf(image_url, referer=referer)
+    if not image_bytes:
+        return ""
+    return ocr_image(image_bytes)
+
+
 def _period_label(period_type: str, end_date: dt.date, included: bool) -> str:
     period_type = re.sub(r"\s+", " ", period_type.lower())
     if "year" in period_type or "twelve" in period_type:
@@ -315,23 +364,28 @@ def _classify_from_pdf(ticker: str, date_iso: str, current_year: int) -> dict:
         }
 
     text = extract_text(pdf_bytes)
+    source = "pdf"
     if not text.strip():
-        return {
-            "status": "needs_review",
-            "period_label": "NEEDS REVIEW: scanned PDF, no extractable text",
-            "period_end_date": None,
-            "pdf_url": pdf_url,
-            "reason": "PDF has no text layer (scanned image) — not OCR'd, needs manual review",
-        }
+        text = ocr_scanned_pdf(pdf_url, referer=company_url)
+        source = "pdf_ocr"
+        if not text.strip():
+            return {
+                "status": "needs_review",
+                "period_label": "NEEDS REVIEW: scanned PDF, OCR found no text",
+                "period_end_date": None,
+                "pdf_url": pdf_url,
+                "reason": "PDF has no text layer (scanned image) and OCR of the page-1 "
+                          "image also came up empty — needs manual review",
+            }
 
     match = PERIOD_RE.search(text)
     if not match:
         return {
             "status": "needs_review",
-            "period_label": "NEEDS REVIEW: could not parse period from PDF text",
+            "period_label": f"NEEDS REVIEW: could not parse period from {'OCR' if source == 'pdf_ocr' else 'PDF'} text",
             "period_end_date": None,
             "pdf_url": pdf_url,
-            "reason": "no '<period> ended <date>' phrase found in the extracted text",
+            "reason": f"no '<period> ended <date>' phrase found in the {'OCR-extracted' if source == 'pdf_ocr' else 'extracted'} text",
         }
 
     period_end_date = _parse_period_date(match.group(2))
@@ -345,12 +399,16 @@ def _classify_from_pdf(ticker: str, date_iso: str, current_year: int) -> dict:
         }
 
     included = period_end_date.year == current_year
+    label = _period_label(match.group(1), period_end_date, included)
+    if source == "pdf_ocr":
+        label += " (OCR)"
     return {
         "status": "included" if included else "excluded",
-        "period_label": _period_label(match.group(1), period_end_date, included),
+        "period_label": label,
         "period_end_date": period_end_date.isoformat(),
         "pdf_url": pdf_url,
         "reason": None,
+        "source": source,
     }
 
 
@@ -439,6 +497,10 @@ def check_supplementary_announcements(ticker: str, known_isos, current_year: int
 
         pdf_bytes = download_pdf(row["pdf_url"], referer=company_url)
         text = extract_text(pdf_bytes) if pdf_bytes else ""
+        used_ocr = False
+        if not text.strip():
+            text = ocr_scanned_pdf(row["pdf_url"], referer=company_url)
+            used_ocr = bool(text.strip())
         if not text.strip():
             results.append({
                 **base,
@@ -446,7 +508,8 @@ def check_supplementary_announcements(ticker: str, known_isos, current_year: int
                 "period_label": None,
                 "period_end_date": None,
                 "amount_per_share": None,
-                "reason": "scanned PDF (no extractable text) found via announcement tabs — "
+                "reason": "scanned PDF (no extractable text) found via announcement tabs, "
+                          "and OCR of the page-1 image also came up empty — "
                           "could not confirm a dividend amount automatically",
             })
             continue
@@ -481,6 +544,7 @@ def check_supplementary_announcements(ticker: str, known_isos, current_year: int
                 "period_end_date": period_end_date.isoformat(),
                 "amount_per_share": amount,
                 "reason": None,
+                "ocr": used_ocr,
             })
         else:
             results.append({

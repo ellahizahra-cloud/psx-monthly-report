@@ -111,6 +111,7 @@ def run():
             fetch_errors.append(f"{ticker} (announcement tabs check): {e}")
 
         for s in supplementary:
+            ocr_suffix = " (OCR)" if s.get("ocr") else ""
             entry = {
                 "ticker": ticker,
                 "date": s["date"],
@@ -124,12 +125,12 @@ def run():
                 "provisional": True,
                 "period_classification": {
                     "status": s["status"],
-                    "period_label": s["period_label"] or s["reason"],
+                    "period_label": (s["period_label"] or s["reason"]) + ocr_suffix,
                     "period_end_date": s["period_end_date"],
                     "pdf_url": s["pdf_url"],
                     "image_url": s["image_url"],
                     "reason": s["reason"],
-                    "source": "financial_results_tab",
+                    "source": "financial_results_tab_ocr" if s.get("ocr") else "financial_results_tab",
                 },
             }
             history.setdefault(ticker, [])
