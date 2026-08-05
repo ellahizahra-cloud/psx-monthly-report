@@ -180,24 +180,14 @@
     },
     {
       "ticker": "HBL",
-      "date": "Aug 4, 2026",
+      "date": "August 4, 2026 2:44 PM",
       "date_iso": "2026-08-04",
-      "period": "Announcement of Financial Results for the Half Year Ended June 30, 2026",
-      "raw_details": "Announcement of Financial Results for the Half Year Ended June 30, 2026",
-      "cash_dividend_pct": null,
-      "amount_per_share": null,
+      "period": "30/06/2026(HYR)",
+      "raw_details": "60% (ii) (D)",
+      "cash_dividend_pct": 0.0,
+      "amount_per_share": 0.0,
       "non_cash_notes": [],
-      "source": "financial_results_tab",
-      "provisional": true,
-      "period_classification": {
-        "status": "needs_review",
-        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/280734.pdf",
-        "image_url": "https://dps.psx.com.pk/download/image/280734-1.gif",
-        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
-        "source": "financial_results_tab"
-      }
+      "period_classification": null
     }
   ],
   "BAFL": [
