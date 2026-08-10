@@ -690,6 +690,27 @@
         "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
         "source": "financial_results_tab"
       }
+    },
+    {
+      "ticker": "LUCK",
+      "date": "Aug 10, 2026",
+      "date_iso": "2026-08-10",
+      "period": "Financial Results for the year ended June 30, 2026",
+      "raw_details": "Financial Results for the year ended June 30, 2026",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280930.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280930-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
     }
   ],
   "DGKC": [
@@ -2134,6 +2155,29 @@
         "period_end_date": null,
         "pdf_url": "https://dps.psx.com.pk/download/document/280589.pdf",
         "image_url": "https://dps.psx.com.pk/download/image/280589-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
+    }
+  ],
+  "ASL": [
+    {
+      "ticker": "ASL",
+      "date": "Aug 10, 2026",
+      "date_iso": "2026-08-10",
+      "period": "BOARD MEETING / CLOSED PERIOD",
+      "raw_details": "BOARD MEETING / CLOSED PERIOD",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/280982.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/280982-1.gif",
         "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
         "source": "financial_results_tab"
       }
