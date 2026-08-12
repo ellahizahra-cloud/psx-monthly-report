@@ -767,23 +767,20 @@
     },
     {
       "ticker": "FCCL",
-      "date": "Aug 11, 2026",
+      "date": "August 11, 2026 4:09 PM",
       "date_iso": "2026-08-11",
-      "period": "Announcement of Financial Results for the Year Ended on 30 June 2026 and Disclosure of Material Information",
-      "raw_details": "Announcement of Financial Results for the Year Ended on 30 June 2026 and Disclosure of Material Information",
-      "cash_dividend_pct": null,
-      "amount_per_share": null,
+      "period": "30/06/2026(YR)",
+      "raw_details": "15%(F) (D)",
+      "cash_dividend_pct": 15.0,
+      "amount_per_share": 1.5,
       "non_cash_notes": [],
-      "source": "financial_results_tab",
-      "provisional": true,
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/281026.pdf",
-        "image_url": "https://dps.psx.com.pk/download/image/281026-1.gif",
-        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
-        "source": "financial_results_tab"
+        "status": "included",
+        "period_label": "FY2026 Final",
+        "period_end_date": "2026-06-30",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     }
   ],
