@@ -561,6 +561,27 @@
       "amount_per_share": 0.0,
       "non_cash_notes": [],
       "period_classification": null
+    },
+    {
+      "ticker": "HMB",
+      "date": "Aug 13, 2026",
+      "date_iso": "2026-08-13",
+      "period": "FINANCIAL RESULTS FOR THE HALF-YEAR ENDED JUNE 30, 2026",
+      "raw_details": "FINANCIAL RESULTS FOR THE HALF-YEAR ENDED JUNE 30, 2026",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/281155.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/281155-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
     }
   ],
   "UBL": [
@@ -1643,6 +1664,27 @@
         "pdf_url": null,
         "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
         "source": "payout_table"
+      }
+    },
+    {
+      "ticker": "AGP",
+      "date": "Aug 13, 2026",
+      "date_iso": "2026-08-13",
+      "period": "BOARD MEETING",
+      "raw_details": "BOARD MEETING",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/281150.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/281150-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
       }
     }
   ],
