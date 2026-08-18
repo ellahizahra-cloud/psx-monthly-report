@@ -1843,6 +1843,27 @@
         "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
         "source": "financial_results_tab"
       }
+    },
+    {
+      "ticker": "CPPL",
+      "date": "Aug 18, 2026",
+      "date_iso": "2026-08-18",
+      "period": "Financial Results for the Year Ended June 30, 2026",
+      "raw_details": "Financial Results for the Year Ended June 30, 2026",
+      "cash_dividend_pct": null,
+      "amount_per_share": null,
+      "non_cash_notes": [],
+      "source": "financial_results_tab",
+      "provisional": true,
+      "period_classification": {
+        "status": "needs_review",
+        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "period_end_date": null,
+        "pdf_url": "https://dps.psx.com.pk/download/document/281289.pdf",
+        "image_url": "https://dps.psx.com.pk/download/image/281289-1.gif",
+        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
+        "source": "financial_results_tab"
+      }
     }
   ],
   "SRVI": [
