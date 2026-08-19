@@ -66,10 +66,15 @@ dps.psx.com.pk/payouts makes) — never a full-history re-scrape.
   so "Dividend This Month" / "Dividend YTD" are always internally
   consistent (YTD naturally resets each January since it's computed from
   the current calendar year's log entries).
-- No new announcements -> no email, no file change, nothing committed.
-- New announcement(s) -> tracker updated, one email sent listing exactly
-  which ticker(s) triggered it and what was announced, `tracking_log.json`
-  updated so it isn't re-flagged next run.
+- No new announcements -> no draft, no file change, nothing committed.
+- New announcement(s) -> tracker updated, one Gmail draft saved (not
+  sent — a human reviews and sends it manually via `mailer.save_draft`,
+  an IMAP APPEND to the Drafts folder using the same app-password
+  credentials, no separate OAuth needed) listing exactly which ticker(s)
+  triggered it and what was announced, `tracking_log.json` updated so it
+  isn't re-flagged next run. Run failures still send a real email
+  immediately (`send_error_notice`) rather than sitting as an
+  easy-to-miss draft.
 
 ### Stock splits
 
@@ -93,19 +98,29 @@ against the ticker's PSX company page ("Financial Results" / "Board
 Meetings" / "Others" announcement tabs) to find the linked PDF, downloading
 it, extracting text with PyPDF2, and regex-searching for `<quarter|half
 year|year|nine months|twelve months> ended <date>` (handles common wording
-variants, case-insensitive). The parsed period end-date's year is compared
-to the current year to classify the entry as `included` or `excluded`.
+variants including ISO `YYYY-MM-DD` dates, case-insensitive). The parsed
+period end-date's year is compared to the current year to classify the
+entry as `included` or `excluded`.
 
-If the PDF has no extractable text (a scanned image — common for some PSX
-filings) or the period phrase can't be parsed, `dividend_period.classify()`
-falls back to PSX's own payout-table period code (e.g. `31/03/2026(IIIQ)`
-— a structured date+code PSX already publishes on the payouts page, no PDF
-needed) rather than leaving it unclassified. Only if *that* is also
-missing/unparseable (e.g. `-`) does the entry get marked `needs_review` —
-**never guessed**. `included`/`excluded`/`needs_review` entries are all
-recorded in `tracking_log.json` and shown in the workbook's Audit Log
-column (so exclusions are auditable), but only `included` entries count
-toward Dividend This Month / Dividend YTD / Dividend Announced (and therefore
+Many PSX filings are scanned images with no text layer at all (confirmed
+common for MCB, HBL, BAFL and others — typed letterheads that were
+signed and scanned rather than filed as native PDFs). When that happens,
+`dividend_period.py` falls back to OCR (Tesseract, via `pytesseract`) on
+the page-1 scanned image PSX publishes alongside the same document —
+these are typed letters, not handwriting, so OCR reads them reliably
+(spot-checked against several real filings). OCR-sourced classifications
+are tagged (`source: "pdf_ocr"`, and `"(OCR)"` appended to the period
+label) so they stay distinguishable in the audit trail from clean
+text-layer extraction. Only if OCR *also* yields nothing usable does
+`dividend_period.classify()` fall back to PSX's own payout-table period
+code (e.g. `31/03/2026(IIIQ)` — a structured date+code PSX already
+publishes on the payouts page, no PDF needed) rather than leaving it
+unclassified. Only if *that* is also missing/unparseable (e.g. `-`) does
+the entry get marked `needs_review` — **never guessed**.
+`included`/`excluded`/`needs_review` entries are all recorded in
+`tracking_log.json` and shown in the workbook's Audit Log column (so
+exclusions are auditable), but only `included` entries count toward
+Dividend This Month / Dividend YTD / Dividend Announced (and therefore
 Gross/Tax/Net). Entries from before this feature shipped (no
 `period_classification` recorded) fall back to counting, so existing
 totals aren't retroactively changed.
@@ -129,10 +144,11 @@ Payouts table:
 - For everything else, the linked PDF is downloaded and searched for a
   "CASH DIVIDEND" heading followed by a "Rs X per share" figure (PSX
   filings state the newly-declared amount first, before any "already
-  paid" comparative figure). If found and the fiscal period parses, the
-  entry is recorded exactly like a Payouts-sourced one.
-- If the PDF is scanned (no extractable text — common; confirmed for MCB,
-  HBL, BAFL, FFC and others) or the amount/period can't be parsed, the
+  paid" comparative figure). If the PDF is scanned, OCR of the page-1
+  image is tried before giving up (same fallback as the primary
+  classifier above). If found and the fiscal period parses, the entry is
+  recorded exactly like a Payouts-sourced one.
+- If neither the PDF text nor OCR yields a usable amount/period, the
   entry is recorded as `needs_review` with direct links to the PDF and
   the scanned page image, so it can be checked by eye — never guessed.
 

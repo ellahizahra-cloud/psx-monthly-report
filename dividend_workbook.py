@@ -5,36 +5,50 @@ from the tracking log (the single source of truth for announcement history).
 Single sheet, one row per ticker (DIVIDEND_TICKERS — the holdings-only
 universe, narrower than the price report's; see tickers.py):
   Ticker, Company, Sector, Quantity (from holdings.py / Cash Dividend 1
-  (1).xlsx), Dividend This Month, Dividend YTD (resets every January since
-  it's computed from the current calendar year's announcements),
-  Gross/Tax/Net Cash Dividend, Last Announcement Date, and an Audit Log
-  column (every Date: Amount [Period] on record for that ticker, for
-  auditability). Tickers with no 2026 dividend at all show "-" for the
-  dividend-derived columns (never 0) but Quantity always populates. A
-  Total row sums Quantity, Gross, Tax and Net across all tickers.
+  (1).xlsx), Q1/Q2/Q3/Q4 (PKR/share — each quarter's own declared amount,
+  populated once that quarter's dividend has actually been announced;
+  blank otherwise), Dividend YTD (= SUM of the four quarters, resets every
+  January since it's computed from the current calendar year's
+  announcements), Gross/Tax/Net Cash Dividend, Last Announcement Date, and
+  an Audit Log column (every Date: Amount [Period] on record for that
+  ticker, for auditability). Tickers with no current-year dividend at all
+  show "-" for the dividend-derived columns (never 0) but Quantity always
+  populates. A Total row sums Quantity, Gross, Tax and Net across all
+  tickers (summing the per-share quarter/YTD columns across different
+  companies wouldn't mean anything, so those are left out of the total).
 
-  Gross/Tax/Net are written as live Excel formulas (Gross = Quantity x
-  YTD, Tax = Gross x the tax-rate cell B3, Net = Gross - Tax; Total row
-  is =SUM(...) over the data rows), not baked-in values — an intentional
-  exception to the "write final values, no formula/recalc dependency"
-  rule elsewhere in this project, since this file is only ever consumed
-  by opening it directly in Excel/LibreOffice (both recalculate on open),
-  and being able to see/audit how each number was derived matters more
-  here than avoiding a recalc dependency.
+  An entry is bucketed into a quarter by its own fiscal period's end date
+  (e.g. "quarter ended June 30" -> Q2), not by the date PSX announced it —
+  consistent with the fiscal-period filtering below. Entries from before
+  that feature existed (no period_end_date on record) fall back to the
+  announcement date's own quarter as the best available proxy.
 
-Dividend This Month / YTD (and therefore Gross/Tax/Net) only include
-announcements whose underlying fiscal period (per dividend_period.classify)
-falls in the current year — a prior-year final dividend announced this
-year is logged in the Audit Log column (so it's still auditable) but
-excluded from the sums, and anything needs_review is likewise logged but
-not summed. Entries pre-dating this feature (no "period_classification"
-recorded) fall back to being counted, to avoid retroactively changing
-historical totals.
+  Q1-Q4/YTD/Gross/Tax/Net are all written as live Excel formulas (YTD =
+  SUM of the four quarters, Gross = Quantity x YTD, Tax = Gross x the
+  tax-rate cell B3, Net = Gross - Tax; Total row is =SUM(...) over the
+  data rows), not baked-in values — an intentional exception to the
+  "write final values, no formula/recalc dependency" rule elsewhere in
+  this project, since this file is only ever consumed by opening it
+  directly in Excel/LibreOffice (both recalculate on open), and being
+  able to see/audit how each number was derived matters more here than
+  avoiding a recalc dependency.
+
+Only announcements whose underlying fiscal period (per
+dividend_period.classify) falls in the current year count toward the
+quarter columns / YTD / Gross/Tax/Net — a prior-year final dividend
+announced this year is logged in the Audit Log column (so it's still
+auditable) but excluded from the sums, and anything needs_review is
+likewise logged but not summed. Entries pre-dating the period-
+classification feature (no "period_classification" recorded) fall back to
+being counted, to avoid retroactively changing historical totals.
 
 All figures are actual announced per-share cash-dividend amounts
-(PSX payout % x face value), adjusted for any stock splits recorded in
-stock_splits.json so historical amounts sit on a current-share-count
-basis. Never TTM/annualized/"last declared x4".
+(PSX payout % x face value — see FACE_VALUE in tickers.py, since PSX
+reports a percentage and this project has caught cases where the
+blanket-Rs10 assumption was wrong, e.g. BAFL's real face value is Rs5),
+adjusted for any stock splits recorded in stock_splits.json so historical
+amounts sit on a current-share-count basis. Never TTM/annualized/"last
+declared x4".
 """
 
 import datetime as dt
@@ -104,6 +118,20 @@ def _audit_label(entry: dict) -> str:
     return f" [{pc['period_label']}]" if pc else ""
 
 
+def _entry_quarter(entry: dict) -> int:
+    """Which calendar quarter (1-4) this entry's own fiscal period belongs
+    in, by its period end-date (e.g. 'quarter ended June 30' -> Q2) —
+    never by the date PSX happened to announce it. Falls back to the
+    announcement date's own quarter for entries that pre-date the
+    period-classification feature (no period_end_date on record)."""
+    pc = entry.get("period_classification")
+    if pc and pc.get("period_end_date"):
+        end_date = dt.date.fromisoformat(pc["period_end_date"])
+    else:
+        end_date = dt.date.fromisoformat(entry["date_iso"])
+    return (end_date.month - 1) // 3 + 1
+
+
 def _header_row(ws, row, headers):
     for c, h in enumerate(headers, 1):
         cell = ws.cell(row=row, column=c, value=h)
@@ -131,8 +159,10 @@ def build(history: dict) -> str:
     ws["A2"] = (
         f"Last updated {dt.datetime.now().isoformat(timespec='seconds')}. Source: PSX "
         "company payout announcements (board-meeting/announcement date). Quantity "
-        f"sourced from {holdings.HOLDINGS_FILE}. Gross/Tax/Net Cash Dividend are "
-        f"Quantity x Dividend YTD {today.year} (see formulas in G:I; tax rate in B3)."
+        f"sourced from {holdings.HOLDINGS_FILE}. Q1-Q4 are each quarter's own declared "
+        f"dividend (by fiscal period end-date, not announcement date). Gross/Tax/Net "
+        f"Cash Dividend are Quantity x Dividend YTD {today.year} (see formulas in I:L; "
+        "tax rate in B3)."
     )
     ws["A2"].font = Font(name=ARIAL, size=9, italic=True, color=GREY)
 
@@ -144,7 +174,10 @@ def build(history: dict) -> str:
 
     headers = [
         "Ticker", "Company", "Sector", "Quantity",
-        "Dividend This Month (PKR/share)",
+        f"Q1 {today.year} (PKR/share)",
+        f"Q2 {today.year} (PKR/share)",
+        f"Q3 {today.year} (PKR/share)",
+        f"Q4 {today.year} (PKR/share)",
         f"Dividend YTD {today.year} (PKR/share)",
         "Gross Cash Dividend (PKR)",
         f"Tax Amount ({TAX_WITHHOLDING_RATE:.0%}) (PKR)",
@@ -161,8 +194,7 @@ def build(history: dict) -> str:
         tkr = entry["ticker"]
         announcements = sorted(history.get(tkr, []), key=lambda a: a["date_iso"], reverse=True)
 
-        this_month_total = 0.0
-        ytd_total = 0.0
+        quarter_totals = {1: 0.0, 2: 0.0, 3: 0.0, 4: 0.0}
         last_date = None
         audit_parts = []
         for a in announcements:
@@ -173,9 +205,7 @@ def build(history: dict) -> str:
             else:
                 audit_parts.append(f"{a['date_iso']}: Rs {amt}{_audit_label(a)}")
                 if a_date.year == today.year and _counts_toward_totals(a):
-                    ytd_total += amt
-                    if a_date.month == today.month:
-                        this_month_total += amt
+                    quarter_totals[_entry_quarter(a)] += amt
             if last_date is None or a_date > last_date:
                 last_date = a_date
 
@@ -189,32 +219,35 @@ def build(history: dict) -> str:
         cq.number_format = "#,##0"
         cq.font = Font(name=ARIAL, size=10)
 
-        c5 = ws.cell(row=row, column=5, value=round(this_month_total, 2))
-        c5.number_format = "#,##0.00"
-        c5.font = Font(name=ARIAL, size=10)
+        for offset, q in enumerate((1, 2, 3, 4), start=5):
+            cell = ws.cell(row=row, column=offset, value=round(quarter_totals[q], 2) if quarter_totals[q] else "-")
+            cell.number_format = "#,##0.00"
+            cell.font = Font(name=ARIAL, size=10)
 
-        c6 = ws.cell(row=row, column=6, value=round(ytd_total, 2))
-        c6.number_format = "#,##0.00"
-        c6.font = Font(name=ARIAL, size=10)
+        # Real formulas (not baked-in values) so YTD/Gross/Tax/Net are
+        # auditable in Excel: YTD = SUM of the four quarter columns
+        # (treating "-" as 0), Gross = Quantity x YTD, Tax = Gross x
+        # tax-rate cell, Net = Gross - Tax. IF(...) keeps the "-"
+        # convention for tickers with no counted current-year dividend
+        # instead of showing 0.
+        c9 = ws.cell(row=row, column=9, value=f"=SUM(E{row}:H{row})")
+        c9.font = Font(name=ARIAL, size=10)
+        c9.number_format = "#,##0.00"
 
-        # Real formulas (not baked-in values) so Gross/Tax/Net are auditable
-        # in Excel: Gross = Quantity x YTD, Tax = Gross x tax-rate cell,
-        # Net = Gross - Tax. IF(...) keeps the "-" convention for tickers
-        # with no counted 2026 dividend instead of showing 0.
         formulas = [
-            f'=IF(F{row}=0,"-",D{row}*F{row})',
-            f'=IF(F{row}=0,"-",G{row}*$B$3)',
-            f'=IF(F{row}=0,"-",G{row}-H{row})',
+            f'=IF(I{row}=0,"-",D{row}*I{row})',
+            f'=IF(I{row}=0,"-",J{row}*$B$3)',
+            f'=IF(I{row}=0,"-",J{row}-K{row})',
         ]
-        for offset, formula in enumerate(formulas, start=7):
+        for offset, formula in enumerate(formulas, start=10):
             cell = ws.cell(row=row, column=offset, value=formula)
             cell.font = Font(name=ARIAL, size=10)
             cell.number_format = "#,##0.00"
 
-        ws.cell(row=row, column=10, value=last_date.isoformat() if last_date else "").font = Font(name=ARIAL, size=10)
-        ws.cell(row=row, column=11, value="; ".join(audit_parts)).font = Font(name=ARIAL, size=8.5, color=GREY)
+        ws.cell(row=row, column=13, value=last_date.isoformat() if last_date else "").font = Font(name=ARIAL, size=10)
+        ws.cell(row=row, column=14, value="; ".join(audit_parts)).font = Font(name=ARIAL, size=8.5, color=GREY)
 
-        for c in range(1, 12):
+        for c in range(1, 15):
             ws.cell(row=row, column=c).border = BORDER
         row += 1
 
@@ -222,21 +255,22 @@ def build(history: dict) -> str:
     ws.cell(row=row, column=1, value="Total").font = Font(name=ARIAL, size=10, bold=True)
     total_formulas = {
         4: f"=SUM(D5:D{last_data_row})",
-        7: f"=SUM(G5:G{last_data_row})",
-        8: f"=SUM(H5:H{last_data_row})",
-        9: f"=SUM(I5:I{last_data_row})",
+        10: f"=SUM(J5:J{last_data_row})",
+        11: f"=SUM(K5:K{last_data_row})",
+        12: f"=SUM(L5:L{last_data_row})",
     }
     for offset, formula in total_formulas.items():
         cell = ws.cell(row=row, column=offset, value=formula)
         cell.font = Font(name=ARIAL, size=10, bold=True)
         cell.number_format = "#,##0" if offset == 4 else "#,##0.00"
-    for c in range(1, 12):
+    for c in range(1, 15):
         ws.cell(row=row, column=c).border = BORDER
         ws.cell(row=row, column=c).fill = PatternFill("solid", start_color="F2F2F2")
 
     widths = {
-        "A": 10, "B": 34, "C": 16, "D": 12, "E": 20, "F": 20,
-        "G": 20, "H": 16, "I": 18, "J": 18, "K": 60,
+        "A": 10, "B": 34, "C": 16, "D": 12, "E": 14, "F": 14,
+        "G": 14, "H": 14, "I": 18, "J": 20, "K": 16, "L": 18,
+        "M": 18, "N": 60,
     }
     for col, w in widths.items():
         ws.column_dimensions[col].width = w
