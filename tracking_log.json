@@ -1846,23 +1846,20 @@
     },
     {
       "ticker": "CPPL",
-      "date": "Aug 18, 2026",
+      "date": "August 18, 2026 3:46 PM",
       "date_iso": "2026-08-18",
-      "period": "Financial Results for the Year Ended June 30, 2026",
-      "raw_details": "Financial Results for the Year Ended June 30, 2026",
-      "cash_dividend_pct": null,
-      "amount_per_share": null,
+      "period": "30/06/2026(YR)",
+      "raw_details": "30%(F) (D)",
+      "cash_dividend_pct": 30.0,
+      "amount_per_share": 3.0,
       "non_cash_notes": [],
-      "source": "financial_results_tab",
-      "provisional": true,
       "period_classification": {
-        "status": "needs_review",
-        "period_label": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
-        "period_end_date": null,
-        "pdf_url": "https://dps.psx.com.pk/download/document/281289.pdf",
-        "image_url": "https://dps.psx.com.pk/download/image/281289-1.gif",
-        "reason": "scanned PDF (no extractable text) found via announcement tabs \u2014 could not confirm a dividend amount automatically",
-        "source": "financial_results_tab"
+        "status": "included",
+        "period_label": "FY2026 Final",
+        "period_end_date": "2026-06-30",
+        "pdf_url": null,
+        "reason": "PDF unclassifiable (PDF has no text layer (scanned image) \u2014 not OCR'd, needs manual review); used PSX payout-table period code instead",
+        "source": "payout_table"
       }
     }
   ],
