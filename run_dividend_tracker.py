@@ -29,13 +29,15 @@ manual confirmation. If the Payouts table later confirms the same date,
 the provisional entry is replaced by the authoritative one rather than
 double-counted.
 
-- No new announcements anywhere -> do nothing. No email, no file change.
+- No new announcements anywhere -> do nothing. No draft, no file change.
 - One or more new announcements -> update the persistent
-  PSX_Dividend_Tracker.xlsx, send one email listing exactly which
-  ticker(s) triggered the update and what was announced, and record the
-  new announcements in tracking_log.json so they aren't re-flagged.
+  PSX_Dividend_Tracker.xlsx, save one Gmail draft (not sent — a human
+  reviews and sends it manually) listing exactly which ticker(s)
+  triggered the update and what was announced, and record the new
+  announcements in tracking_log.json so they aren't re-flagged.
 
-Whole run wrapped in try/except: on failure, send an error notice instead
+Whole run wrapped in try/except: on failure, send an error notice (a real
+email, not a draft, since a failure needs to be seen right away) instead
 of leaving a half-updated tracker.
 """
 
@@ -46,7 +48,7 @@ from pathlib import Path
 import dividend_period
 from dividend_fetch import fetch_recent
 from dividend_workbook import build
-from mailer import send_email, send_error_notice
+from mailer import save_draft, send_error_notice
 from tickers import DIVIDEND_TICKERS, COMPANY_NAMES
 
 LOG_PATH = Path("tracking_log.json")
@@ -198,14 +200,14 @@ def run():
         body += "\n\nNote: some tickers could not be checked this run:\n" + "\n".join(fetch_errors)
 
     tickers_label = ", ".join(new_by_ticker.keys())
-    send_email(
+    save_draft(
         subject=f"PSX Dividend Update — {tickers_label}",
         body=body,
         attachment_path=xlsx_path,
     )
 
     save_history(history)
-    print(f"Sent dividend update for: {tickers_label}")
+    print(f"Drafted dividend update for: {tickers_label}")
 
 
 if __name__ == "__main__":

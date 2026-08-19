@@ -66,10 +66,15 @@ dps.psx.com.pk/payouts makes) — never a full-history re-scrape.
   so "Dividend This Month" / "Dividend YTD" are always internally
   consistent (YTD naturally resets each January since it's computed from
   the current calendar year's log entries).
-- No new announcements -> no email, no file change, nothing committed.
-- New announcement(s) -> tracker updated, one email sent listing exactly
-  which ticker(s) triggered it and what was announced, `tracking_log.json`
-  updated so it isn't re-flagged next run.
+- No new announcements -> no draft, no file change, nothing committed.
+- New announcement(s) -> tracker updated, one Gmail draft saved (not
+  sent — a human reviews and sends it manually via `mailer.save_draft`,
+  an IMAP APPEND to the Drafts folder using the same app-password
+  credentials, no separate OAuth needed) listing exactly which ticker(s)
+  triggered it and what was announced, `tracking_log.json` updated so it
+  isn't re-flagged next run. Run failures still send a real email
+  immediately (`send_error_notice`) rather than sitting as an
+  easy-to-miss draft.
 
 ### Stock splits
 
