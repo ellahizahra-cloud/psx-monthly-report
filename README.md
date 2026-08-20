@@ -106,9 +106,12 @@ Many PSX filings are scanned images with no text layer at all (confirmed
 common for MCB, HBL, BAFL and others — typed letterheads that were
 signed and scanned rather than filed as native PDFs). When that happens,
 `dividend_period.py` falls back to OCR (Tesseract, via `pytesseract`) on
-the page-1 scanned image PSX publishes alongside the same document —
-these are typed letters, not handwriting, so OCR reads them reliably
-(spot-checked against several real filings). OCR-sourced classifications
+the PDF's own pages, rendered ourselves at 300 DPI via PyMuPDF (up to the
+first 3 pages) rather than depending on PSX's own lower-resolution page-1
+thumbnail — this works regardless of the PDF's URL scheme and gives OCR
+more resolution to work with. These are typed letters, not handwriting,
+so OCR reads them reliably (spot-checked against several real filings).
+OCR-sourced classifications
 are tagged (`source: "pdf_ocr"`, and `"(OCR)"` appended to the period
 label) so they stay distinguishable in the audit trail from clean
 text-layer extraction. Only if OCR *also* yields nothing usable does
@@ -144,8 +147,8 @@ Payouts table:
 - For everything else, the linked PDF is downloaded and searched for a
   "CASH DIVIDEND" heading followed by a "Rs X per share" figure (PSX
   filings state the newly-declared amount first, before any "already
-  paid" comparative figure). If the PDF is scanned, OCR of the page-1
-  image is tried before giving up (same fallback as the primary
+  paid" comparative figure). If the PDF is scanned, OCR of our own
+  rendered pages is tried before giving up (same fallback as the primary
   classifier above). If found and the fiscal period parses, the entry is
   recorded exactly like a Payouts-sourced one.
 - If neither the PDF text nor OCR yields a usable amount/period, the

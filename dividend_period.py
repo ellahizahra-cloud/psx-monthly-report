@@ -16,11 +16,15 @@ Pipeline per announcement:
      is why the daily check only needs to look at recent items) and grab
      the linked PDF.
   2. download + extract text (PyPDF2). Many PSX filings are scanned
-     images with no extractable text layer — for those, OCR the linked
-     page-1 scanned image (pytesseract) as a fallback rather than giving
-     up immediately. Confirmed to work well on real filings: these are
-     typed letterheads, not handwriting, and Tesseract reads them
-     cleanly (spot-checked against HBL's Aug 4, 2026 announcement).
+     images with no extractable text layer — for those, render the PDF's
+     own pages ourselves (PyMuPDF, 300 DPI, up to OCR_MAX_PAGES pages)
+     and OCR them (pytesseract) as a fallback rather than giving up
+     immediately. Rendering our own pages — rather than fetching PSX's
+     lower-resolution page-1 thumbnail — works regardless of the PDF's
+     URL scheme and gives OCR more resolution to work with. Confirmed to
+     work well on real filings: these are typed letterheads, not
+     handwriting, and Tesseract reads them cleanly (spot-checked against
+     HBL's Aug 4, 2026 announcement).
   3. Regex-search the text for "<quarter|half year|year|nine months|
      twelve months> ended <date>" (case-insensitive, several wordings,
      including ISO YYYY-MM-DD dates) and take the first match — PSX
@@ -29,9 +33,9 @@ Pipeline per announcement:
   4. Classify included/excluded by comparing the parsed period end-date's
      year against the current year.
 
-Still never guess: if neither the PDF's text layer nor OCR of the scanned
-image yields a matching period phrase, no matching announcement is found,
-or the payout-table fallback also comes up empty, the result is
+Still never guess: if neither the PDF's text layer nor OCR of our own
+rendered pages yields a matching period phrase, no matching announcement
+is found, or the payout-table fallback also comes up empty, the result is
 "needs_review" and the caller must not silently include or exclude it.
 OCR-sourced classifications are tagged (source="pdf_ocr") so they stay
 distinguishable in the audit trail from clean text-layer extraction.
@@ -43,8 +47,8 @@ announcement it's built from (seen live for FFC's Jul 29, 2026 interim
 dividend). check_supplementary_announcements() reads the same two
 announcement tabs directly, independent of the Payouts table, and for any
 row not already known: tries to extract a newly-declared cash-dividend
-amount from the linked PDF's text (falling back to OCR of the scanned
-page image, same as the primary pipeline) — a "CASH DIVIDEND" heading
+amount from the linked PDF's text (falling back to OCR of our own
+rendered pages, same as the primary pipeline) — a "CASH DIVIDEND" heading
 followed by the first "Rs X per share" figure, since PSX filings state
 the new declaration before any "already paid" comparative figure. If both
 the PDF text and OCR fail to produce a usable amount/period, it's
@@ -63,6 +67,14 @@ import urllib.request
 import PyPDF2
 import pytesseract
 from PIL import Image
+
+try:
+    import pymupdf as fitz
+except ImportError:
+    import fitz
+
+OCR_DPI = 300
+OCR_MAX_PAGES = 3
 
 COMPANY_PAGE_URL = "https://dps.psx.com.pk/company/{symbol}"
 IMAGE_URL = "https://dps.psx.com.pk/download/image/{image_id}"
@@ -241,43 +253,34 @@ def extract_text(pdf_bytes: bytes) -> str:
         return ""
 
 
-# Matches PSX's "/download/document/<id>.pdf" URLs (the common case for
-# board-meeting-outcome letters) so the page-1 scanned image PSX also
-# publishes for the same document (used for the company page's "View"
-# link) can be derived without a second page fetch. Attachment-style URLs
-# ("/download/attachment/...") don't follow this id->image mapping and
-# are left alone — OCR just isn't attempted for those.
-PDF_DOC_ID_RE = re.compile(r'/download/document/(\d+)\.pdf$')
-
-
-def image_url_for_pdf(pdf_url: str):
-    match = PDF_DOC_ID_RE.search(pdf_url)
-    if not match:
-        return None
-    return IMAGE_URL.format(image_id=f"{match.group(1)}-1.gif")
-
-
-def ocr_image(image_bytes: bytes) -> str:
+def ocr_pdf_bytes(pdf_bytes: bytes, max_pages: int = OCR_MAX_PAGES, dpi: int = OCR_DPI) -> str:
+    """OCR fallback when a PDF has no text layer: render the PDF's own
+    pages ourselves (PyMuPDF, at `dpi`) and run each through Tesseract,
+    rather than depending on PSX exposing a separate pre-rendered page
+    image for the same document. Works on any downloaded PDF regardless
+    of its URL scheme, and gives OCR more resolution to work with than
+    PSX's own thumbnail. These are typed letterheads, not handwriting, so
+    OCR reads them cleanly (spot-checked against real filings). Returns
+    "" on any failure — PDF can't be opened, rendering fails, OCR fails —
+    so callers can treat this exactly like empty PDF text."""
     try:
-        return pytesseract.image_to_string(Image.open(io.BytesIO(image_bytes)))
+        doc = fitz.open(stream=pdf_bytes, filetype="pdf")
     except Exception:
         return ""
 
-
-def ocr_scanned_pdf(pdf_url: str, referer: str) -> str:
-    """OCR fallback when a PDF has no text layer: download the page-1
-    scanned image PSX publishes alongside the same document and run it
-    through Tesseract. These are typed letterheads, not handwriting, so
-    OCR reads them cleanly (spot-checked against real filings). Returns
-    "" on any failure — image not derivable, download failure, OCR
-    failure — so callers can treat this exactly like empty PDF text."""
-    image_url = image_url_for_pdf(pdf_url)
-    if not image_url:
-        return ""
-    image_bytes = download_pdf(image_url, referer=referer)
-    if not image_bytes:
-        return ""
-    return ocr_image(image_bytes)
+    try:
+        matrix = fitz.Matrix(dpi / 72, dpi / 72)
+        parts = []
+        for page in doc[:max_pages]:
+            try:
+                pix = page.get_pixmap(matrix=matrix)
+                image = Image.open(io.BytesIO(pix.tobytes("png")))
+                parts.append(pytesseract.image_to_string(image))
+            except Exception:
+                continue
+        return "\n".join(parts).strip()
+    finally:
+        doc.close()
 
 
 def _period_label(period_type: str, end_date: dt.date, included: bool) -> str:
@@ -366,7 +369,7 @@ def _classify_from_pdf(ticker: str, date_iso: str, current_year: int) -> dict:
     text = extract_text(pdf_bytes)
     source = "pdf"
     if not text.strip():
-        text = ocr_scanned_pdf(pdf_url, referer=company_url)
+        text = ocr_pdf_bytes(pdf_bytes)
         source = "pdf_ocr"
         if not text.strip():
             return {
@@ -374,8 +377,8 @@ def _classify_from_pdf(ticker: str, date_iso: str, current_year: int) -> dict:
                 "period_label": "NEEDS REVIEW: scanned PDF, OCR found no text",
                 "period_end_date": None,
                 "pdf_url": pdf_url,
-                "reason": "PDF has no text layer (scanned image) and OCR of the page-1 "
-                          "image also came up empty — needs manual review",
+                "reason": "PDF has no text layer (scanned image) and OCR of the rendered "
+                          "pages also came up empty — needs manual review",
             }
 
     match = PERIOD_RE.search(text)
@@ -498,8 +501,8 @@ def check_supplementary_announcements(ticker: str, known_isos, current_year: int
         pdf_bytes = download_pdf(row["pdf_url"], referer=company_url)
         text = extract_text(pdf_bytes) if pdf_bytes else ""
         used_ocr = False
-        if not text.strip():
-            text = ocr_scanned_pdf(row["pdf_url"], referer=company_url)
+        if not text.strip() and pdf_bytes:
+            text = ocr_pdf_bytes(pdf_bytes)
             used_ocr = bool(text.strip())
         if not text.strip():
             results.append({
@@ -509,7 +512,7 @@ def check_supplementary_announcements(ticker: str, known_isos, current_year: int
                 "period_end_date": None,
                 "amount_per_share": None,
                 "reason": "scanned PDF (no extractable text) found via announcement tabs, "
-                          "and OCR of the page-1 image also came up empty — "
+                          "and OCR of the rendered pages also came up empty — "
                           "could not confirm a dividend amount automatically",
             })
             continue
